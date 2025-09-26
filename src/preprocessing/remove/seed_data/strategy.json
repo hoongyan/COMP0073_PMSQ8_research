@@ -1,0 +1,262 @@
+[
+    {
+      "id": "strategy_001",
+      "source_type": "strategy",
+      "raw_text": "I understand this must be very upsetting for you. You're not alone—many people have experienced similar scams.",
+      "metadata": {
+        "strategy_category": "persuasion",
+        "message_type": "validation",
+        "intended_effect": "build_trust",
+        "cialdini_principle": "social_proof",
+        "police_technique": "empathetic_validation",
+        "created_at": "2025-07-10T19:53:00Z"
+      }
+    },
+    {
+      "id": "strategy_002",
+      "source_type": "strategy",
+      "raw_text": "Thank you for sharing this information. It really helps us support you and others.",
+      "metadata": {
+        "strategy_category": "persuasion",
+        "message_type": "gratitude",
+        "intended_effect": "encourage_cooperation",
+        "cialdini_principle": "reciprocity",
+        "police_technique": "gratitude_reciprocity",
+        "created_at": "2025-07-10T19:53:00Z"
+      }
+    },
+    {
+      "id": "strategy_003",
+      "source_type": "strategy",
+      "raw_text": "The police recommend reporting these incidents as soon as possible to help protect others.",
+      "metadata": {
+        "strategy_category": "persuasion",
+        "message_type": "recommendation",
+        "intended_effect": "prompt_action",
+        "cialdini_principle": "authority",
+        "police_technique": "authority_reference",
+        "created_at": "2025-07-10T19:53:00Z"
+      }
+    },
+    {
+      "id": "strategy_004",
+      "source_type": "strategy",
+      "raw_text": "Many people in your situation have found it helpful to talk about what happened.",
+      "metadata": {
+        "strategy_category": "persuasion",
+        "message_type": "encouragement",
+        "intended_effect": "normalize_sharing",
+        "cialdini_principle": "social_proof",
+        "police_technique": "social_proof",
+        "created_at": "2025-07-10T19:53:00Z"
+      }
+    },
+    {
+      "id": "strategy_005",
+      "source_type": "strategy",
+      "raw_text": "By sharing your experience, you're helping us prevent this from happening to others.",
+      "metadata": {
+        "strategy_category": "persuasion",
+        "message_type": "motivation",
+        "intended_effect": "empower_user",
+        "cialdini_principle": "commitment",
+        "police_technique": "empowerment",
+        "created_at": "2025-07-10T19:53:00Z"
+      }
+    },
+    {
+      "id": "strategy_006",
+      "source_type": "strategy",
+      "raw_text": "You did the right thing by coming forward. Reporting is the best way to stop these scams.",
+      "metadata": {
+        "strategy_category": "persuasion",
+        "message_type": "reassurance",
+        "intended_effect": "reduce_anxiety",
+        "cialdini_principle": "liking",
+        "police_technique": "reassurance",
+        "created_at": "2025-07-10T19:53:00Z"
+      }
+    },
+    {
+      "id": "strategy_007",
+      "source_type": "strategy",
+      "raw_text": "It's not your fault—these scams are designed to trick even the most careful people.",
+      "metadata": {
+        "strategy_category": "persuasion",
+        "message_type": "validation",
+        "intended_effect": "reduce_shame",
+        "cialdini_principle": "liking",
+        "police_technique": "minimizing_blame",
+        "created_at": "2025-07-10T19:53:00Z"
+      }
+    },
+    {
+      "id": "strategy_008",
+      "source_type": "strategy",
+      "raw_text": "If you feel comfortable, sharing a few more details can really make a difference.",
+      "metadata": {
+        "strategy_category": "persuasion",
+        "message_type": "encouragement",
+        "intended_effect": "elicit_details",
+        "cialdini_principle": "commitment",
+        "police_technique": "encouragement",
+        "created_at": "2025-07-10T19:53:00Z"
+      }
+    },
+    {
+      "id": "strategy_009",
+      "source_type": "strategy",
+      "raw_text": "Reporting now can help protect your friends and family from similar scams.",
+      "metadata": {
+        "strategy_category": "persuasion",
+        "message_type": "motivation",
+        "intended_effect": "prompt_action",
+        "cialdini_principle": "commitment",
+        "police_technique": "protective_framing",
+        "created_at": "2025-07-10T19:53:00Z"
+      }
+    },
+    {
+      "id": "strategy_010",
+      "source_type": "strategy",
+      "raw_text": "Let me share how someone else in a similar situation was able to get help by reporting.",
+      "metadata": {
+        "strategy_category": "persuasion",
+        "message_type": "narrative",
+        "intended_effect": "inspire_action",
+        "cialdini_principle": "social_proof",
+        "police_technique": "storytelling",
+        "created_at": "2025-07-10T19:53:00Z"
+      }
+    },
+    {
+      "id": "strategy_011",
+      "source_type": "strategy",
+      "raw_text": "Can you tell me, in your own words, what happened when you first received the message?",
+      "metadata": {
+        "strategy_category": "questioning",
+        "message_type": "open_ended",
+        "intended_effect": "elicit_narrative",
+        "cialdini_principle": null,
+        "police_technique": "open_ended_question",
+        "created_at": "2025-07-10T19:53:00Z"
+      }
+    },
+    {
+      "id": "strategy_012",
+      "source_type": "strategy",
+      "raw_text": "Just to clarify, was the initial contact made via email or phone?",
+      "metadata": {
+        "strategy_category": "questioning",
+        "message_type": "clarification",
+        "intended_effect": "verify_details",
+        "cialdini_principle": null,
+        "police_technique": "clarification",
+        "created_at": "2025-07-10T19:53:00Z"
+      }
+    },
+    {
+      "id": "strategy_013",
+      "source_type": "strategy",
+      "raw_text": "Would you be able to share a bit more about what the scammer said to you?",
+      "metadata": {
+        "strategy_category": "questioning",
+        "message_type": "gentle_extraction",
+        "intended_effect": "elicit_details",
+        "cialdini_principle": null,
+        "police_technique": "gentle_extraction",
+        "created_at": "2025-07-10T19:53:00Z"
+      }
+    },
+    {
+      "id": "strategy_014",
+      "source_type": "strategy",
+      "raw_text": "What happened after you replied to their message?",
+      "metadata": {
+        "strategy_category": "questioning",
+        "message_type": "sequential",
+        "intended_effect": "build_timeline",
+        "cialdini_principle": null,
+        "police_technique": "stepwise_detail",
+        "created_at": "2025-07-10T19:53:00Z"
+      }
+    },
+    {
+      "id": "strategy_015",
+      "source_type": "strategy",
+      "raw_text": "So, you mentioned the amount lost was £1,200, is that correct?",
+      "metadata": {
+        "strategy_category": "questioning",
+        "message_type": "confirmation",
+        "intended_effect": "verify_accuracy",
+        "cialdini_principle": null,
+        "police_technique": "confirmation",
+        "created_at": "2025-07-10T19:53:00Z"
+      }
+    },
+    {
+      "id": "strategy_016",
+      "source_type": "strategy",
+      "raw_text": "Did the scammer ask for your bank details?",
+      "metadata": {
+        "strategy_category": "questioning",
+        "message_type": "closed",
+        "intended_effect": "confirm_specifics",
+        "cialdini_principle": null,
+        "police_technique": "closed_question",
+        "created_at": "2025-07-10T19:53:00Z"
+      }
+    },
+    {
+      "id": "strategy_017",
+      "source_type": "strategy",
+      "raw_text": "Let me make sure I understand: you received a call on Monday, and then an email the next day?",
+      "metadata": {
+        "strategy_category": "questioning",
+        "message_type": "summarizing",
+        "intended_effect": "confirm_understanding",
+        "cialdini_principle": null,
+        "police_technique": "summarizing",
+        "created_at": "2025-07-10T19:53:00Z"
+      }
+    },
+    {
+      "id": "strategy_018",
+      "source_type": "strategy",
+      "raw_text": "How are you feeling about discussing this right now?",
+      "metadata": {
+        "strategy_category": "questioning",
+        "message_type": "emotional_check_in",
+        "intended_effect": "assess_comfort",
+        "cialdini_principle": null,
+        "police_technique": "emotional_check_in",
+        "created_at": "2025-07-10T19:53:00Z"
+      }
+    },
+    {
+      "id": "strategy_019",
+      "source_type": "strategy",
+      "raw_text": "Would it be okay if I ask you a few more questions about the incident?",
+      "metadata": {
+        "strategy_category": "questioning",
+        "message_type": "permission_seeking",
+        "intended_effect": "ensure_comfort",
+        "cialdini_principle": null,
+        "police_technique": "permission_seeking",
+        "created_at": "2025-07-10T19:53:00Z"
+      }
+    },
+    {
+      "id": "strategy_020",
+      "source_type": "strategy",
+      "raw_text": "It sounds like this experience was very stressful. What was the most difficult part for you?",
+      "metadata": {
+        "strategy_category": "questioning",
+        "message_type": "reflective",
+        "intended_effect": "elicit_emotions",
+        "cialdini_principle": null,
+        "police_technique": "reflective",
+        "created_at": "2025-07-10T19:53:00Z"
+      }
+    }
+  ]

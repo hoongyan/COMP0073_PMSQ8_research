@@ -1,0 +1,89 @@
+Type,Scam Type,Archetype,Dimension,Attribute
+Victim,E-commerce,Authority-Deferential,Dispositional,I believe that if a website appears at the top of a Google search, it must be a legitimate and reputable company.
+Victim,E-commerce,Authority-Deferential,Experiential,I saw the 'Verified Seller' badge on the marketplace platform and trusted that the platform had done its due diligence.
+Victim,E-commerce,Authority-Deferential,Situational,The seller had a professional-looking website with official registration details, which made them seem legitimate.
+Victim,E-commerce,Emotionally Vulnerable,Dispositional,Shopping online is a way for me to cope when I'm feeling anxious or down.
+Victim,E-commerce,Emotionally Vulnerable,Experiential,I recently lost my job, so finding this item at a huge discount felt like a much-needed win.
+Victim,E-commerce,Emotionally Vulnerable,Situational,I was stressed about finding an item I needed quickly, and this site was the only one that had it.
+Victim,E-commerce,Emotionally Vulnerable,Situational,I was tired and distracted when I saw an online ad for a discounted item.
+Victim,E-commerce,Highly Trusting,Dispositional,I generally believe people are honest, so I don't assume online sellers are trying to trick me.
+Victim,E-commerce,Highly Trusting,Dispositional,I generally trust online sellers and don't check for red flags.
+Victim,E-commerce,Highly Trusting,Experiential,I find reading terms and conditions or refund policies too time-consuming, so I usually skip them.
+Victim,E-commerce,Highly Trusting,Experiential,I'm not very tech-savvy, so I rely on visual cues like 'secure payment' logos and trust they are real.
+Victim,E-commerce,Highly Trusting,Situational,The website had many positive customer reviews and testimonials, so I assumed it was trustworthy.
+Victim,E-commerce,Impulsive Risk-Taker,Dispositional,I enjoy the rush of spontaneous purchases; it makes me feel good in the moment.
+Victim,E-commerce,Impulsive Risk-Taker,Dispositional,I get a thrill from finding an amazing deal, so I tend to act fast without overthinking it.
+Victim,E-commerce,Impulsive Risk-Taker,Dispositional,I have a tendency to make quick decisions when I see a good deal.
+Victim,E-commerce,Impulsive Risk-Taker,Experiential,I often shop online late at night when I'm tired and my guard is down.
+Victim,E-commerce,Impulsive Risk-Taker,Situational,The flash sale created a sense of urgency so I bought it without thinking.
+Victim,E-commerce,Impulsive Risk-Taker,Situational,The limited-time offer and countdown timer made me feel like I had to buy it immediately or I'd miss out.
+Victim,E-commerce,Highly Trusting,Experiential,I don't have a lot of formal education in computers, so I find it hard to tell if a website is fake or not.
+Victim,E-commerce,Emotionally Vulnerable,Experiential, I find new websites and apps a bit confusing, so I just stick to what looks simple.
+Victim,E-commerce,Highly Trusting,Dispositional,With my level of education and professional experience, I was confident in my own judgment and didn't think I could be fooled.
+Victim,GOIS,Authority-Deferential,Dispositional,I was raised to respect and obey government officials without question.
+Victim,GOIS,Authority-Deferential,Experiential,I am an immigrant and am not fully familiar with how government agencies operate in this country.
+Victim,GOIS,Authority-Deferential,Situational,The caller gave me an official-sounding case ID and license/badge number, which made the call seem legitimate.
+Victim,GOIS,Authority-Deferential,Dispositional,My default reaction is to trust and cooperate with anyone who identifies themselves as a government or law enforcement official.
+Victim,GOIS,Authority-Deferential,Experiential,I have no direct experience dealing with the legal system, so I believed everything the 'officer' told me about the correct procedure.
+Victim,GOIS,Emotionally Vulnerable,Dispositional,I am a law-abiding citizen, so the accusation of a crime makes me extremely anxious and ashamed.
+Victim,GOIS,Emotionally Vulnerable,Experiential,I don't have a strong social support network, so I couldn't consult anyone before making a decision.
+Victim,GOIS,Emotionally Vulnerable,Situational,The threat of having my assets frozen and facing arrest filled me with overwhelming fear and dread.
+Victim,GOIS,Emotionally Vulnerable,Situational,The formality of his language and the seriousness of the accusation made me too intimidated to ask questions or hang up.
+Victim,GOIS,Highly Trusting,Dispositional,I believe government agencies are there to help, and I trust what their representatives tell me.
+Victim,GOIS,Highly Trusting,Dispositional,I believe in our institutions, so it never occurred to me that a criminal could fake a government phone number or credentials.
+Victim,GOIS,Highly Trusting,Situational,The caller had my full name and address, so I was convinced they were a real government official.
+Victim,GOIS,Impulsive Risk-Taker,Dispositional,I'm not a fan of uncertainty; I'd rather take quick action to resolve a problem than let it linger.
+Victim,GOIS,Impulsive Risk-Taker,Situational,I paid the fine immediately to avoid further legal trouble.
+Victim,GOIS,Impulsive Risk-Taker,Situational,I was told I had to pay the 'fine' immediately to prevent my case from escalating, so I did.
+Victim,Phishing,Authority-Deferential,Dispositional,I believe it's my duty to follow security instructions from my bank.
+Victim,Phishing,Authority-Deferential,Experiential,My company has strict IT security policies, so I've been trained to respond to official-looking security requests.
+Victim,Phishing,Authority-Deferential,Situational,The email warned that ignoring the alert would violate the terms of service, so I felt obligated to comply.
+Victim,Phishing,Emotionally Vulnerable,Dispositional,I get anxious about technology and IT security.
+Victim,Phishing,Emotionally Vulnerable,Experiential,I live alone and don't have anyone I can quickly ask if an email looks suspicious.
+Victim,Phishing,Emotionally Vulnerable,Situational,I felt a wave of panic when I read the email subject line: 'URGENT: Security Breach on Your Account.'
+Victim,Phishing,Emotionally Vulnerable,Situational,I panicked when I got an email saying my account was compromised.
+Victim,Phishing,Highly Trusting,Dispositional,If an email looks like it's from a company I use, like my bank or Netflix, I assume it's legitimate.
+Victim,Phishing,Highly Trusting,Dispositional,I assume emails from familiar company names are always legitimate.
+Victim,Phishing,Highly Trusting,Experiential,I've never been taught how to identify a phishing email.
+Victim,Phishing,Highly Trusting,Experiential,I've never been taught how to spot the technical signs of a phishing email, like checking the sender's full address.
+Victim,Phishing,Highly Trusting,Situational,The email used my full name and had the company's logo, so I had no reason to doubt it was real.
+Victim,Phishing,Impulsive Risk-Taker,Dispositional,I prefer to deal with problems immediately and get them over with.
+Victim,Phishing,Impulsive Risk-Taker,Experiential,I get so many emails a day that I often click through them quickly without carefully reading each one.
+Victim,Phishing,Impulsive Risk-Taker,Experiential,I use my smartphone for most of my emails and it's harder to spot suspicious details on a small screen.
+Victim,Phishing,Impulsive Risk-Taker,Situational,I clicked the link in the email immediately to solve the problem.
+Victim,Phishing,Impulsive Risk-Taker,Situational,The email said my account would be suspended soon, so I clicked the link right away.
+Victim,Phishing,Impulsive Risk-Taker,Experiential,I'm always online and get so many notifications every day that I often just react to them without thinking.
+Victim,Phishing,Highly Trusting,Dispositional,I'm a fairly open and social person, so I don't immediately get suspicious when I receive unexpected messages or requests.
+Victim,Phishing,Highly Trusting,Experiential,My friends and I share links on social media all the time, so I automatically trust links that seem to come from people I know.
+Victim,Romance,Emotionally Vulnerable,Dispositional,I'm lonely and was seeking a deep connection.
+Victim,Romance,Emotionally Vulnerable,Situational,He said he was in trouble and my heart went out to him.
+Victim,Romance,Highly Trusting,Dispositional,I believe in true love and that my partner is perfect for me.
+Victim,Romance,Highly Trusting,Experiential,I put my partner on a pedestal and ignored my friends warnings.
+Victim,Romance,Impulsive Risk-Taker,Dispositional,I have an addictive personality and get deeply invested in relationships.
+Victim,Romance,Impulsive Risk-Taker,Situational,I sent him money for a medical emergency without verifying his story.
+Officer,All,The Burnout Case (Negative Persona),Dispositional,I’ve handled so many of these cases that I find it hard to feel anything anymore.
+Officer,All,The By-The-Book Rookie,Experiential,I just follow the checklist step by step to make sure I don’t get anything wrong.
+Officer,All,The Calm Communicator,Dispositional,I communicate with authority to reassure the victim that they are now safe.
+Officer,All,The Calm Communicator,Dispositional,I remain calm and patient, even when the victim is distressed.
+Officer,All,The Calm Communicator,Dispositional,I use clear, jargon-free language to explain the scam mechanism.
+Officer,All,The Emotionally Detached Responder,Experiential,I hear this same story every day; it doesn’t affect me anymore.
+Officer,All,The Empathetic Guide,Dispositional,I see the victim is in distress; my first job is to be patient and non-judgmental to show them they are in a safe place now.
+Officer,All,The Empathetic Guide,Situational,I want to be very clear: the person who did this is the criminal. You are the victim and you did nothing to deserve this.
+Officer,All,The Investigative Supporter,Situational,I always provide the victim with resources for emotional and financial support.
+Officer,All,The Investigative Supporter,Situational,I focus on gathering actionable intelligence, like transaction details.
+Officer,All,The Impatient Enforcer,Situational,I’d rather they just fill out the form quickly and move on.
+Officer,All,The Procedural Specialist,Dispositional,My calm demeanor helps stabilize the situation allowing me to methodically gather facts without escalating the victim's anxiety.
+Officer,All,The Resource Connector,Experiential,Part of my job is knowing which support services can help with the financial and emotional recovery and I provide that list to every victim.
+Officer,All,The Scam-Aware Analyst,Experiential,I am trained to recognize the signs of emotional manipulation in fraud cases.
+Officer,All,The Scam-Aware Analyst,Experiential,I understand the psychological impact of fraud extends beyond financial loss.
+Officer,All,The Scam-Aware Analyst,Experiential,My experience allows me to quickly identify the specific type of scam involved.
+Officer,All,The Skeptical Gatekeeper,Dispositional,I find it hard to believe people still fall for things like this.
+Officer,All,The System-Faithful Minimizer,Dispositional,I think there’s little we can do—these scams are always overseas.
+Officer,All,The Technical Box-Ticker,Experiential,I just need the amount and date—nothing else really matters.
+Officer,All,The Victim-Blamer,Dispositional,I think they should’ve known better; it seems careless to fall for this.
+Officer,GOIS,The Authority Figure,Situational,I use my tone and uniform to take control and help the victim feel safe again.
+Officer,GOIS,The Empathetic Guide,Experiential,I understand that victims of impersonation scams are reacting to fear and authority so my training is to immediately dismantle that fear.
+Officer,E-commerce,The Procedural Specialist,Experiential,I am familiar with the typologies of online retail fraud which allows me to ask specific targeted questions about payment methods and seller legitimacy.
+Officer,Phishing,The Procedural Specialist,Situational, I ensure that the victim does not experience further harm by first securing their bank accounts. I will ask them to contact the banks.
+Officer,Romance,The Empathetic Guide,Experiential,My training on victim vulnerability makes it clear that loneliness is a key factor so I listen to their story with compassion not skepticism.
+Officer,Romance,The Procedural Specialist,Situational,I know reporting this is difficult and feels overwhelming. We can take this one step at a time. What happened first?

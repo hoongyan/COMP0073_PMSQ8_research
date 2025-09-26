@@ -1,0 +1,368 @@
+scam_type_weights:
+  ecommerce: 0.4
+  phishing: 0.3
+  government officials impersonation: 0.3
+
+general_configs:
+  report_no_format: "{prefix}/{YYYYMMDD}/{suffix}"
+  report_no_prefixes: ["A", "D", "E", "F", "G", "J"]
+  report_no_suffix: "[7|2][0-9]{3}"
+  incident_date_range: ["2025-01-01", "2025-07-12"]
+  report_date_delay_days: [1, 30]
+  scammer_contact_number:
+    format: "+65[0-9]{8}"
+
+general_scam_configs:
+  transaction_configs:
+    Bank Transfer:
+      beneficiary_platforms:
+        [UOB, DBS, HSBC, SCB, MAYBANK, BOC, CITIBANK, CIMB, GXS, TRUST]
+      beneficiary_identifier_format: "[0-9]{8}"
+  transaction_summary_format: "A transaction of ${amount} was made to {destination} on {date}"
+
+# scam_specific_configs:
+#   ecommerce:
+#     scam_subcategory:
+#       failure_to_deliver_goods_and_services:
+#         probability: 0.7
+#         general_details:
+#           approach_platforms:
+#             [Facebook, Carousell, Shopee, Lazada, Instagram, WhatsApp, Others]
+#           approach_platform_probs: [0.2, 0.2, 0.2, 0.15, 0.15, 0.05, 0.05]
+#           comm_platform_probs:
+#             Facebook: { Facebook: 0.7, WhatsApp: 0.2, Telegram: 0.1 }
+#             Carousell: { Carousell: 0.35, WhatsApp: 0.35, Telegram: 0.3 }
+#             Shopee: { Shopee: 0.4, WhatsApp: 0.3, Telegram: 0.3 }
+#             Lazada: { Lazada: 0.35, WhatsApp: 0.35, Telegram: 0.3 }
+#             Instagram: { Instagram: 0.3, WhatsApp: 0.45, Telegram: 0.25 }
+#             WhatsApp: { WhatsApp: 0.9, Telegram: 0.1 }
+#             Others:
+#               {
+#                 WhatsApp: 0.3,
+#                 Telegram: 0.3,
+#                 WeChat: 0.2,
+#                 Email: 0.1,
+#                 SMS: 0.05,
+#                 Call: 0.05,
+#               }
+#           transaction_type: [Bank Transfer]
+#           transaction_type_probs: [1.0]
+#           amount_loss_range: [20, 2000]
+#         specific_details:
+#           item_types: [TICKETS, ELECTRONICS, FOOD_RELATED]
+#           item_type_probs: [0.55, 0.15, 0.3]
+#           item_involved_mapping:
+#             TICKETS:
+#               [
+#                 Taylor Swift concert ticket,
+#                 Universal Studios Singapore attraction ticket,
+#               ]
+#             ELECTRONICS: [iPhone 16 Pro Max, MacBook Pro]
+#             FOOD_RELATED: [crabs, durians, abalones]
+#           amount_loss_ranges:
+#             TICKETS: [100, 1000]
+#             ELECTRONICS: [500, 2000]
+#             FOOD_RELATED: [20, 300]
+#         description: |
+#           I came across a listing for{article} {item_involved} on {approach_platform}, posted by someone using the moniker '{scam_moniker}'. I contacted the individual through {communication_platform} to inquire about the item.
+#           The seller requested full payment upfront. Subsequently, I made the following transaction:
+#           {transaction_summary}
+#           After the payment was made, the item was not delivered. The seller became unresponsive and uncontactable.
+#       failure_to_pay_for_goods_and_services:
+#         probability: 0.3
+#         general_details:
+#           approach_platforms: [Facebook, Carousell, WhatsApp, Others]
+#           approach_platform_probs: [0.3, 0.3, 0.2, 0.2]
+#           comm_platform_probs:
+#             Facebook: { Facebook: 0.7, WhatsApp: 0.2, Telegram: 0.1 }
+#             Carousell: { Carousell: 0.35, WhatsApp: 0.35, Telegram: 0.3 }
+#             WhatsApp: { WhatsApp: 0.9, Telegram: 0.1 }
+#             Others:
+#               {
+#                 WhatsApp: 0.3,
+#                 Telegram: 0.3,
+#                 WeChat: 0.2,
+#                 Email: 0.1,
+#                 SMS: 0.05,
+#                 Call: 0.05,
+#               }
+#           transaction_type: [Bank Transfer]
+#           transaction_type_probs: [1.0]
+#           amount_loss_range: [50, 1000]
+#         specific_details:
+#           item_types: [TICKETS, GAME_RELATED]
+#           item_type_probs: [0.4, 0.6]
+#           item_involved_mapping:
+#             TICKETS:
+#               [
+#                 Universal Studios Singapore attraction ticket,
+#                 Taylor Swift concert ticket,
+#               ]
+#             GAME_RELATED:
+#               [League of Legends game account, Genshin Impact game account]
+#           amount_loss_ranges:
+#             TICKETS: [50, 500]
+#             GAME_RELATED: [200, 1000]
+#         description: |
+#           I posted a listing to sell {article} {item_involved} on {approach_platform}. A buyer under the moniker '{scam_moniker}' contacted me through {communication_platform} requesting to purchase the item.
+#           The buyer promised payment after receiving the item.
+#           After I delivered the item to the buyer, no payment was received, and the buyer became uncontactable.
+#           The total amount lost was SGD {amount_lost}.
+#   government officials impersonation:
+#     scam_subcategory:
+#       bank_and_spf_impersonation:
+#         probability: 0.6
+#         general_details:
+#           approach_platforms: [Call, WhatsApp]
+#           approach_platform_probs: [0.8, 0.2]
+#           communication_platforms: [WhatsApp]
+#           communication_platform_probs: [1]
+#           transaction_type: [Bank Transfer]
+#           transaction_type_probs: [1.0]
+#           amount_loss_range: [100, 5000]
+#         specific_details:
+#           impersonation_type: "Government Official"
+#           first_impersonated_entity_names:
+#             ["Sandy Goh", "Jeremy Tan", "Gladys Lim"]
+#           first_entity_impersonated: [DBS, OCBC, UOB]
+#           second_impersonated_entity_names:
+#             [
+#               "Inspector Thomas Lee",
+#               "Inspector James Tan",
+#               "Inspector Royston Wong",
+#             ]
+#           second_entity_impersonated:
+#             [Singapore Police Force, Monetary Authority of Singapore]
+#           accusations: [money laundering, legal investigation]
+#         description: |
+#           I received {approach_platform_prefix} from an individual named {first_impersonated_entity_name}, claiming to be a bank officer from {first_entity_impersonated}. He had contacted me using {scammer_contact_no}.
+#           He informed me of suspicious or fraudulent transactions detected in my bank account and asked me to confirm these transactions.
+#           When I denied knowledge of such transactions, the call was transferred to another individual named {second_impersonated_entity_name} via {communication_platform}, claiming to be from the {second_entity_impersonated}.
+#           They accused me of involvement in {accusation} and demanded that I transfer my bank funds to a "safety account" to assist with the investigations.
+#           {second_impersonated_entity_name} showed me his warrant card during the process and I believed him. I complied and transferred the funds, resulting in the following transaction:
+#           {transaction_summary}
+#           I later realized I had been scammed when the individuals became uncontactable. I subsequently verified the situation with the bank and Singapore Police Force through official channels and
+#           there were no records of {first_impersonated_entity_name} and {second_impersonated_entity_name}.
+#       mom_and_spf_impersonation:
+#         probability: 0.4
+#         general_details:
+#           approach_platforms: [Call, WhatsApp]
+#           approach_platform_probs: [0.6, 0.4]
+#           communication_platforms: [WhatsApp]
+#           communication_platform_probs: [1.0]
+#           transaction_type: [Bank Transfer]
+#           transaction_type_probs: [1.0]
+#           amount_loss_range: [10000, 100000]
+#         specific_details:
+#           impersonation_type: "Government Official"
+#           first_impersonated_entity_names:
+#             ["Michael Lee", "Royce Tan", "James Wong"]
+#           first_entity_impersonated: [Ministry of Manpower]
+#           second_impersonated_entity_names:
+#             [
+#               "Inspector Timothy Lee",
+#               "Inspector Cayden Tan",
+#               "Inspector William Wong",
+#             ]
+#           second_entity_impersonated:
+#             [Singapore Police Force, Immigration and Checkpoints Authority]
+#           accusations:
+#             [
+#               were involved in money laundering,
+#               had work permit violations,
+#               were overstaying in Singapore,
+#               had illegal employment,
+#             ]
+#         description: |
+#           I received {approach_platform_prefix} from an individual named {first_impersonated_entity_name}, who claimed to be from the {first_entity_impersonated}. He had contacted me using {scammer_contact_no}.
+#           He claimed that workers employed under my details {accusation}.
+#           When I denied knowledge of these workers, the call was transferred via {communication_platform} to a second individual named {second_impersonated_entity_name}, claiming to be from the {second_entity_impersonated}.
+#           He instructed me to transfer money to a bank account to support the investigations. As I was scared, I complied with his requests. As a result, I made the following transaction:
+#           {transaction_summary}
+#           I realized I had been scammed when the individuals became uncontactable. I also verified the situation with the {first_entity_impersonated} and {second_entity_impersonated},
+#           where there were no records of {first_impersonated_entity_name} and {second_impersonated_entity_name}.
+#   phishing:
+#     scam_subcategory:
+#       sms_bank_phishing:
+#         probability: 0.5
+#         general_details:
+#           approach_platforms: [SMS]
+#           approach_platform_probs: [1.0]
+#           communication_platforms: [SMS]
+#           communication_platform_probs: [1.0]
+#           transaction_type: [Bank Transfer]
+#           transaction_type_probs: [1.0]
+#           amount_loss_range: [100, 3000]
+#         specific_details:
+#           impersonation_type: "Legitimate Entity"
+#           first_impersonated_entity: ["DBS"]
+#           first_impersonated_entity_name: ["DBS"]
+#           phished_details: [card credentials, banking credentials]
+#           phished_details_probs: [0.5, 0.5]
+#           use_of_phished_details:
+#             [log in from another device, increase transfer limit]
+#           use_of_phished_details_probs: [0.5, 0.5]
+#           beneficiary_transactions: [bank account]
+#           pretext_for_phishing:
+#             [
+#               unauthorized access to bank account,
+#               outstanding bills,
+#               payment failed,
+#             ]
+#           pretext_for_phishing_probs: [0.4, 0.3, 0.3]
+#         description: |
+#           I received an SMS from {scammer_contact_no} claiming to be from {first_impersonated_entity_name}, stating that there was {pretext_for_phishing}.
+#           It requested that I verify my identity via a provided link ({url_link}) to prevent unauthorized transactions.
+#           After clicking the link, I was directed to a website resembling {first_impersonated_entity}'s official website, where I provided my {phished_details}.
+#           Subsequently, my credentials were used to {use_of_phished_details}, resulting in an unauthorized transaction to a {beneficiary_transactions}.
+#           The transaction is as follows:
+#           {transaction_summary}
+#       social_media_ad_food_phishing:
+#         probability: 0.5
+#         general_details:
+#           approach_platforms: [Facebook]
+#           approach_platform_probs: [1.0]
+#           communication_platforms: [Facebook]
+#           communication_platform_probs: [1.0]
+#           transaction_type: [Bank Transfer]
+#           transaction_type_probs: [1.0]
+#           amount_loss_range: [50, 3000]
+#         specific_details:
+#           phished_details: [card credentials, banking credentials]
+#           phished_details_probs: [0.5, 0.5]
+#           use_of_phished_details: [log in from another device]
+#           use_of_phished_details_probs: [1.0]
+#           beneficiary_transactions: [bank account]
+#           pretext_for_phishing: [discounted food items]
+#           pretext_for_phishing_probs: [1.0]
+#         description: |
+#           I saw an ad for {pretext_for_phishing} on {approach_platform} posted by '{moniker}'. The seller was promoting the sale of durians.
+#           Upon clicking the link ({url_link}) in the post, I was redirected to a site requesting my {phished_details} to complete the purchase.
+#           After submitting my details, I received an SMS requesting to key in my Youtrip login code. I subsequently received an SMS that there had been a {use_of_phished_details}.
+#           Later, an unauthorized transaction was made to a {beneficiary_transactions}. The transaction is as follows:
+#           {transaction_summary}
+
+scam_specific_configs:
+  ecommerce:
+    scam_subcategory:
+      failure_to_deliver_goods_and_services:
+        probability: 1.0 # Adjusted to 1.0 since it's the only one left
+        general_details:
+          approach_platforms:
+            [Facebook, Carousell, Shopee, Lazada, Instagram, WhatsApp, Others]
+          approach_platform_probs: [0.2, 0.2, 0.2, 0.15, 0.15, 0.05, 0.05]
+          comm_platform_probs:
+            Facebook: { Facebook: 0.7, WhatsApp: 0.2, Telegram: 0.1 }
+            Carousell: { Carousell: 0.35, WhatsApp: 0.35, Telegram: 0.3 }
+            Shopee: { Shopee: 0.4, WhatsApp: 0.3, Telegram: 0.3 }
+            Lazada: { Lazada: 0.35, WhatsApp: 0.35, Telegram: 0.3 }
+            Instagram: { Instagram: 0.3, WhatsApp: 0.45, Telegram: 0.25 }
+            WhatsApp: { WhatsApp: 0.9, Telegram: 0.1 }
+            Others:
+              {
+                WhatsApp: 0.3,
+                Telegram: 0.3,
+                WeChat: 0.2,
+                Email: 0.1,
+                SMS: 0.05,
+                Call: 0.05,
+              }
+          transaction_type: [Bank Transfer]
+          transaction_type_probs: [1.0]
+          amount_loss_range: [20, 2000]
+        specific_details:
+          item_types: [TICKETS, ELECTRONICS, FOOD_RELATED]
+          item_type_probs: [0.55, 0.15, 0.3]
+          item_involved_mapping:
+            TICKETS:
+              [
+                Taylor Swift concert ticket,
+                Universal Studios Singapore attraction ticket,
+              ]
+            ELECTRONICS: [iPhone 16 Pro Max, MacBook Pro]
+            FOOD_RELATED: [crabs, durians, abalones]
+          amount_loss_ranges:
+            TICKETS: [100, 1000]
+            ELECTRONICS: [500, 2000]
+            FOOD_RELATED: [20, 300]
+        description: |
+          I came across a listing for{article} {item_involved} on {approach_platform}, posted by someone using the moniker '{scam_moniker}'. I contacted the individual through {communication_platform} to inquire about the item. 
+          The seller requested full payment upfront. Subsequently, I made the following transaction:
+          {transaction_summary}
+          After the payment was made, the item was not delivered. The seller became unresponsive and uncontactable.
+  government officials impersonation:
+    scam_subcategory:
+      mom_and_spf_impersonation:
+        probability: 1.0 # Adjusted to 1.0
+        general_details:
+          approach_platforms: [Call, WhatsApp]
+          approach_platform_probs: [0.6, 0.4]
+          communication_platforms: [WhatsApp]
+          communication_platform_probs: [1.0]
+          transaction_type: [Bank Transfer]
+          transaction_type_probs: [1.0]
+          amount_loss_range: [10000, 100000]
+        specific_details:
+          impersonation_type: "Government Official"
+          first_impersonated_entity_names:
+            ["Michael Lee", "Royce Tan", "James Wong"]
+          first_entity_impersonated: [Ministry of Manpower]
+          second_impersonated_entity_names:
+            [
+              "Inspector Timothy Lee",
+              "Inspector Cayden Tan",
+              "Inspector William Wong",
+            ]
+          second_entity_impersonated:
+            [Singapore Police Force, Immigration and Checkpoints Authority]
+          accusations:
+            [
+              were involved in money laundering,
+              had work permit violations,
+              were overstaying in Singapore,
+              had illegal employment,
+            ]
+        description: |
+          I received {approach_platform_prefix} from an individual named {first_impersonated_entity_name}, who claimed to be from the {first_entity_impersonated}. He had contacted me using {scammer_contact_no}. 
+          He claimed that workers employed under my details {accusation}. 
+          When I denied knowledge of these workers, the call was transferred via {communication_platform} to a second individual named {second_impersonated_entity_name}, claiming to be from the {second_entity_impersonated}. 
+          He instructed me to transfer money to a bank account to support the investigations. As I was scared, I complied with his requests. As a result, I made the following transaction:
+          {transaction_summary}
+          I realized I had been scammed when the individuals became uncontactable. I also verified the situation with the {first_entity_impersonated} and {second_entity_impersonated}, 
+          where there were no records of {first_impersonated_entity_name} and {second_impersonated_entity_name}.
+  phishing:
+    scam_subcategory:
+      sms_bank_phishing:
+        probability: 1.0 # Adjusted to 1.0
+        general_details:
+          approach_platforms: [SMS]
+          approach_platform_probs: [1.0]
+          communication_platforms: [SMS]
+          communication_platform_probs: [1.0]
+          transaction_type: [Bank Transfer]
+          transaction_type_probs: [1.0]
+          amount_loss_range: [100, 3000]
+        specific_details:
+          impersonation_type: "Legitimate Entity"
+          first_impersonated_entity: ["DBS"]
+          first_impersonated_entity_name: ["DBS"]
+          phished_details: [card credentials, banking credentials]
+          phished_details_probs: [0.5, 0.5]
+          use_of_phished_details:
+            [log in from another device, increase transfer limit]
+          use_of_phished_details_probs: [0.5, 0.5]
+          beneficiary_transactions: [bank account]
+          pretext_for_phishing:
+            [
+              unauthorized access to bank account,
+              outstanding bills,
+              payment failed,
+            ]
+          pretext_for_phishing_probs: [0.4, 0.3, 0.3]
+        description: |
+          I received an SMS from {scammer_contact_no} claiming to be from {first_impersonated_entity_name}, stating that there was {pretext_for_phishing}. 
+          It requested that I verify my identity via a provided link ({url_link}) to prevent unauthorized transactions. 
+          After clicking the link, I was directed to a website resembling {first_impersonated_entity}'s official website, where I provided my {phished_details}. 
+          Subsequently, my credentials were used to {use_of_phished_details}, resulting in an unauthorized transaction to a {beneficiary_transactions}. 
+          The transaction is as follows:
+          {transaction_summary}

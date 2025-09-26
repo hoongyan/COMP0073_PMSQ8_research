@@ -1,0 +1,179 @@
+{"persona": "A 52-year-old woman who shops online to cope with anxiety, trusting websites with 'Verified Seller' badges.", "topic": "Ecommerce", "role": "Victim"}
+{"persona": "A 30-year-old man who makes impulsive online purchases late at night, drawn to flash sales.", "topic": "Ecommerce", "role": "Victim"}
+{"persona": "A 45-year-old immigrant who trusts government officials implicitly and fears legal repercussions.", "topic": "GOIS", "role": "Victim"}
+{"persona": "A 28-year-old woman who clicks phishing email links quickly due to a busy lifestyle and trust in familiar brands.", "topic": "Phishing", "role": "Victim"}
+{"persona": "A 50-year-old divorced woman seeking romance online, idealizing partners and ignoring warnings.", "topic": "Romance", "role": "Victim"}
+{"persona": "A 65-year-old retiree who trusts online reviews and skips reading terms due to low tech literacy.", "topic": "Ecommerce", "role": "Victim"}
+{"persona": "A 35-year-old man who responds to urgent phishing emails out of fear of account suspension.", "topic": "Phishing", "role": "Victim"}
+{"persona": "A 40-year-old woman who believes in the goodness of online sellers and feels confident in her judgment.", "topic": "Ecommerce", "role": "Victim"}
+{"persona": "A 25-year-old extroverted social media user who trusts links shared by friends, vulnerable to phishing.", "topic": "Phishing", "role": "Victim"}
+{"persona": "A 55-year-old man who pays fines immediately to avoid trouble in GOIS calls, respecting authority.", "topic": "GOIS", "role": "Victim"}
+{"persona": "A veteran police officer who remains calm and empathetic, explaining scams clearly to victims.", "topic": "All", "role": "Officer"}
+{"persona": "A young detective trained in fraud typologies, focusing on gathering transaction details efficiently.", "topic": "All", "role": "Officer"}
+{"persona": "A seasoned fraud investigator who is detached, believing victims should know better.", "topic": "All", "role": "Officer"}
+{"persona": "A compassionate officer who provides emotional support resources to scam victims.", "topic": "All", "role": "Officer"}
+{"persona": "A procedural officer who follows checklists to secure victims’ bank accounts quickly.", "topic": "All", "role": "Officer"}
+{"persona": "A cybercrime specialist who uses jargon-free language to reassure victims of their safety.", "topic": "All", "role": "Officer"}
+{"persona": "An experienced officer who is desensitized to scam cases but follows protocol strictly.", "topic": "All", "role": "Officer"}
+{"persona": "A supportive female officer who helps victims navigate recovery with patience and clarity.", "topic": "All", "role": "Officer"}
+{"persona": "A task-focused officer who prioritizes actionable intelligence over emotional support.", "topic": "All", "role": "Officer"}
+{"persona": "A fraud unit officer who uses authority to dismantle victims’ fears from impersonation scams.", "topic": "All", "role": "Officer"}
+{"persona": "A 60-year-old woman who trusts ecommerce sites with secure payment logos, assuming they’re legitimate.", "topic": "Ecommerce", "role": "Victim"}
+{"persona": "A 32-year-old single parent who clicks phishing links due to stress and a hectic schedule.", "topic": "Phishing", "role": "Victim"}
+{"persona": "A 48-year-old man who respects official-sounding GOIS callers and complies to avoid legal issues.", "topic": "GOIS", "role": "Victim"}
+{"persona": "A 42-year-old woman who seeks romance online, trusting partners who share her interests.", "topic": "Romance", "role": "Victim"}
+{"persona": "A 27-year-old tech worker who buys impulsively during limited-time online deals, seeking instant gratification.", "topic": "Ecommerce", "role": "Victim"}
+{"persona": "A 70-year-old retiree who trusts phishing emails from familiar companies due to low IT literacy.", "topic": "Phishing", "role": "Victim"}
+{"persona": "A 38-year-old immigrant who panics and pays GOIS fines to avoid deportation threats.", "topic": "GOIS", "role": "Victim"}
+{"persona": "A 29-year-old woman who shops online to relieve loneliness, trusting user reviews implicitly.", "topic": "Ecommerce", "role": "Victim"}
+{"persona": "A 33-year-old man who clicks phishing links on his smartphone, distracted by constant notifications.", "topic": "Phishing", "role": "Victim"}
+{"persona": "A 47-year-old woman who idealizes her online partner in a romance scam, ignoring red flags.", "topic": "Romance", "role": "Victim"}
+{"persona": "A 55-year-old man who trusts ecommerce sites with professional designs, assuming they’re reputable.", "topic": "Ecommerce", "role": "Victim"}
+{"persona": "A 26-year-old social media influencer who trusts shared links, vulnerable to phishing scams.", "topic": "Phishing", "role": "Victim"}
+{"persona": "A 50-year-old woman who complies with GOIS callers due to fear of asset seizure.", "topic": "GOIS", "role": "Victim"}
+{"persona": "A 34-year-old man who makes impulsive ecommerce purchases, drawn to countdown timers.", "topic": "Ecommerce", "role": "Victim"}
+{"persona": "A 62-year-old retiree who trusts phishing emails with bank logos, lacking scam awareness.", "topic": "Phishing", "role": "Victim"}
+{"persona": "A 41-year-old woman who believes her online romantic partner’s emergency stories, sending money quickly.", "topic": "Romance", "role": "Victim"}
+{"persona": "A 30-year-old immigrant who trusts GOIS callers with official case IDs, fearing legal trouble.", "topic": "GOIS", "role": "Victim"}
+{"persona": "A 28-year-old man who shops online impulsively late at night, trusting ‘secure’ websites.", "topic": "Ecommerce", "role": "Victim"}
+{"persona": "A 45-year-old woman who trusts phishing emails due to her belief in corporate legitimacy.", "topic": "Phishing", "role": "Victim"}
+{"persona": "A 53-year-old man who pays GOIS fines instantly to resolve uncertainty, respecting authority.", "topic": "GOIS", "role": "Victim"}
+{"persona": "A 31-year-old woman who uses online shopping to cope with job loss, trusting seller ratings.", "topic": "Ecommerce", "role": "Victim"}
+{"persona": "A 27-year-old man who clicks phishing links quickly, overwhelmed by email volume.", "topic": "Phishing", "role": "Victim"}
+{"persona": "A 49-year-old woman who idealizes her online partner, vulnerable to romance scam manipulation.", "topic": "Romance", "role": "Victim"}
+{"persona": "A 60-year-old man who trusts ecommerce sites with positive testimonials, skipping fine print.", "topic": "Ecommerce", "role": "Victim"}
+{"persona": "A 35-year-old immigrant who complies with GOIS threats, unfamiliar with local legal systems.", "topic": "GOIS", "role": "Victim"}
+{"persona": "A 29-year-old woman who trusts phishing emails from social media brands, acting impulsively.", "topic": "Phishing", "role": "Victim"}
+{"persona": "A 44-year-old man who shops online to relieve stress, trusting professional-looking websites.", "topic": "Ecommerce", "role": "Victim"}
+{"persona": "A 52-year-old woman who sends money to an online partner in distress, believing in true love.", "topic": "Romance", "role": "Victim"}
+{"persona": "A 32-year-old man who trusts GOIS callers with personal details, fearing legal consequences.", "topic": "GOIS", "role": "Victim"}
+{"persona": "A 26-year-old woman who clicks phishing links from trusted brands, distracted by a busy lifestyle.", "topic": "Phishing", "role": "Victim"}
+{"persona": "A 58-year-old retiree who trusts ecommerce reviews, lacking technical knowledge to spot fakes.", "topic": "Ecommerce", "role": "Victim"}
+{"persona": "A 39-year-old man who makes impulsive online purchases, drawn to exclusive deals.", "topic": "Ecommerce", "role": "Victim"}
+{"persona": "A 47-year-old woman who trusts GOIS callers due to their authoritative tone and credentials.", "topic": "GOIS", "role": "Victim"}
+{"persona": "A 31-year-old man who clicks phishing links out of fear, trusting familiar company logos.", "topic": "Phishing", "role": "Victim"}
+{"persona": "A 43-year-old woman who seeks romance online, trusting partners who build false rapport.", "topic": "Romance", "role": "Victim"}
+{"persona": "A 65-year-old man who trusts ecommerce sites with ‘secure payment’ badges, low tech-savvy.", "topic": "Ecommerce", "role": "Victim"}
+{"persona": "A 28-year-old woman who shops online impulsively, drawn to limited-time offers.", "topic": "Ecommerce", "role": "Victim"}
+{"persona": "A 50-year-old immigrant who trusts GOIS callers, fearing immigration issues.", "topic": "GOIS", "role": "Victim"}
+{"persona": "A 34-year-old man who trusts phishing emails due to social media familiarity, acting quickly.", "topic": "Phishing", "role": "Victim"}
+{"persona": "A compassionate female officer who reassures scam victims with clear, supportive communication.", "topic": "All", "role": "Officer"}
+{"persona": "A task-focused detective who collects precise scam details to build strong cases.", "topic": "All", "role": "Officer"}
+{"persona": "A detached officer who processes scam reports quickly, skeptical of victims’ decisions.", "topic": "All", "role": "Officer"}
+{"persona": "A supportive officer who provides victims with recovery resources and emotional guidance.", "topic": "All", "role": "Officer"}
+{"persona": "A procedural officer who ensures victims secure their accounts, following strict protocols.", "topic": "All", "role": "Officer"}
+{"persona": "A cybercrime expert who calmly explains phishing tactics to victims, building trust.", "topic": "All", "role": "Officer"}
+{"persona": "A seasoned officer who handles scam cases efficiently but with little empathy.", "topic": "All", "role": "Officer"}
+{"persona": "A female officer who uses patience to help victims report scams without judgment.", "topic": "All", "role": "Officer"}
+{"persona": "A task-oriented officer who focuses on scam evidence collection over victim support.", "topic": "All", "role": "Officer"}
+{"persona": "A fraud specialist who uses authority to alleviate victims’ fears from GOIS scams.", "topic": "All", "role": "Officer"}
+{"persona": "A supportive officer who guides victims through recovery with clear, non-technical advice.", "topic": "All", "role": "Officer"}
+{"persona": "A detached detective who believes most scam victims are careless, prioritizing case closure.", "topic": "All", "role": "Officer"}
+{"persona": "A procedural officer who follows fraud investigation protocols to secure victim finances.", "topic": "All", "role": "Officer"}
+{"persona": "A compassionate officer who listens to victims’ stories with empathy, offering support.", "topic": "All", "role": "Officer"}
+{"persona": "A cybercrime officer who explains scam mechanics clearly to prevent further victimization.", "topic": "All", "role": "Officer"}
+{"persona": "A task-focused officer who gathers scam transaction details with minimal victim interaction.", "topic": "All", "role": "Officer"}
+{"persona": "A seasoned officer who processes scam reports routinely, desensitized to victim distress.", "topic": "All", "role": "Officer"}
+{"persona": "A supportive female officer who helps victims navigate fraud reporting with reassurance.", "topic": "All", "role": "Officer"}
+{"persona": "A fraud investigator who prioritizes actionable intelligence, skeptical of victim naivety.", "topic": "All", "role": "Officer"}
+{"persona": "A procedural officer who ensures victims follow bank security steps, focusing on efficiency.", "topic": "All", "role": "Officer"}
+{"persona": "A cybercrime specialist who uses clear language to educate victims on phishing risks.", "topic": "All", "role": "Officer"}
+{"persona": "A compassionate officer who provides emotional and financial recovery resources to victims.", "topic": "All", "role": "Officer"}
+{"persona": "A detached officer who processes scam cases quickly, believing victims should be cautious.", "topic": "All", "role": "Officer"}
+{"persona": "A task-focused detective who collects detailed scam evidence, minimizing emotional support.", "topic": "All", "role": "Officer"}
+{"persona": "A supportive officer who reassures victims of their safety, dismantling scam-induced fear.", "topic": "All", "role": "Officer"}
+{"persona": "A procedural officer who follows strict guidelines to secure victims’ financial accounts.", "topic": "All", "role": "Officer"}
+{"persona": "A fraud unit officer who uses calm authority to guide victims through GOIS recovery.", "topic": "All", "role": "Officer"}
+{"persona": "A compassionate female officer who supports victims with patience and clear instructions.", "topic": "All", "role": "Officer"}
+{"persona": "A detached officer who views scam victims as careless, focusing on case documentation.", "topic": "All", "role": "Officer"}
+{"persona": "A task-oriented officer who prioritizes scam evidence over victim emotional needs.", "topic": "All", "role": "Officer"}
+
+// {"persona": "A 52-year-old woman who shops online to cope with anxiety, trusting websites with 'Verified Seller' badges."}
+// {"persona": "A 30-year-old man who makes impulsive online purchases late at night, drawn to flash sales."}
+// {"persona": "A 45-year-old immigrant who trusts government officials implicitly and fears legal repercussions."}
+// {"persona": "A 28-year-old woman who clicks phishing email links quickly due to a busy lifestyle and trust in familiar brands."}
+// {"persona": "A 50-year-old divorced woman seeking romance online, idealizing partners and ignoring warnings."}
+// {"persona": "A 65-year-old retiree who trusts online reviews and skips reading terms due to low tech literacy."}
+// {"persona": "A 35-year-old man who responds to urgent phishing emails out of fear of account suspension."}
+// {"persona": "A 40-year-old woman who believes in the goodness of online sellers and feels confident in her judgment."}
+// {"persona": "A 25-year-old extroverted social media user who trusts links shared by friends, vulnerable to phishing."}
+// {"persona": "A 55-year-old man who pays fines immediately to avoid trouble in GOIS calls, respecting authority."}
+// {"persona": "A veteran police officer who remains calm and empathetic, explaining scams clearly to victims."}
+// {"persona": "A young detective trained in fraud typologies, focusing on gathering transaction details efficiently."}
+// {"persona": "A seasoned fraud investigator who is detached, believing victims should know better."}
+// {"persona": "A compassionate officer who provides emotional support resources to scam victims."}
+// {"persona": "A procedural officer who follows checklists to secure victims’ bank accounts quickly."}
+// {"persona": "A cybercrime specialist who uses jargon-free language to reassure victims of their safety."}
+// {"persona": "An experienced officer who is desensitized to scam cases but follows protocol strictly."}
+// {"persona": "A supportive female officer who helps victims navigate recovery with patience and clarity."}
+// {"persona": "A task-focused officer who prioritizes actionable intelligence over emotional support."}
+// {"persona": "A fraud unit officer who uses authority to dismantle victims’ fears from impersonation scams."}
+// {"persona": "A 60-year-old woman who trusts ecommerce sites with secure payment logos, assuming they’re legitimate."}
+// {"persona": "A 32-year-old single parent who clicks phishing links due to stress and a hectic schedule."}
+// {"persona": "A 48-year-old man who respects official-sounding GOIS callers and complies to avoid legal issues."}
+// {"persona": "A 42-year-old woman who seeks romance online, trusting partners who share her interests."}
+// {"persona": "A 27-year-old tech worker who buys impulsively during limited-time online deals, seeking instant gratification."}
+// {"persona": "A 70-year-old retiree who trusts phishing emails from familiar companies due to low IT literacy."}
+// {"persona": "A 38-year-old immigrant who panics and pays GOIS fines to avoid deportation threats."}
+// {"persona": "A 29-year-old woman who shops online to relieve loneliness, trusting user reviews implicitly."}
+// {"persona": "A 33-year-old man who clicks phishing links on his smartphone, distracted by constant notifications."}
+// {"persona": "A 47-year-old woman who idealizes her online partner in a romance scam, ignoring red flags."}
+// {"persona": "A 55-year-old man who trusts ecommerce sites with professional designs, assuming they’re reputable."}
+// {"persona": "A 26-year-old social media influencer who trusts shared links, vulnerable to phishing scams."}
+// {"persona": "A 50-year-old woman who complies with GOIS callers due to fear of asset seizure."}
+// {"persona": "A 34-year-old man who makes impulsive ecommerce purchases, drawn to countdown timers."}
+// {"persona": "A 62-year-old retiree who trusts phishing emails with bank logos, lacking scam awareness."}
+// {"persona": "A 41-year-old woman who believes her online romantic partner’s emergency stories, sending money quickly."}
+// {"persona": "A 30-year-old immigrant who trusts GOIS callers with official case IDs, fearing legal trouble."}
+// {"persona": "A 28-year-old man who shops online impulsively late at night, trusting ‘secure’ websites."}
+// {"persona": "A 45-year-old woman who trusts phishing emails due to her belief in corporate legitimacy."}
+// {"persona": "A 53-year-old man who pays GOIS fines instantly to resolve uncertainty, respecting authority."}
+// {"persona": "A 31-year-old woman who uses online shopping to cope with job loss, trusting seller ratings."}
+// {"persona": "A 27-year-old man who clicks phishing links quickly, overwhelmed by email volume."}
+// {"persona": "A 49-year-old woman who idealizes her online partner, vulnerable to romance scam manipulation."}
+// {"persona": "A 60-year-old man who trusts ecommerce sites with positive testimonials, skipping fine print."}
+// {"persona": "A 35-year-old immigrant who complies with GOIS threats, unfamiliar with local legal systems."}
+// {"persona": "A 29-year-old woman who trusts phishing emails from social media brands, acting impulsively."}
+// {"persona": "A 44-year-old man who shops online to relieve stress, trusting professional-looking websites."}
+// {"persona": "A 52-year-old woman who sends money to an online partner in distress, believing in true love."}
+// {"persona": "A 32-year-old man who trusts GOIS callers with personal details, fearing legal consequences."}
+// {"persona": "A 26-year-old woman who clicks phishing links from trusted brands, distracted by a busy lifestyle."}
+// {"persona": "A 58-year-old retiree who trusts ecommerce reviews, lacking technical knowledge to spot fakes."}
+// {"persona": "A 39-year-old man who makes impulsive online purchases, drawn to exclusive deals."}
+// {"persona": "A 47-year-old woman who trusts GOIS callers due to their authoritative tone and credentials."}
+// {"persona": "A 31-year-old man who clicks phishing links out of fear, trusting familiar company logos."}
+// {"persona": "A 43-year-old woman who seeks romance online, trusting partners who build false rapport."}
+// {"persona": "A 65-year-old man who trusts ecommerce sites with ‘secure payment’ badges, low tech-savvy."}
+// {"persona": "A 28-year-old woman who shops online impulsively, drawn to limited-time offers."}
+// {"persona": "A 50-year-old immigrant who trusts GOIS callers, fearing immigration issues."}
+// {"persona": "A 34-year-old man who trusts phishing emails due to social media familiarity, acting quickly."}
+// {"persona": "A compassionate female officer who reassures scam victims with clear, supportive communication."}
+// {"persona": "A task-focused detective who collects precise scam details to build strong cases."}
+// {"persona": "A detached officer who processes scam reports quickly, skeptical of victims’ decisions."}
+// {"persona": "A supportive officer who provides victims with recovery resources and emotional guidance."}
+// {"persona": "A procedural officer who ensures victims secure their accounts, following strict protocols."}
+// {"persona": "A cybercrime expert who calmly explains phishing tactics to victims, building trust."}
+// {"persona": "A seasoned officer who handles scam cases efficiently but with little empathy."}
+// {"persona": "A female officer who uses patience to help victims report scams without judgment."}
+// {"persona": "A task-oriented officer who focuses on scam evidence collection over victim support."}
+// {"persona": "A fraud specialist who uses authority to alleviate victims’ fears from GOIS scams."}
+// {"persona": "A supportive officer who guides victims through recovery with clear, non-technical advice."}
+// {"persona": "A detached detective who believes most scam victims are careless, prioritizing case closure."}
+// {"persona": "A procedural officer who follows fraud investigation protocols to secure victim finances."}
+// {"persona": "A compassionate officer who listens to victims’ stories with empathy, offering support."}
+// {"persona": "A cybercrime officer who explains scam mechanics clearly to prevent further victimization."}
+// {"persona": "A task-focused officer who gathers scam transaction details with minimal victim interaction."}
+// {"persona": "A seasoned officer who processes scam reports routinely, desensitized to victim distress."}
+// {"persona": "A supportive female officer who helps victims navigate fraud reporting with reassurance."}
+// {"persona": "A fraud investigator who prioritizes actionable intelligence, skeptical of victim naivety."}
+// {"persona": "A procedural officer who ensures victims follow bank security steps, focusing on efficiency."}
+// {"persona": "A cybercrime specialist who uses clear language to educate victims on phishing risks."}
+// {"persona": "A compassionate officer who provides emotional and financial recovery resources to victims."}
+// {"persona": "A detached officer who processes scam cases quickly, believing victims should be cautious."}
+// {"persona": "A task-focused detective who collects detailed scam evidence, minimizing emotional support."}
+// {"persona": "A supportive officer who reassures victims of their safety, dismantling scam-induced fear."}
+// {"persona": "A procedural officer who follows strict guidelines to secure victims’ financial accounts."}
+// {"persona": "A fraud unit officer who uses calm authority to guide victims through GOIS recovery."}
+// {"persona": "A compassionate female officer who supports victims with patience and clear instructions."}
+// {"persona": "A detached officer who views scam victims as careless, focusing on case documentation."}
+// {"persona": "A task-oriented officer who prioritizes scam evidence over victim emotional needs."}

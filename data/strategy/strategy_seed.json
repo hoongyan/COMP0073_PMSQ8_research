@@ -1,0 +1,104 @@
+[
+    {
+      "strategy_type": "reassure",
+      "response": "I understand this is distressing — take your time. Could you provide an approximate date for the call? Did they ask you to perform any actions, such as transferring money or providing personal information?",
+      "success_score": 0.65,
+      "user_profile": {
+        "tech_literacy": {"level": "high", "confidence": 0.8},
+        "language_proficiency": {"level": "high", "confidence": 0.7},
+        "emotional_state": {"level": "distressed", "confidence": 0.9}
+      }
+    },
+    {
+      "strategy_type": "step-by-step guidance",
+      "response": "I'm here to help step by step. First, can you share the date of the incident? Next, let's discuss any specific actions they requested, like transfers or info sharing.",
+      "success_score": 0.63,
+      "user_profile": {
+        "tech_literacy": {"level": "low", "confidence": 0.8},
+        "language_proficiency": {"level": "low", "confidence": 0.7},
+        "emotional_state": {"level": "distressed", "confidence": 0.9}
+      }
+    },
+    {
+      "strategy_type": "give space",
+      "response": "Take a deep breath; we're in no rush. When you're ready, could you confirm if they asked for money transfers or personal details? Also, any mention of names or organizations?",
+      "success_score": 0.62,
+      "user_profile": {
+        "tech_literacy": {"level": "high", "confidence": 0.8},
+        "language_proficiency": {"level": "high", "confidence": 0.7},
+        "emotional_state": {"level": "distressed", "confidence": 0.9}
+      }
+    },
+    {
+      "strategy_type": "normalize experience",
+      "response": "It's common to feel embarrassed, but you're doing the right thing by reporting. Can you describe how you accessed any links or the verification instructions they gave?",
+      "success_score": 0.61,
+      "user_profile": {
+        "tech_literacy": {"level": "low", "confidence": 0.8},
+        "language_proficiency": {"level": "high", "confidence": 0.7},
+        "emotional_state": {"level": "distressed", "confidence": 0.9}
+      }
+    },
+    {
+      "strategy_type": "defuse emotion",
+      "response": "I can see why this would make you distressed—scammers are frustrating. Let's focus: Was there mention of a specific bank platform such as CITIBANK? What other details did they request?",
+      "success_score": 0.65,
+      "user_profile": {
+        "tech_literacy": {"level": "high", "confidence": 0.8},
+        "language_proficiency": {"level": "high", "confidence": 0.7},
+        "emotional_state": {"level": "distressed", "confidence": 0.9}
+      }
+    },
+    {
+      "strategy_type": "encourage",
+      "response": "You're not alone in this; many face similar issues. Could you share the date of the suspicious call and the platform they wanted you to use for confirmation?",
+      "success_score": 0.65,
+      "user_profile": {
+        "tech_literacy": {"level": "low", "confidence": 0.8},
+        "language_proficiency": {"level": "high", "confidence": 0.7},
+        "emotional_state": {"level": "distressed", "confidence": 0.9}
+      }
+    },
+    {
+      "strategy_type": "simplify",
+      "response": "Let's keep it simple: What happened after you saw the listing? How did they contact you and suggest payment?",
+      "success_score": 0.65,
+      "user_profile": {
+        "tech_literacy": {"level": "low", "confidence": 0.8},
+        "language_proficiency": {"level": "low", "confidence": 0.7},
+        "emotional_state": {"level": "distressed", "confidence": 0.9}
+      }
+    },
+    {
+        "strategy_type": "probe confidently",
+        "response": "Let's get into the details together. When was the first contact via Telegram? What price was agreed on, and were there any unusual requests?",
+        "success_score": 0.68,
+        "user_profile": {
+          "tech_literacy": {"level": "high", "confidence": 0.8},
+          "language_proficiency": {"level": "high", "confidence": 0.7},
+          "emotional_state": {"level": "neutral", "confidence": 0.9}
+        }
+      },
+      
+    {
+      "strategy_type": "validate experience",
+      "response": "No need to feel embarrassed — scams happen to anyone. Did you get seller details like name or identifiers? Recall any key messages?",
+      "success_score": 0.64,
+      "user_profile": {
+        "tech_literacy": {"level": "low", "confidence": 0.8},
+        "language_proficiency": {"level": "high", "confidence": 0.7},
+        "emotional_state": {"level": "distressed", "confidence": 0.9}
+      }
+    },
+
+    {
+      "strategy_type": "affirm clarity",
+      "response": "Thanks for explaining clearly. Could you confirm the platform used and any specific terms they insisted on? Your clarity helps move this forward quickly.",
+      "success_score": 0.66,
+      "user_profile": {
+        "tech_literacy": {"level": "high", "confidence": 0.8},
+        "language_proficiency": {"level": "high", "confidence": 0.7},
+        "emotional_state": {"level": "neutral", "confidence": 0.9}
+      }
+    }
+]

@@ -1,0 +1,45 @@
+#agents
+langchain
+langchain_community
+langchain_ollama
+langchain_openai
+langgraph
+langchain-core
+fuzzywuzzy
+
+python_dotenv
+pydantic
+
+
+#database
+sqlalchemy
+# psycopg2-binary
+alembic
+psycopg
+pgvector
+
+#saving csv 
+filelock
+
+
+#synthetic scam report
+faker
+FPDF 
+numpy 
+pandas
+
+#RAG 
+sentence-transformers
+
+
+#unit test
+pytest
+
+#streamlit gui testing
+streamlit
+
+
+#evaluation
+seaborn
+matplotlib
+scikit-learn

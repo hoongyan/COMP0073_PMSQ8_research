@@ -1,0 +1,34 @@
+project_root/
+├── config/
+│   └── settings.py
+├── src/
+│   ├── database/
+│   │   ├── database_operations.py
+│   │   └── vector_operations.py
+│   ├── preprocessing/
+│   │   └── scam_report/
+│   │       ├── generator/
+│   │       │   └── scam_report_generator.py
+│   │       └── preprocessor.py
+│   ├── models/
+│   │   ├── data_model.py
+│   │   └── response_model.py
+│   └── agents/
+│       ├── retrieval_agent.py
+│       ├── user_profile_agent.py
+│       └── ie_agent.py
+├── data/
+│   └── scam_report/
+│       └── dataset/
+│           └── scam_details.csv
+├── scripts/
+│   ├── init_db.py
+│   ├── load_data.py
+│   └── test_retrieval.py
+├── docker-compose.yml
+├── setup.sh
+├── .env
+├── .env.example
+├── Makefile
+├── README.md
+└── application.log

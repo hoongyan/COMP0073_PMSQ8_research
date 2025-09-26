@@ -1,0 +1,152 @@
+[
+  {
+    "profile_id": 1,
+    "user_profile": {
+      "tech_literacy": "low",
+      "language_proficiency": "low",
+      "emotional_state": "distressed"
+    },
+    "scam_details": {
+      "scam_report_no": "D/20250209/2250",
+      "scam_incident_date": "2025-02-08",
+      "scam_report_date": "2025-02-09",
+      "scam_type": "ECOMMERCE",
+      "scam_approach_platform": "LAZADA",
+      "scam_communication_platform": "WHATSAPP",
+      "scam_transaction_type": "BANK TRANSFER",
+      "scam_beneficiary_platform": "HSBC",
+      "scam_beneficiary_identifier": "18196001",
+      "scam_contact_no": "NA",
+      "scam_email": "NA",
+      "scam_moniker": "jonesstephanie",
+      "scam_url_link": "NA",
+      "scam_amount_lost": 552.84,
+      "scam_incident_description": "I came across a listing for a Taylor Swift concert ticket on Lazada, posted by someone using the moniker 'jonesstephanie'. I contacted the individual through WhatsApp to inquire about the item. \nThe seller requested full payment upfront. Subsequently, I made the following transaction:\nA transaction of $552.84 was made to HSBC account 18196001 on 2025-02-08. \nAfter the payment was made, the item was not delivered. The seller became unresponsive and uncontactable.\n"
+    }
+  },
+  {
+    "profile_id": 8,
+    "user_profile": {
+      "tech_literacy": "high",
+      "language_proficiency": "high",
+      "emotional_state": "neutral"
+    },
+    "scam_details": {
+      "scam_report_no": "J/20250710/7733",
+      "scam_incident_date": "2025-06-22",
+      "scam_report_date": "2025-07-10",
+      "scam_type": "ECOMMERCE",
+      "scam_approach_platform": "CAROUSELL",
+      "scam_communication_platform": "CAROUSELL",
+      "scam_transaction_type": "BANK TRANSFER",
+      "scam_beneficiary_platform": "GXS",
+      "scam_beneficiary_identifier": "63794026",
+      "scam_contact_no": "NA",
+      "scam_email": "NA",
+      "scam_moniker": "alexa83",
+      "scam_url_link": "NA",
+      "scam_amount_lost": 1466.85,
+      "scam_incident_description": "I came across a listing for an iPhone 16 Pro Max on Carousell, posted by someone using the moniker 'alexa83'. I contacted the individual through Carousell to inquire about the item.\nThe seller requested full payment upfront. Subsequently, I made the following transaction:\nA transaction of $1466.85 was made to GXS account 63794026 on 2025-06-22. \nAfter the payment was made, the item was not delivered. The seller became unresponsive and uncontactable.\n"
+    }
+  },
+  {
+    "profile_id": 9,
+    "user_profile": {
+      "tech_literacy": "low",
+      "language_proficiency": "low",
+      "emotional_state": "distressed"
+    },
+    "scam_details": {
+      "scam_report_no": "D/20250624/2591",
+      "scam_incident_date": "2025-06-03",
+      "scam_report_date": "2025-06-24",
+      "scam_type": "PHISHING",
+      "scam_approach_platform": "SMS",
+      "scam_communication_platform": "SMS",
+      "scam_transaction_type": "BANK TRANSFER",
+      "scam_beneficiary_platform": "DBS",
+      "scam_beneficiary_identifier": "03413164",
+      "scam_contact_no": "+6592728882",
+      "scam_email": "NA",
+      "scam_moniker": "NA",
+      "scam_url_link": "https://secure-dbs-login.com/verify",
+      "scam_amount_lost": 760.0,
+      "scam_incident_description": "I received an SMS from +6592728882 claiming to be from DBS, stating that there was unauthorized access to my bank account. \nIt requested that I verify my identity via a provided link (https://secure-dbs-login.com/verify) to prevent unauthorized transactions. \nAfter clicking the link, I was directed to a website resembling DBS's official website, where I provided my my card credentials. \nSubsequently, my credentials were used to increase my account transfer limit, resulting in an unauthorized transaction to a DBS. \nThe transaction is as follows:\nA transaction of $760.00 was made to DBS account 03413164 on 2025-06-03.\n"
+    }
+  },
+  {
+    "profile_id": 16,
+    "user_profile": {
+      "tech_literacy": "high",
+      "language_proficiency": "high",
+      "emotional_state": "neutral"
+    },
+    "scam_details": {
+      "scam_report_no": "A/20250414/2104",
+      "scam_incident_date": "2025-04-07",
+      "scam_report_date": "2025-04-14",
+      "scam_type": "PHISHING",
+      "scam_approach_platform": "SMS",
+      "scam_communication_platform": "SMS",
+      "scam_transaction_type": "BANK TRANSFER",
+      "scam_beneficiary_platform": "CITIBANK",
+      "scam_beneficiary_identifier": "15594078",
+      "scam_contact_no": "+6591322047",
+      "scam_email": "NA",
+      "scam_moniker": "NA",
+      "scam_url_link": "https://secure-dbs-login.com/verify",
+      "scam_amount_lost": 225.9,
+      "scam_incident_description": "I received an SMS from +6591322047 claiming to be from DBS, stating that there was outstanding bills that needed to be paid. \nIt requested that I verify my identity via a provided link (https://secure-dbs-login.com/verify) to prevent unauthorized transactions. \nAfter clicking the link, I was directed to a website resembling DBS's official website, where I provided my my card credentials. \nSubsequently, my credentials were used to increase my account transfer limit, resulting in an unauthorized transaction to a CITIBANK. \nThe transaction is as follows:\nA transaction of $225.90 was made to CITIBANK account 15594078 on 2025-04-07.\n"
+    }
+  },
+  {
+    "profile_id": 17,
+    "user_profile": {
+      "tech_literacy": "low",
+      "language_proficiency": "low",
+      "emotional_state": "distressed"
+    },
+    "scam_details": {
+      "scam_report_no": "D/20250324/2067",
+      "scam_incident_date": "2025-03-11",
+      "scam_report_date": "2025-03-24",
+      "scam_type": "GOVERNMENT OFFICIALS IMPERSONATION",
+      "scam_approach_platform": "CALL",
+      "scam_communication_platform": "WHATSAPP",
+      "scam_transaction_type": "BANK TRANSFER",
+      "scam_beneficiary_platform": "BOC",
+      "scam_beneficiary_identifier": "37672423",
+      "scam_contact_no": "+6599515702",
+      "scam_email": "NA",
+      "scam_moniker": "NA",
+      "scam_url_link": "NA",
+      "scam_amount_lost": 77283.93,
+      "scam_incident_description": "I received a call from an individual named James Wong, who claimed to be from the Ministry of Manpower. He had contacted me using +6599515702. \nHe claimed that workers employed under my details were overstaying in Singapore. \nWhen I denied knowledge of these workers, the call was transferred via WhatsApp to a second individual named Inspector William Wong, claiming to be from the Immigration and Checkpoints Authority. \nHe instructed me to transfer money to a bank account to support the investigations. As I was scared, I complied with his requests. As a result, I made the following transaction: \nA transaction of $77283.93 was made to BOC account 37672423 on 2025-03-11. \nI realized I had been scammed when the individuals became uncontactable. I also verified the situation with the Ministry of Manpower and Immigration and Checkpoints Authority, \nwhere there were no records of James Wong and Inspector William Wong.\n"
+    }
+  },
+  {
+    "profile_id": 24,
+    "user_profile": {
+      "tech_literacy": "high",
+      "language_proficiency": "high",
+      "emotional_state": "neutral"
+    },
+    "scam_details": {
+      "scam_report_no": "J/20250729/2718",
+      "scam_incident_date": "2025-07-07",
+      "scam_report_date": "2025-07-29",
+      "scam_type": "GOVERNMENT OFFICIALS IMPERSONATION",
+      "scam_approach_platform": "CALL",
+      "scam_communication_platform": "WHATSAPP",
+      "scam_transaction_type": "BANK TRANSFER",
+      "scam_beneficiary_platform": "TRUST",
+      "scam_beneficiary_identifier": "28327648",
+      "scam_contact_no": "+6591197935",
+      "scam_email": "NA",
+      "scam_moniker": "NA",
+      "scam_url_link": "NA",
+      "scam_amount_lost": 39695.01,
+      "scam_incident_description": "I received a call from an individual named James Wong, who claimed to be from the Ministry of Manpower. He had contacted me using +6591197935. \nHe claimed that workers employed under my details had work permit violations. \nWhen I denied knowledge of these workers, the call was transferred via WhatsApp to a second individual named Inspector Timothy Lee, claiming to be from the Singapore Police Force. \nHe instructed me to transfer money to a bank account to support the investigations. As I was scared, I complied with his requests. As a result, I made the following transaction: \nA transaction of $39695.01 was made to TRUST account 28327648 on 2025-07-07. \nI realized I had been scammed when the individuals became uncontactable. I also verified the situation with the Ministry of Manpower and Singapore Police Force, \nwhere there were no records of James Wong and Inspector Timothy Lee.\n"
+    }
+  }
+]

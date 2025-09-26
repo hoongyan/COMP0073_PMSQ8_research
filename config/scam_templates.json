@@ -1,0 +1,68 @@
+{
+    "response_templates": {
+
+      "victim_details": {
+        "vic_first_name": "",
+        "vic_last_name": "",
+        "vic_nric": "",
+        "vic_sex": "",
+        "vic_dob": "",
+        "vic_nationality": "",
+        "vic_race": "",
+        "vic_occupation": "",
+        "vic_contact_no": "",
+        "vic_email": "",
+        "vic_blk": "",
+        "vic_street": "",
+        "vic_unit_no": "",
+        "vic_postal_code": ""
+      },
+      
+      "scam_generic_details": {
+        "scam_report_no": "",
+        "scam_incident_date": "",
+        "scam_report_date": "",
+        "scam_type": "",
+        "scam_approach_platform": "",
+        "scam_communication_platform": "",
+        "scam_transaction_type": "",
+        "scam_beneficiary_platform": "",
+        "scam_beneficiary_identifier": "",
+        "scam_contact_no": "",
+        "scam_email": "",
+        "scam_moniker": "",
+        "scam_url_link":"",
+        "scam_amount_lost": "",
+        "scam_incident_description": ""
+      },
+
+      "scam_specific_details": {
+        "ecommerce": {
+          "scam_subcategory": "",
+          "scam_item_involved": "",
+          "scam_item_type": ""
+        },
+
+        "government officials impersonation": {
+          "scam_subcategory": "",
+          "scam_impersonation_type": "",
+          "scam_first_impersonated_entity": "",
+          "scam_first_impersonated_entity_name": "",
+          "scam_second_impersonated_entity": "",
+          "scam_second_impersonated_entity_name": ""
+        },
+        
+        "phishing": {
+          "scam_subcategory": "",
+          "scam_impersonation_type": "",
+          "scam_first_impersonated_entity": "",
+          "scam_first_impersonated_entity_name": "",
+          "scam_phished_details": "",
+          "scam_use_of_phished_details": "",
+          "scam_pretext_for_phishing": ""
+        }
+      }
+    }
+  }
+
+
