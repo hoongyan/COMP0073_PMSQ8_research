@@ -7,7 +7,8 @@ import numpy as np
 import logging
 from pathlib import Path
 
-class IeScoreCalculator:
+class CommAppScoreCalculator:
+    """Class for calculating communication appropriate scores"""
     def __init__(self, ie_csv_path: str, gt_json_path: str):
         self.ie_csv_path = ie_csv_path
         self.gt_json_path = gt_json_path
@@ -17,7 +18,7 @@ class IeScoreCalculator:
         logging.basicConfig(level=logging.INFO)
 
     def load_data(self):
-
+        """Load data from CSV and ground truth JSON files."""
         self.ie_df = pd.read_csv(self.ie_csv_path, index_col=False)
 
         self.ie_df['conversation_id'] = pd.to_numeric(self.ie_df['conversation_id'], errors='coerce')
@@ -37,6 +38,8 @@ class IeScoreCalculator:
         self.logger.info(f"Loaded GT JSON with {len(self.gt_data)} entries.")
 
     def preprocess(self):
+        """Preprocess the loaded data by grouping conversations and extracting relevant info."""
+        
         # Group by conversation_id
         grouped = self.ie_df.groupby('conversation_id')
         preprocessed = {}
@@ -71,6 +74,8 @@ class IeScoreCalculator:
         return preprocessed
 
     def compute_metrics(self, preprocessed):
+        """Compute overall and grouped metrics from preprocessed data."""
+        
         # Collect all per-convo avg_scores
         all_scores = [data['avg_score'] for data in preprocessed.values() if not np.isnan(data['avg_score'])]
 
@@ -134,6 +139,7 @@ class IeScoreCalculator:
         }
 
     def run(self):
+        """Run the full pipeline: load data, preprocess, and compute metrics."""
         self.load_data()
         preprocessed = self.preprocess()
         metrics = self.compute_metrics(preprocessed)
@@ -144,6 +150,6 @@ if __name__ == "__main__":
     ie_csv = "evaluation/results/communication_appropriateness/phase_1/evaluated_autonomous_conversations_rag_ie.csv"  
     victim_detail_json = "data/victim_profile/victim_details_human_eval.json"  
     
-    calculator = IeScoreCalculator(ie_csv, victim_detail_json)
+    calculator = CommAppScoreCalculator(ie_csv, victim_detail_json)
     results = calculator.run()
     print(results)  # Output metrics

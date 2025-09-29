@@ -18,6 +18,7 @@ from statistics import mean, median
 from collections import defaultdict, Counter
 
 class ProfileAccuracyCalculator:
+    """Class to calculate accuracy of user profiles from CSV and JSON data."""
     def __init__(self, csv_path: str, json_path: str):
         """
         Initialize with file paths.
@@ -58,12 +59,6 @@ class ProfileAccuracyCalculator:
     def save_figure(self, fig, filepath: str) -> None:
         """
         Saves a Matplotlib figure to the given filepath.
-        Assumes the parent dir already exists (created once upstream).
-        Closes the figure to free memory.
-        
-        Args:
-            fig: The Matplotlib figure to save (use plt.gcf() for current).
-            filepath: Full path to save (str or Path).
         """
         try:
             fig.savefig(filepath)
@@ -76,7 +71,7 @@ class ProfileAccuracyCalculator:
             
     def preprocess_csv(self):
         """
-        Preprocess CSV: Convert timestamps, filter for police rows, group by conversation_id, take first police row (min timestamp) for initial_profile.
+        Preprocess CSV: Convert timestamps, filter for police rows, group by conversation_id, take first police row for initial_profile.
         """
         if self.df is None:
             raise ValueError("Data not loaded. Call load_data() first.")
@@ -105,7 +100,6 @@ class ProfileAccuracyCalculator:
     def parse_profile(self, pred_str):
         """
         Parse initial_profile string to dict with 'level' and 'confidence' for each key.
-        Expected format: {'tech_literacy': {'score': float, 'level': str, 'confidence': float}, ...}
         """
         if pd.isna(pred_str) or not pred_str.strip():
             return {}
@@ -125,7 +119,6 @@ class ProfileAccuracyCalculator:
     def normalize_value(self, key, val):
         """
         Normalize profile values: lowercase strings, handle nulls.
-        Since profile fields are categorical ('low'/'high', 'distressed'/'neutral').
         """
         if val is None or val == 'na':
             return 'na'
@@ -138,9 +131,6 @@ class ProfileAccuracyCalculator:
     def compare_profiles(self, pred_dict, gt_dict):
         """
         Compare normalized predicted profile levels to ground truth.
-        Keys: tech_literacy, language_proficiency, emotional_state.
-        Returns correct count, total count (always 3 if all present in GT).
-        Also returns per-attribute correct (dict), and mismatches (list of tuples: (key, gt_val, pred_val, confidence))
         """
         keys_to_compare = ['tech_literacy', 'language_proficiency', 'emotional_state']
         correct = 0
@@ -171,10 +161,6 @@ class ProfileAccuracyCalculator:
     def compute_accuracies(self, first_rows):
         """
         Compute all accuracies: per convo, overall, by model, by permutation, and by model+permutation.
-        Add per-attribute accuracies (overall, by model, by permutation, by model+permutation).
-        Confusion matrices per attribute (dict of counters: actual -> predicted -> count).
-        Collect all mismatches with convo_id for detailed analysis.
-        Collect all_comparisons for confidence analysis (list of dicts: convo_id, model, permutation, attr, gt, pred, conf, is_correct).
         """
         per_convo_accuracies = {}
         overall_correct = 0
@@ -367,9 +353,6 @@ class ProfileAccuracyCalculator:
     def perform_eda(self, first_rows):
         """
         Exploratory Data Analysis.
-        - Distributions of GT and predicted labels per attribute.
-        - NEW: Distribution of confidences (histogram data), counts per model/permutation.
-        Returns dict of counters.
         """
         gt_dist = {attr: Counter() for attr in ['tech_literacy', 'language_proficiency', 'emotional_state']}
         pred_dist = {attr: Counter() for attr in ['tech_literacy', 'language_proficiency', 'emotional_state']}
@@ -420,12 +403,6 @@ class ProfileAccuracyCalculator:
     def generate_charts(self, results):
         """
         Generate visualizations.
-        - Bar chart for overall and per-attribute accuracies.
-        - Heatmap for confusion matrices (one per attribute).
-        - Boxplot for confidences by attribute and correctness (using matplotlib).
-        - Stacked bar for accuracies by model and permutation.
-        - Bar chart for accuracies by permutation.
-        - Heatmap for accuracies by model and permutation.
         Saves to files.
         """
         segment_map = {
@@ -634,7 +611,7 @@ class ProfileAccuracyCalculator:
 
     def analyze_mismatches(self, results):
         """
-        Print detailed mismatch analysis.
+        Detailed mismatch analysis.
         - Count mismatches per attribute.
         - Sample examples.
         """
@@ -651,10 +628,6 @@ class ProfileAccuracyCalculator:
     def analyze_confidences(self, results):
         """
         Analyze confidence levels.
-        - Create DF from all_comparisons.
-        - Compute avg/median conf overall, by correct/incorrect, attr, model, permutation.
-        - Print tables.
-        - Insight: If incorrect avg conf < correct, model is calibrated.
         """
         if not results['all_comparisons']:
             self.logger.info("No comparisons for confidence analysis.")
@@ -691,8 +664,6 @@ class ProfileAccuracyCalculator:
     def compute_advanced_metrics(self, results):
         """
         Compute precision, recall, F1 from confusion matrices (macro avg, multi-class).
-        - Treat labels as classes (e.g., 'low', 'high', 'na', 'missing').
-        - Print per attribute.
         """
 
         def manual_precision_recall_f1(y_true, y_pred):
@@ -757,7 +728,6 @@ class ProfileAccuracyCalculator:
     def run(self) -> dict:
         """
         Run the full calculation.
-        Add EDA, charts, mismatch analysis, confidence analysis, advanced metrics.
         """
         self.load_data()
         first_rows = self.preprocess_csv()

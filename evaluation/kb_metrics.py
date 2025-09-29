@@ -20,6 +20,8 @@ from config.settings import get_settings
 from config.logging_config import setup_logger
 
 class UpsertStrategyCalculator:
+    """Class for calculating KB metrics from conversation history and strategies CSV files."""
+    
     def __init__(self, history_csv_path: str, strategies_csv_path: str):
         self.history_csv_path = history_csv_path
         self.strategies_csv_path = strategies_csv_path
@@ -31,6 +33,7 @@ class UpsertStrategyCalculator:
         self.logger = setup_logger("upsert_metrics", self.settings.log.subdirectories["evaluation"])
 
     def load_data(self):
+        """Load and process data from conversation history and strategies CSV files."""
         # Load csv
         self.history_df = pd.read_csv(self.history_csv_path, index_col=False, engine='python', on_bad_lines='warn')
       
@@ -72,6 +75,7 @@ class UpsertStrategyCalculator:
         self.logger.info(f"Loaded Strategies CSV with {len(self.strategies_df)} rows.")
 
     def preprocess(self):
+        """Preprocess the loaded data by grouping conversations and counting upserts."""
         # Group by conversation_id
         grouped = self.history_df.groupby('conversation_id')
         preprocessed = {}
@@ -94,6 +98,7 @@ class UpsertStrategyCalculator:
         return preprocessed
 
     def compute_metrics(self, preprocessed):
+        """Compute aggregated KB metrics across models and conversations."""
         by_model_counts = defaultdict(list)
         overall_upserts = []
         per_convo_upserts = {}
@@ -126,6 +131,8 @@ class UpsertStrategyCalculator:
         return metrics
 
     def compute_kb_dynamics(self, metrics):
+        """Compute knowledge base dynamics metrics like addition rate, pruning, and retrieval stats."""
+        
         # Total KB size: unique IDs
         total_kb = len(self.strategies_df['id'].unique())
 
@@ -163,6 +170,8 @@ class UpsertStrategyCalculator:
         return metrics
 
     def cluster_strategies(self, metrics):
+        """Perform clustering on strategy types in final KB and upserts to assess diversity."""
+        
         embedder = SentenceTransformer('all-MiniLM-L6-v2')
 
         # Helper function to perform clustering
@@ -258,6 +267,8 @@ class UpsertStrategyCalculator:
         return metrics
 
     def generate_charts(self, metrics):
+        """Generate and save visualization charts for metrics."""
+        
         if not metrics['by_model_average']:
             self.logger.warning("No data for charts.")
             return
@@ -436,6 +447,7 @@ class UpsertStrategyCalculator:
         self.logger.info("Generated charts.")
 
     def run(self):
+        """Run the full calculation process: load, preprocess, metrics, dynamics, clustering, charts."""
         self.load_data()
         preprocessed = self.preprocess()
         metrics = self.compute_metrics(preprocessed)

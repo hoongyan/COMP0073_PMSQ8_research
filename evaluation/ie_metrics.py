@@ -19,6 +19,7 @@ from sklearn.linear_model import LinearRegression
 import matplotlib.colors as mcolors
 
 class ScamAccuracyCalculator:
+    """Class to calculate information extraction accuracy from CSV and JSON data."""
     def __init__(self, csv_path: str, json_path: str):
         """
         Initialize with file paths.
@@ -706,7 +707,7 @@ class ScamAccuracyCalculator:
 
     def analyze_mismatches(self, results):
         """
-        Print detailed mismatch analysis.
+        Detailed mismatch analysis.
         """
         if not results['all_mismatches']:
             self.logger.info("No mismatches for analysis.")
@@ -774,7 +775,7 @@ class ScamAccuracyCalculator:
 
     def perform_eda(self, last_rows):
         """
-        Perform basic EDA.
+        Perform EDA.
         """
         unique_models = last_rows['police_llm_model'].unique().tolist()
         profile_ids = last_rows['profile_id'].unique()

@@ -10,7 +10,9 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 from sklearn.linear_model import LinearRegression
 
-class PersonalisationScoreCalculator:
+class CommAppScoreCalculator:
+    """Class to calculate communication appropriateness scores from CSV and ground truth JSON for phase 2 evaluations."""
+    
     def __init__(self, ie_csv_path: str, gt_json_path: str):
         self.ie_csv_path = ie_csv_path
         self.gt_json_path = gt_json_path
@@ -20,7 +22,9 @@ class PersonalisationScoreCalculator:
         logging.basicConfig(level=logging.INFO)
 
     def load_data(self):
-        # Load IE CSV
+        """Load CSV and ground truth JSON data."""
+        
+        # Load CSV
         self.ie_df = pd.read_csv(self.ie_csv_path, index_col=False)
       
         self.ie_df['conversation_id'] = pd.to_numeric(self.ie_df['conversation_id'], errors='coerce')
@@ -41,6 +45,8 @@ class PersonalisationScoreCalculator:
         self.logger.info(f"Loaded GT JSON with {len(self.gt_data)} entries.")
 
     def preprocess(self):
+        """Preprocess data by grouping conversations and computing normalized scores."""
+        
         # Group by conversation_id
         grouped = self.ie_df.groupby('conversation_id')
         preprocessed = {}
@@ -107,6 +113,8 @@ class PersonalisationScoreCalculator:
 
     
     def compute_metrics(self, preprocessed):
+        """Compute aggregated metrics like means and stds across groupings."""
+        
         indicators = ['tech_literacy', 'language_proficiency', 'emotional_state', 'overall']
         ind_to_key = {
             'tech_literacy': 'mean_tech_norm',
@@ -170,6 +178,8 @@ class PersonalisationScoreCalculator:
         }
 
     def generate_appropriateness_charts(self, preprocessed):
+        """Generate line charts for appropriateness scores over sorted conversations."""
+        
         indicators = ['overall', 'tech_literacy', 'language_proficiency', 'emotional_state']
         ind_to_key = {
             'tech_literacy': 'mean_tech_norm',
@@ -206,7 +216,6 @@ class PersonalisationScoreCalculator:
             elif model_lower == 'granite3.2:8b':
                 colors[model] = '#1F77B4'  # Blue for Granite
                
-        
         for ind in indicators:
             fig, ax = plt.subplots(figsize=(14, 7))
             key = ind_to_key[ind]
@@ -237,6 +246,8 @@ class PersonalisationScoreCalculator:
             self.save_figure(fig, str(base_dir / f'appropriateness_over_convos_combined_{ind}.png'))
             
     def generate_charts(self, metrics, preprocessed):
+        """Generate bar, boxplot, and heatmap charts from metrics and preprocessed data."""
+        
         base_dir = Path('evaluation/results/communication_appropriateness/phase_2/charts')
         base_dir.mkdir(parents=True, exist_ok=True)
         
@@ -404,6 +415,8 @@ class PersonalisationScoreCalculator:
         self.save_figure(fig, str(base_dir / 'heatmap_model_vs_scam_type.png'))
 
     def generate_length_impact_charts(self, preprocessed):
+        """Generate scatter and line charts for impact of conversation length on scores."""
+        
         base_dir = Path('evaluation/results/communication_appropriateness/phase_2/charts')
         base_dir.mkdir(parents=True, exist_ok=True)
         
@@ -547,6 +560,7 @@ class PersonalisationScoreCalculator:
         
     
     def save_figure(self, fig, filepath: str) -> None:
+        """Save matplotlib figure to the specified filepath."""
         try:
             fig.savefig(filepath)
             self.logger.info(f"Saved figure to '{filepath}'")
@@ -556,6 +570,8 @@ class PersonalisationScoreCalculator:
             plt.close(fig)
 
     def run(self):
+        """Run the full pipeline: load data, preprocess, compute metrics, and generate charts."""
+        
         self.load_data()
         preprocessed = self.preprocess()
         metrics = self.compute_metrics(preprocessed)
@@ -568,10 +584,9 @@ if __name__ == "__main__":
     ie_csv = "evaluation/results/communication_appropriateness/phase_2/evaluated_autonomous_conversations_ie.csv"
     victim_detail_json = "data/victim_profile/victim_details.json"
     
-    calculator = PersonalisationScoreCalculator(ie_csv, victim_detail_json)
+    calculator = CommAppScoreCalculator(ie_csv, victim_detail_json)
     results = calculator.run()
     print(results)
-    
 
     print("\nAverage number of turns per model:")
     if 'by_llm_turns' in results:

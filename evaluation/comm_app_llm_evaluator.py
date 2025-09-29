@@ -21,6 +21,7 @@ import csv
 from filelock import FileLock  
 
 class AppropriatenessRatings(BaseModel):
+    """Pydantic model for appropriateness ratings of police responses."""
     reasoning: str = Field(..., description="Step-by-step reasoning for the ratings")
     language_proficiency: int = Field(..., ge=1, le=5, description="Rating for alignment with victim's language proficiency (1–5)")
     emotional_state: int = Field(..., ge=1, le=5, description="Rating for alignment with victim's emotional state (1–5)")
@@ -28,7 +29,7 @@ class AppropriatenessRatings(BaseModel):
     valid: bool = Field(..., description="Whether the response is deemed appropriate overall (e.g., avg rating >= 3)")
 
     def avg_rating(self) -> float:
-        """Compute average rating, normalized to 0-1 scale like KB agent."""
+        """Compute average rating, normalized to 0-1 scale."""
         ratings = [self.language_proficiency, self.emotional_state, self.tech_literacy]
         if not ratings:
             return 0.0
@@ -36,6 +37,7 @@ class AppropriatenessRatings(BaseModel):
         return (avg - 1) / 4  # Normalize: (avg - min) / (max - min)
 
 class EvaluationAgent:
+    """Agent for evaluating police responses against victim personas using an LLM."""
     def __init__(self, model_name: str = "qwen2.5:7b", llm_provider: str = "Ollama", temperature: float = 0.0):
         self.model_name = model_name
         self.llm_provider = llm_provider
@@ -44,6 +46,7 @@ class EvaluationAgent:
         self.llm = self._get_llm(schema=AppropriatenessRatings)
 
     def _get_judge_prompt_template(self) -> str:
+        """Return the prompt template for judging response appropriateness."""
         return """
 Victim Persona (Ground Truth):
 - Tech Literacy: {tech_literacy} (low: avoid any jargon, simplify asks; high: use relevant terms like 'platform' or 'URL' without over-explaining)
@@ -71,6 +74,7 @@ Police Response: {police_response}
 """
 
     def _get_llm(self, schema: Optional[BaseModel] = None):
+        """Initialize and return the LLM based on the provider."""
         if self.llm_provider == "Ollama":
             params = {"model": self.model_name, "format": "json", "temperature": self.temperature}
             if schema:
@@ -86,6 +90,7 @@ Police Response: {police_response}
             raise ValueError(f"Unsupported provider: {self.llm_provider}")
 
     def evaluate_response(self, victim_msg: str, police_response: str, persona: Dict[str, str]) -> Dict:
+        """Evaluate a police response against a victim persona and return ratings."""
         prompt_input = {
             "victim_message": victim_msg,
             "police_response": police_response,
@@ -102,6 +107,7 @@ Police Response: {police_response}
         return output
 
 class EvaluationProcessor:
+    """Processor for handling evaluation of conversation data from CSV and JSON inputs."""
     def __init__(self, csv_path: str, json_path: str, output_path: str, id_file: str):
         self.csv_path = csv_path
         self.json_path = json_path
@@ -113,6 +119,7 @@ class EvaluationProcessor:
         self._ensure_csv_headers()
 
     def _load_ground_truth(self) -> Dict[int, Dict[str, str]]:
+        """Load ground truth victim profiles from JSON."""
         with open(self.json_path, 'r') as f:
             data = json.load(f)
         return {item["profile_id"]: item["user_profile"] for item in data}
@@ -134,6 +141,7 @@ class EvaluationProcessor:
             print(f"Created CSV with headers: {self.output_path}")
 
     def process(self, agent: EvaluationAgent):
+        """Process conversations from CSV, evaluate police responses, and append results to output CSV."""
         df = pd.read_csv(self.csv_path)
         grouped = df.groupby("conversation_id")
 
@@ -207,11 +215,11 @@ class EvaluationProcessor:
             print("No new evaluations to append.")
 
 if __name__ == "__main__":
-    settings = get_settings()  #
+    settings = get_settings()  
 
     csv_path = "simulations/final_results/phase_2/profile_rag_ie_kb/autonomous_conversation_history.csv"
 
-    json_path = settings.data.victim_details_json # Reuse from settings if applicable
+    json_path = settings.data.victim_details_json 
     
     output_path = "evaluation/results/communication_appropriateness/phase_2/evaluated_autonomous_conversations_profile_rag_ie_kb.csv"
     id_file = "evaluation/results/communication_appropriateness/phase_2/profile_rag_ie_kb_last_eval_id.txt" 

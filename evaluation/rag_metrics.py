@@ -16,6 +16,7 @@ from config.settings import get_settings
 from config.logging_config import setup_logger
 
 class RagRelevanceCalculator:
+    """Class for calculating RAG relevance metrics from CSV and JSON data."""
     def __init__(self, rag_csv_path: str, gt_json_path: str, history_csv_path: str = None):
         self.rag_csv_path = rag_csv_path
         self.gt_json_path = gt_json_path
@@ -28,6 +29,7 @@ class RagRelevanceCalculator:
         self.logger = setup_logger("rag_metrics", self.settings.log.subdirectories["evaluation"])
 
     def load_data(self):
+        """Load and process data from CSV and JSON files."""
         # Load RAG invocation CSV
         self.rag_df = pd.read_csv(self.rag_csv_path, index_col=False, engine='python', on_bad_lines='warn')
 
@@ -65,6 +67,7 @@ class RagRelevanceCalculator:
         self.logger.info(f"Loaded GT JSON with {len(self.gt_data)} entries.")
 
     def preprocess(self):
+        """Preprocess the loaded data by grouping conversations and mapping to profiles."""
         # Group by conversation_id
         grouped = self.rag_df.groupby('conversation_id')
         preprocessed = {}
@@ -102,6 +105,7 @@ class RagRelevanceCalculator:
         return preprocessed
 
     def compute_precision(self, scam_results_str: str, gt_scam_type: str) -> float:
+        """Compute precision for retrieved scam results against ground truth scam type."""
         scam_results_str = str(scam_results_str).strip().strip('"').replace('""', '"')
         try:
             results = json.loads(scam_results_str)
@@ -116,6 +120,7 @@ class RagRelevanceCalculator:
         return relevant / len(results)
 
     def compute_metrics(self, preprocessed):
+        """Compute aggregated precision metrics across models, segments, and types."""
         overall_precision = []
         by_model_precision = defaultdict(list)
         by_segment_precision = defaultdict(list)
@@ -173,6 +178,7 @@ class RagRelevanceCalculator:
         }
 
     def perform_eda(self, preprocessed):
+        """Perform exploratory data analysis including distributions and confusion matrix."""
         gt_dist = Counter(data['gt_scam_type'] for data in preprocessed.values())
         retrieved_dist = Counter()
         
@@ -227,6 +233,8 @@ class RagRelevanceCalculator:
         return {'gt_dist': gt_dist, 'retrieved_dist': retrieved_dist, 'confusion': confusion_avg} 
 
     def generate_charts(self, metrics, eda):
+        """Generate and save visualization charts for metrics and EDA."""
+        
         scam_type_map = {
             'government officials impersonation': 'GOIS',
             'ecommerce': 'ECOMMERCE',
@@ -397,11 +405,13 @@ class RagRelevanceCalculator:
         self.logger.info("Generated charts.")
 
     def analyze_changes(self, metrics):
+        """Analyze changes in precision over conversations."""
         improved_count = sum(1 for v in metrics['per_convo_changes'].values() if v['improved'])
         total_with_issue = sum(1 for v in metrics['per_convo_changes'].values() if v['initial_prec'] < 1.0)
         self.logger.info(f"Convos improved (prec): {improved_count}/{total_with_issue} (for conversations that did not start with perfect precision)")
 
     def run(self):
+        """Run the full calculation process: load, preprocess, EDA, metrics, charts, and analysis."""
         self.load_data()
         preprocessed = self.preprocess()
         eda = self.perform_eda(preprocessed)
