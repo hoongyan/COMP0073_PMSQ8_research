@@ -1,0 +1,2 @@
+2025-09-28 12:01:59,115 - DatabaseInitializer - INFO - Logging initialized to logs/database/databaseinitializer.log
+2025-09-28 12:01:59,221 - DatabaseInitializer - INFO - Database extensions and indexes initialized successfully
