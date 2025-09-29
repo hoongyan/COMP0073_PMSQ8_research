@@ -15,10 +15,6 @@ Prior to setting up the repository for use, please ensure that the following pre
     - granite3.2:8b
     - mistral:7b
   - Verify models with `ollama list`. If pull fails, check internet and disk space.
-- Git (for cloning the repository)
-- Make (ensure it's installed on your system)
-- PostgreSQL with pgvector extension (will be set up via Makefile)
-- Optional: Access to OpenAI API for model integrations
 
 ## Installation Steps
 
