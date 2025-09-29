@@ -1,6 +1,7 @@
 # Python virtual environment
 venv_tk/
 venv/
+myenv/
 
 # Python cache files
 __pycache__/

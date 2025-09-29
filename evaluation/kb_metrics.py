@@ -447,7 +447,7 @@ class UpsertStrategyCalculator:
 
 if __name__ == "__main__":
     history_csv = "simulations/final_results/phase_2/profile_rag_ie_kb/autonomous_conversation_history.csv"
-    strategies_csv = "simulations/finall_results/phase_2/profile_rag_ie_kb/strategies.csv"  
+    strategies_csv = "simulations/final_results/phase_2/profile_rag_ie_kb/strategies.csv"  
 
     calculator = UpsertStrategyCalculator(history_csv, strategies_csv)
     results = calculator.run()
