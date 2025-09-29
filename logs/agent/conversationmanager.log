@@ -1,0 +1,55 @@
+2025-09-29 18:58:49,049 - ConversationManager - INFO - Logging initialized to logs/agent/conversationmanager.log
+2025-09-29 18:58:49,049 - ConversationManager - DEBUG - Resolved paths: history=simulations/phase_2/profile_rag_ie_kb/nonautonomous_conversation_history.csv, id_file=simulations/phase_2/locks/profile_rag_ie_kb_nonautonomous_last_id.txt, rag=simulations/phase_2/profile_rag_ie_kb/non_autonomous_rag_invocation.csv
+2025-09-29 18:58:49,051 - ConversationManager - DEBUG - Created CSV with headers: simulations/phase_2/profile_rag_ie_kb/nonautonomous_conversation_history.csv
+2025-09-29 18:58:49,051 - ConversationManager - INFO - Logging initialized to logs/agent/conversationmanager.log
+2025-09-29 18:58:49,057 - ConversationManager - DEBUG - Resolved paths: history=simulations/phase_2/profile_rag_ie_kb/nonautonomous_conversation_history.csv, id_file=simulations/phase_2/locks/profile_rag_ie_kb_nonautonomous_last_id.txt, rag=simulations/phase_2/profile_rag_ie_kb/non_autonomous_rag_invocation.csv
+2025-09-29 18:59:17,936 - ConversationManager - INFO - Started conversation 1 in nonautonomous mode
+2025-09-29 18:59:50,880 - ConversationManager - DEBUG - Logging row with profile_id: None
+2025-09-29 18:59:50,881 - ConversationManager - DEBUG - Logging row with profile_id: None
+2025-09-29 18:59:50,881 - ConversationManager - DEBUG - Partial history saved for conversation 1
+2025-09-29 19:04:22,323 - ConversationManager - INFO - Logging initialized to logs/agent/conversationmanager.log
+2025-09-29 19:04:22,323 - ConversationManager - DEBUG - Resolved paths: history=simulations/phase_2/profile_rag_ie_kb/nonautonomous_conversation_history.csv, id_file=simulations/phase_2/locks/profile_rag_ie_kb_nonautonomous_last_id.txt, rag=simulations/phase_2/profile_rag_ie_kb/non_autonomous_rag_invocation.csv
+2025-09-29 19:04:22,324 - ConversationManager - DEBUG - Created CSV with headers: simulations/phase_2/profile_rag_ie_kb/nonautonomous_conversation_history.csv
+2025-09-29 19:04:28,777 - ConversationManager - INFO - Logging initialized to logs/agent/conversationmanager.log
+2025-09-29 19:04:28,777 - ConversationManager - DEBUG - Resolved paths: history=simulations/phase_2/profile_rag_ie_kb/nonautonomous_conversation_history.csv, id_file=simulations/phase_2/locks/profile_rag_ie_kb_nonautonomous_last_id.txt, rag=simulations/phase_2/profile_rag_ie_kb/non_autonomous_rag_invocation.csv
+2025-09-29 19:04:47,767 - ConversationManager - INFO - Started conversation 1 in nonautonomous mode
+2025-09-29 19:05:28,885 - ConversationManager - DEBUG - Logging row with profile_id: None
+2025-09-29 19:05:28,885 - ConversationManager - DEBUG - Logging row with profile_id: None
+2025-09-29 19:05:28,885 - ConversationManager - DEBUG - Partial history saved for conversation 1
+2025-09-29 19:05:38,631 - ConversationManager - INFO - Logging initialized to logs/agent/conversationmanager.log
+2025-09-29 19:05:38,632 - ConversationManager - DEBUG - Resolved paths: history=simulations/phase_2/profile_rag_ie_kb/nonautonomous_conversation_history.csv, id_file=simulations/phase_2/locks/profile_rag_ie_kb_nonautonomous_last_id.txt, rag=simulations/phase_2/profile_rag_ie_kb/non_autonomous_rag_invocation.csv
+2025-09-29 19:05:51,558 - ConversationManager - INFO - Started conversation 2 in nonautonomous mode
+2025-09-29 19:06:24,128 - ConversationManager - DEBUG - Logging row with profile_id: None
+2025-09-29 19:06:24,129 - ConversationManager - DEBUG - Logging row with profile_id: None
+2025-09-29 19:06:24,129 - ConversationManager - DEBUG - Partial history saved for conversation 2
+2025-09-29 19:07:24,102 - ConversationManager - INFO - Logging initialized to logs/agent/conversationmanager.log
+2025-09-29 19:07:24,102 - ConversationManager - DEBUG - Resolved paths: history=simulations/phase_2/rag_ie/nonautonomous_conversation_history.csv, id_file=simulations/phase_2/locks/rag_ie_nonautonomous_last_id.txt, rag=simulations/phase_2/rag_ie/nonautonomous_rag_invocation.csv
+2025-09-29 19:07:24,103 - ConversationManager - DEBUG - Created CSV with headers: simulations/phase_2/rag_ie/nonautonomous_conversation_history.csv
+2025-09-29 19:07:35,272 - ConversationManager - INFO - Started conversation 1 in nonautonomous mode
+2025-09-29 19:07:56,202 - ConversationManager - DEBUG - Logging row with profile_id: None
+2025-09-29 19:07:56,202 - ConversationManager - DEBUG - Logging row with profile_id: None
+2025-09-29 19:07:56,202 - ConversationManager - DEBUG - Partial history saved for conversation 1
+2025-09-29 19:08:15,279 - ConversationManager - INFO - Logging initialized to logs/agent/conversationmanager.log
+2025-09-29 19:08:15,279 - ConversationManager - DEBUG - Resolved paths: history=simulations/phase_2/rag_ie/nonautonomous_conversation_history.csv, id_file=simulations/phase_2/locks/rag_ie_nonautonomous_last_id.txt, rag=simulations/phase_2/rag_ie/nonautonomous_rag_invocation.csv
+2025-09-29 19:08:17,486 - ConversationManager - INFO - Logging initialized to logs/agent/conversationmanager.log
+2025-09-29 19:08:17,487 - ConversationManager - DEBUG - Resolved paths: history=simulations/phase_2/rag_ie/nonautonomous_conversation_history.csv, id_file=simulations/phase_2/locks/rag_ie_nonautonomous_last_id.txt, rag=simulations/phase_2/rag_ie/nonautonomous_rag_invocation.csv
+2025-09-29 19:08:26,855 - ConversationManager - INFO - Started conversation 2 in nonautonomous mode
+2025-09-29 19:09:11,805 - ConversationManager - DEBUG - Logging row with profile_id: None
+2025-09-29 19:09:11,806 - ConversationManager - DEBUG - Logging row with profile_id: None
+2025-09-29 19:09:11,806 - ConversationManager - DEBUG - Partial history saved for conversation 2
+2025-09-29 19:14:42,715 - ConversationManager - INFO - Logging initialized to logs/agent/conversationmanager.log
+2025-09-29 19:14:42,715 - ConversationManager - DEBUG - Resolved paths: history=simulations/phase_2/profile_rag_ie_kb/nonautonomous_conversation_history.csv, id_file=simulations/phase_2/locks/profile_rag_ie_kb_nonautonomous_last_id.txt, rag=simulations/phase_2/profile_rag_ie_kb/non_autonomous_rag_invocation.csv
+2025-09-29 19:14:42,716 - ConversationManager - DEBUG - Created CSV with headers: simulations/phase_2/profile_rag_ie_kb/nonautonomous_conversation_history.csv
+2025-09-29 19:14:56,433 - ConversationManager - INFO - Started conversation 1 in nonautonomous mode
+2025-09-29 19:15:29,359 - ConversationManager - DEBUG - Logging row with profile_id: None
+2025-09-29 19:15:29,360 - ConversationManager - DEBUG - Logging row with profile_id: None
+2025-09-29 19:15:29,360 - ConversationManager - DEBUG - Partial history saved for conversation 1
+2025-09-29 19:16:24,397 - ConversationManager - INFO - Logging initialized to logs/agent/conversationmanager.log
+2025-09-29 19:16:24,397 - ConversationManager - DEBUG - Resolved paths: history=simulations/phase_2/rag_ie/nonautonomous_conversation_history.csv, id_file=simulations/phase_2/locks/rag_ie_nonautonomous_last_id.txt, rag=simulations/phase_2/rag_ie/nonautonomous_rag_invocation.csv
+2025-09-29 19:16:24,398 - ConversationManager - DEBUG - Created CSV with headers: simulations/phase_2/rag_ie/nonautonomous_conversation_history.csv
+2025-09-29 19:16:27,491 - ConversationManager - INFO - Logging initialized to logs/agent/conversationmanager.log
+2025-09-29 19:16:27,491 - ConversationManager - DEBUG - Resolved paths: history=simulations/phase_2/rag_ie/nonautonomous_conversation_history.csv, id_file=simulations/phase_2/locks/rag_ie_nonautonomous_last_id.txt, rag=simulations/phase_2/rag_ie/nonautonomous_rag_invocation.csv
+2025-09-29 19:16:34,379 - ConversationManager - INFO - Started conversation 1 in nonautonomous mode
+2025-09-29 19:17:06,243 - ConversationManager - DEBUG - Logging row with profile_id: None
+2025-09-29 19:17:06,243 - ConversationManager - DEBUG - Logging row with profile_id: None
+2025-09-29 19:17:06,243 - ConversationManager - DEBUG - Partial history saved for conversation 1

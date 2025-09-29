@@ -23,7 +23,7 @@ POLICE_MODELS = [
 ]
 VICTIM_MODELS = [("gpt-4o-mini", "OpenAI")]  # Always this
 MAX_TURNS = 15
-N_SIMULATIONS = 48  # 24 profiles * 2 replicates (cycling ensures each profile twice)
+N_SIMULATIONS = 48  # 24 profiles * 2 replicates (cycle across profiles twice)
 
 # List of all conversation types to simulate
 CONVERSATION_TYPES = [

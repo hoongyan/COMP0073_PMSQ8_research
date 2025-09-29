@@ -1,0 +1,29 @@
+2025-09-29 18:59:06,770 - Tools - INFO - Logging initialized to logs/agent/tools.log
+2025-09-29 18:59:27,168 - Tools - DEBUG - Executing augmented_police_tool: query=' help me!', top_k=5, conversation_id=1, llm_model=qwen2.5:7b
+2025-09-29 18:59:27,168 - Tools - DEBUG - Processed search profile: {'tech_literacy': {'level': 'low'}, 'language_proficiency': {'level': 'low'}, 'emotional_state': {'level': 'distressed'}}
+2025-09-29 18:59:27,265 - Tools - DEBUG - Retrieved 2 strategies (structured search)
+2025-09-29 18:59:27,855 - Tools - INFO - Logged RAG invocation: index=1, conversation_id=1
+2025-09-29 19:04:39,762 - Tools - INFO - Logging initialized to logs/agent/tools.log
+2025-09-29 19:04:58,564 - Tools - DEBUG - Executing augmented_police_tool: query=' help me!!', top_k=5, conversation_id=1, llm_model=granite3.2:8b
+2025-09-29 19:04:58,564 - Tools - DEBUG - Processed search profile: {'tech_literacy': {'level': 'low'}, 'language_proficiency': {'level': 'low'}, 'emotional_state': {'level': 'distressed'}}
+2025-09-29 19:04:58,634 - Tools - DEBUG - Retrieved 2 strategies (structured search)
+2025-09-29 19:04:59,166 - Tools - INFO - Logged RAG invocation: index=1, conversation_id=1
+2025-09-29 19:05:42,772 - Tools - INFO - Logging initialized to logs/agent/tools.log
+2025-09-29 19:06:00,308 - Tools - DEBUG - Executing augmented_police_tool: query=' help mee', top_k=5, conversation_id=2, llm_model=qwen2.5:7b
+2025-09-29 19:06:00,308 - Tools - DEBUG - Processed search profile: {'tech_literacy': {'level': 'low'}, 'language_proficiency': {'level': 'low'}, 'emotional_state': {'level': 'distressed'}}
+2025-09-29 19:06:00,360 - Tools - DEBUG - Retrieved 2 strategies (structured search)
+2025-09-29 19:06:00,792 - Tools - INFO - Logged RAG invocation: index=1, conversation_id=2
+2025-09-29 19:07:30,331 - Tools - INFO - Logging initialized to logs/agent/tools.log
+2025-09-29 19:07:35,281 - Tools - DEBUG - Executing retrieve_scam_reports: query=' help help!!', top_k=5, conversation_id=1, llm_model=qwen2.5:7b, metadata_filter = None
+2025-09-29 19:07:35,534 - Tools - INFO - Logged RAG invocation: index=1, conversation_id=1
+2025-09-29 19:08:22,845 - Tools - INFO - Logging initialized to logs/agent/tools.log
+2025-09-29 19:08:26,857 - Tools - DEBUG - Executing retrieve_scam_reports: query=' help me help me!', top_k=5, conversation_id=2, llm_model=mistral:7b, metadata_filter = None
+2025-09-29 19:08:26,965 - Tools - INFO - Logged RAG invocation: index=1, conversation_id=2
+2025-09-29 19:14:48,507 - Tools - INFO - Logging initialized to logs/agent/tools.log
+2025-09-29 19:15:05,305 - Tools - DEBUG - Executing augmented_police_tool: query=' help me!!!', top_k=5, conversation_id=1, llm_model=qwen2.5:7b
+2025-09-29 19:15:05,305 - Tools - DEBUG - Processed search profile: {'tech_literacy': {'level': 'low'}, 'language_proficiency': {'level': 'low'}, 'emotional_state': {'level': 'distressed'}}
+2025-09-29 19:15:05,453 - Tools - DEBUG - Retrieved 2 strategies (structured search)
+2025-09-29 19:15:06,052 - Tools - INFO - Logged RAG invocation: index=1, conversation_id=1
+2025-09-29 19:16:30,209 - Tools - INFO - Logging initialized to logs/agent/tools.log
+2025-09-29 19:16:34,389 - Tools - DEBUG - Executing retrieve_scam_reports: query=' help!!!', top_k=5, conversation_id=1, llm_model=granite3.2:8b, metadata_filter = None
+2025-09-29 19:16:34,618 - Tools - INFO - Logged RAG invocation: index=1, conversation_id=1

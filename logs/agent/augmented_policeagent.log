@@ -1,0 +1,360 @@
+2025-09-29 18:59:06,770 - Augmented_PoliceAgent - INFO - Logging initialized to logs/agent/augmented_policeagent.log
+2025-09-29 18:59:17,936 - Augmented_PoliceAgent - INFO - Police chatbot initialized with model: qwen2.5:7b and provider: Ollama
+2025-09-29 18:59:17,939 - Augmented_PoliceAgent - INFO - Entering process_query - Persisted self.initial_profile: None
+2025-09-29 18:59:17,974 - Augmented_PoliceAgent - WARNING - prior_profile was not a dict; forcing default
+2025-09-29 18:59:27,155 - Augmented_PoliceAgent - DEBUG - UserProfileAgent Response: {
+  "tech_literacy": {"level": "low", "confidence": 0.9},
+  "language_proficiency": {"level": "low", "confidence": 0.7},
+  "emotional_state": {"level": "distressed", "confidence": 0.8}
+}
+2025-09-29 18:59:27,155 - Augmented_PoliceAgent - DEBUG - tech_literacy blending: prior_score=0.50 (conf=0.50), new_score=0.00 (conf=0.90) → updated_score=0.25, level=low
+2025-09-29 18:59:27,155 - Augmented_PoliceAgent - DEBUG - language_proficiency blending: prior_score=0.50 (conf=0.50), new_score=0.00 (conf=0.70) → updated_score=0.25, level=low
+2025-09-29 18:59:27,156 - Augmented_PoliceAgent - DEBUG - emotional_state blending: prior_score=0.50 (conf=0.50), new_score=0.00 (conf=0.80) → updated_score=0.25, level=distressed
+2025-09-29 18:59:27,156 - Augmented_PoliceAgent - DEBUG - Turn 1: No profile changes from initial.
+2025-09-29 18:59:27,156 - Augmented_PoliceAgent - DEBUG - User Profile output: {'tech_literacy': {'score': 0.25, 'level': 'low', 'confidence': 0.7}, 'language_proficiency': {'score': 0.25, 'level': 'low', 'confidence': 0.6}, 'emotional_state': {'score': 0.25, 'level': 'distressed', 'confidence': 0.65}}
+2025-09-29 18:59:27,156 - Augmented_PoliceAgent - INFO - Turn 1: First inference - Setting initial profile: {'tech_literacy': {'score': 0.25, 'level': 'low', 'confidence': 0.7}, 'language_proficiency': {'score': 0.25, 'level': 'low', 'confidence': 0.6}, 'emotional_state': {'score': 0.25, 'level': 'distressed', 'confidence': 0.65}}
+2025-09-29 18:59:38,453 - Augmented_PoliceAgent - DEBUG - RetrievalAgent output: {'scam_reports': [{'report_id': 'E/20250710/2006', 'scam_incident_date': '2025-06-27', 'scam_report_date': '2025-07-10', 'scam_type': 'ECOMMERCE', 'scam_approach_platform': 'CAROUSELL', 'scam_communication_platform': 'CAROUSELL', 'scam_transaction_type': 'BANK TRANSFER', 'scam_beneficiary_platform': 'MAYBANK', 'scam_beneficiary_identifier': '66889373', 'scam_contact_no': 'NA', 'scam_email': 'NA', 'scam_moniker': 'timothy25', 'scam_url_link': 'NA', 'scam_amount_lost': 111.97, 'scam_incident_description': "I came across a listing for abalones on Carousell, posted by someone using the moniker 'timothy25'. I contacted the individual through Carousell to inquire about the item. \nThe seller requested full payment upfront. Subsequently, I made the following transaction:\nA transaction of $111.97 was made to MAYBANK account 66889373 on 2025-06-27.\nAfter the payment was made, the item was not delivered. The seller became unresponsive and uncontactable.\n"}, {'report_id': 'A/20250620/7519', 'scam_incident_date': '2025-06-03', 'scam_report_date': '2025-06-20', 'scam_type': 'ECOMMERCE', 'scam_approach_platform': 'SHOPEE', 'scam_communication_platform': 'SHOPEE', 'scam_transaction_type': 'BANK TRANSFER', 'scam_beneficiary_platform': 'MAYBANK', 'scam_beneficiary_identifier': '89325288', 'scam_contact_no': 'NA', 'scam_email': 'NA', 'scam_moniker': 'bmiddleton', 'scam_url_link': 'NA', 'scam_amount_lost': 285.03, 'scam_incident_description': "I came across a listing for an Universal Studios Singapore attraction ticket on Shopee, posted by someone using the moniker 'bmiddleton'. I contacted the individual through Shopee to inquire about the item. \nThe seller requested full payment upfront. Subsequently, I made the following transaction:\nA transaction of $285.03 was made to MAYBANK account 89325288 on 2025-06-03.\nAfter the payment was made, the item was not delivered. The seller became unresponsive and uncontactable.\n"}, {'report_id': 'F/20250612/2517', 'scam_incident_date': '2025-05-22', 'scam_report_date': '2025-06-12', 'scam_type': 'ECOMMERCE', 'scam_approach_platform': 'SHOPEE', 'scam_communication_platform': 'TELEGRAM', 'scam_transaction_type': 'BANK TRANSFER', 'scam_beneficiary_platform': 'MAYBANK', 'scam_beneficiary_identifier': '1640052', 'scam_contact_no': 'NA', 'scam_email': 'NA', 'scam_moniker': 'jonathan61', 'scam_url_link': 'NA', 'scam_amount_lost': 84.73, 'scam_incident_description': "I came across a listing for abalones on Shopee, posted by someone using the moniker 'jonathan61'. I contacted the individual through Telegram to inquire about the item. \nThe seller requested full payment upfront. Subsequently, I made the following transaction:\nA transaction of $84.73 was made to MAYBANK account 01640052 on 2025-05-22.\nAfter the payment was made, the item was not delivered. The seller became unresponsive and uncontactable.\n"}, {'report_id': 'J/20250418/2947', 'scam_incident_date': '2025-04-05', 'scam_report_date': '2025-04-18', 'scam_type': 'ECOMMERCE', 'scam_approach_platform': 'CAROUSELL', 'scam_communication_platform': 'CAROUSELL', 'scam_transaction_type': 'BANK TRANSFER', 'scam_beneficiary_platform': 'GXS', 'scam_beneficiary_identifier': '35030564', 'scam_contact_no': 'NA', 'scam_email': 'NA', 'scam_moniker': 'uperez', 'scam_url_link': 'NA', 'scam_amount_lost': 687.51, 'scam_incident_description': "I came across a listing for an Universal Studios Singapore attraction ticket on Carousell, posted by someone using the moniker 'uperez'. I contacted the individual through Carousell to inquire about the item. \nThe seller requested full payment upfront. Subsequently, I made the following transaction:\nA transaction of $687.51 was made to GXS account 35030564 on 2025-04-05.\nAfter the payment was made, the item was not delivered. The seller became unresponsive and uncontactable.\n"}, {'report_id': 'F/20250308/7920', 'scam_incident_date': '2025-02-27', 'scam_report_date': '2025-03-08', 'scam_type': 'ECOMMERCE', 'scam_approach_platform': 'FACEBOOK', 'scam_communication_platform': 'FACEBOOK', 'scam_transaction_type': 'BANK TRANSFER', 'scam_beneficiary_platform': 'MAYBANK', 'scam_beneficiary_identifier': '82175946', 'scam_contact_no': 'NA', 'scam_email': 'NA', 'scam_moniker': 'gavinanderson', 'scam_url_link': 'NA', 'scam_amount_lost': 230.32, 'scam_incident_description': "I came across a listing for an Universal Studios Singapore attraction ticket on Facebook, posted by someone using the moniker 'gavinanderson'. I contacted the individual through Facebook to inquire about the item. \nThe seller requested full payment upfront. Subsequently, I made the following transaction:\nA transaction of $230.32 was made to MAYBANK account 82175946 on 2025-02-27.\nAfter the payment was made, the item was not delivered. The seller became unresponsive and uncontactable.\n"}], 'strategies': [{'strategy_type': 'simplify'}, {'strategy_type': 'step-by-step guidance'}], 'rag_suggestions': {'scam_type': 'ECOMMERCE', 'scam_details': ['scammer moniker', 'transaction type: BANK TRANSFER', 'beneficiary platform: MAYBANK, GXS', 'scam approach platform: CAROUSELL, SHOPEE, FACEBOOK', 'scam communication platform: TELEGRAM, CAROUSELL, FACEBOOK']}}
+2025-09-29 18:59:50,843 - Augmented_PoliceAgent - DEBUG - IEAgent output: {'conversational_response': "I'm here to help, take your time. Could you tell me when this scam happened? Also, did you interact with anyone on a specific platform like Carousell or Shopee during this incident?", 'scam_incident_date': '', 'scam_type': '', 'scam_approach_platform': '', 'scam_communication_platform': '', 'scam_transaction_type': '', 'scam_beneficiary_platform': '', 'scam_beneficiary_identifier': '', 'scam_contact_no': '', 'scam_email': '', 'scam_moniker': '', 'scam_url_link': '', 'scam_amount_lost': 0.0, 'scam_incident_description': ''}
+2025-09-29 18:59:50,844 - Augmented_PoliceAgent - DEBUG - Preprocessed IE: {'conversational_response': "I'm here to help, take your time. Could you tell me when this scam happened? Also, did you interact with anyone on a specific platform like Carousell or Shopee during this incident?", 'scam_incident_date': '', 'scam_type': '', 'scam_approach_platform': '', 'scam_communication_platform': '', 'scam_transaction_type': '', 'scam_beneficiary_platform': '', 'scam_beneficiary_identifier': '', 'scam_contact_no': '', 'scam_email': '', 'scam_moniker': '', 'scam_url_link': '', 'scam_amount_lost': 0.0, 'scam_incident_description': ''}
+2025-09-29 18:59:50,849 - Augmented_PoliceAgent - DEBUG - SlotTracker: unfilled={'scam_incident_date': True, 'scam_type': True, 'scam_approach_platform': True, 'scam_communication_platform': True, 'scam_transaction_type': True, 'scam_beneficiary_platform': True, 'scam_beneficiary_identifier': True, 'scam_contact_no': True, 'scam_email': True, 'scam_moniker': True, 'scam_url_link': True, 'scam_amount_lost': True, 'scam_incident_description': True}, filled=[]
+2025-09-29 18:59:50,873 - Augmented_PoliceAgent - DEBUG - Skipping KB upsert: Insufficient data.
+2025-09-29 18:59:50,876 - Augmented_PoliceAgent - WARNING - No kb_outputs in final_state
+2025-09-29 18:59:50,876 - Augmented_PoliceAgent - DEBUG - Structured Data before return: {
+  "conversational_response": "I'm here to help, take your time. Could you tell me when this scam happened? Also, did you interact with anyone on a specific platform like Carousell or Shopee during this incident?",
+  "scam_incident_date": "",
+  "scam_type": "",
+  "scam_approach_platform": "",
+  "scam_communication_platform": "",
+  "scam_transaction_type": "",
+  "scam_beneficiary_platform": "",
+  "scam_beneficiary_identifier": "",
+  "scam_contact_no": "",
+  "scam_email": "",
+  "scam_moniker": "",
+  "scam_url_link": "",
+  "scam_amount_lost": 0.0,
+  "scam_incident_description": "",
+  "rag_upsert": false,
+  "rag_suggestions": {
+    "scam_type": "ECOMMERCE",
+    "scam_details": [
+      "scammer moniker",
+      "transaction type: BANK TRANSFER",
+      "beneficiary platform: MAYBANK, GXS",
+      "scam approach platform: CAROUSELL, SHOPEE, FACEBOOK",
+      "scam communication platform: TELEGRAM, CAROUSELL, FACEBOOK"
+    ]
+  },
+  "initial_profile": {
+    "tech_literacy": {
+      "score": 0.25,
+      "level": "low",
+      "confidence": 0.7
+    },
+    "language_proficiency": {
+      "score": 0.25,
+      "level": "low",
+      "confidence": 0.6
+    },
+    "emotional_state": {
+      "score": 0.25,
+      "level": "distressed",
+      "confidence": 0.65
+    }
+  },
+  "user_profile": {
+    "tech_literacy": {
+      "score": 0.25,
+      "level": "low",
+      "confidence": 0.7
+    },
+    "language_proficiency": {
+      "score": 0.25,
+      "level": "low",
+      "confidence": 0.6
+    },
+    "emotional_state": {
+      "score": 0.25,
+      "level": "distressed",
+      "confidence": 0.65
+    }
+  },
+  "retrieved_strategies": [
+    {
+      "strategy_type": "simplify"
+    },
+    {
+      "strategy_type": "step-by-step guidance"
+    }
+  ],
+  "upserted_strategy": {}
+}
+2025-09-29 19:04:39,762 - Augmented_PoliceAgent - INFO - Logging initialized to logs/agent/augmented_policeagent.log
+2025-09-29 19:04:47,766 - Augmented_PoliceAgent - INFO - Police chatbot initialized with model: granite3.2:8b and provider: Ollama
+2025-09-29 19:04:47,769 - Augmented_PoliceAgent - INFO - Entering process_query - Persisted self.initial_profile: None
+2025-09-29 19:04:47,800 - Augmented_PoliceAgent - WARNING - prior_profile was not a dict; forcing default
+2025-09-29 19:04:58,542 - Augmented_PoliceAgent - DEBUG - UserProfileAgent Response: {"tech_literacy": {"level": "low", "confidence": 0.9}, "language_proficiency": {"level": "low", "confidence": 0.7}, "emotional_state": {"level": "distressed", "confidence": 0.85}}
+2025-09-29 19:04:58,542 - Augmented_PoliceAgent - DEBUG - tech_literacy blending: prior_score=0.50 (conf=0.50), new_score=0.00 (conf=0.90) → updated_score=0.25, level=low
+2025-09-29 19:04:58,543 - Augmented_PoliceAgent - DEBUG - language_proficiency blending: prior_score=0.50 (conf=0.50), new_score=0.00 (conf=0.70) → updated_score=0.25, level=low
+2025-09-29 19:04:58,543 - Augmented_PoliceAgent - DEBUG - emotional_state blending: prior_score=0.50 (conf=0.50), new_score=0.00 (conf=0.85) → updated_score=0.25, level=distressed
+2025-09-29 19:04:58,543 - Augmented_PoliceAgent - DEBUG - Turn 1: No profile changes from initial.
+2025-09-29 19:04:58,543 - Augmented_PoliceAgent - DEBUG - User Profile output: {'tech_literacy': {'score': 0.25, 'level': 'low', 'confidence': 0.7}, 'language_proficiency': {'score': 0.25, 'level': 'low', 'confidence': 0.6}, 'emotional_state': {'score': 0.25, 'level': 'distressed', 'confidence': 0.675}}
+2025-09-29 19:04:58,543 - Augmented_PoliceAgent - INFO - Turn 1: First inference - Setting initial profile: {'tech_literacy': {'score': 0.25, 'level': 'low', 'confidence': 0.7}, 'language_proficiency': {'score': 0.25, 'level': 'low', 'confidence': 0.6}, 'emotional_state': {'score': 0.25, 'level': 'distressed', 'confidence': 0.675}}
+2025-09-29 19:05:11,976 - Augmented_PoliceAgent - DEBUG - RetrievalAgent output: {'scam_reports': [{'report_id': 'E/20250710/2006', 'scam_incident_date': '2025-06-27', 'scam_report_date': '2025-07-10', 'scam_type': 'ECOMMERCE', 'scam_approach_platform': 'CAROUSELL', 'scam_communication_platform': 'CAROUSELL', 'scam_transaction_type': 'BANK TRANSFER', 'scam_beneficiary_platform': 'MAYBANK', 'scam_beneficiary_identifier': '66889373', 'scam_contact_no': 'NA', 'scam_email': 'NA', 'scam_moniker': 'timothy25', 'scam_url_link': 'NA', 'scam_amount_lost': 111.97, 'scam_incident_description': "I came across a listing for abalones on Carousell, posted by someone using the moniker 'timothy25'. I contacted the individual through Carousell to inquire about the item. \nThe seller requested full payment upfront. Subsequently, I made the following transaction:\nA transaction of $111.97 was made to MAYBANK account 66889373 on 2025-06-27.\nAfter the payment was made, the item was not delivered. The seller became unresponsive and uncontactable.\n"}, {'report_id': 'F/20250612/2517', 'scam_incident_date': '2025-05-22', 'scam_report_date': '2025-06-12', 'scam_type': 'ECOMMERCE', 'scam_approach_platform': 'SHOPEE', 'scam_communication_platform': 'TELEGRAM', 'scam_transaction_type': 'BANK TRANSFER', 'scam_beneficiary_platform': 'MAYBANK', 'scam_beneficiary_identifier': '1640052', 'scam_contact_no': 'NA', 'scam_email': 'NA', 'scam_moniker': 'jonathan61', 'scam_url_link': 'NA', 'scam_amount_lost': 84.73, 'scam_incident_description': "I came across a listing for abalones on Shopee, posted by someone using the moniker 'jonathan61'. I contacted the individual through Telegram to inquire about the item. \nThe seller requested full payment upfront. Subsequently, I made the following transaction:\nA transaction of $84.73 was made to MAYBANK account 01640052 on 2025-05-22.\nAfter the payment was made, the item was not delivered. The seller became unresponsive and uncontactable.\n"}, {'report_id': 'J/20250415/2217', 'scam_incident_date': '2025-03-17', 'scam_report_date': '2025-04-15', 'scam_type': 'ECOMMERCE', 'scam_approach_platform': 'CAROUSELL', 'scam_communication_platform': 'WHATSAPP', 'scam_transaction_type': 'BANK TRANSFER', 'scam_beneficiary_platform': 'CIMB', 'scam_beneficiary_identifier': '67242388', 'scam_contact_no': 'NA', 'scam_email': 'NA', 'scam_moniker': 'jonesscott', 'scam_url_link': 'NA', 'scam_amount_lost': 142.04, 'scam_incident_description': "I came across a listing for abalones on Carousell, posted by someone using the moniker 'jonesscott'. I contacted the individual through WhatsApp to inquire about the item. \nThe seller requested full payment upfront. Subsequently, I made the following transaction:\nA transaction of $142.04 was made to CIMB account 67242388 on 2025-03-17.\nAfter the payment was made, the item was not delivered. The seller became unresponsive and uncontactable.\n"}, {'report_id': 'J/20250418/2947', 'scam_incident_date': '2025-04-05', 'scam_report_date': '2025-04-18', 'scam_type': 'ECOMMERCE', 'scam_approach_platform': 'CAROUSELL', 'scam_communication_platform': 'CAROUSELL', 'scam_transaction_type': 'BANK TRANSFER', 'scam_beneficiary_platform': 'GXS', 'scam_beneficiary_identifier': '35030564', 'scam_contact_no': 'NA', 'scam_email': 'NA', 'scam_moniker': 'uperez', 'scam_url_link': 'NA', 'scam_amount_lost': 687.51, 'scam_incident_description': "I came across a listing for an Universal Studios Singapore attraction ticket on Carousell, posted by someone using the moniker 'uperez'. I contacted the individual through Carousell to inquire about the item. \nThe seller requested full payment upfront. Subsequently, I made the following transaction:\nA transaction of $687.51 was made to GXS account 35030564 on 2025-04-05.\nAfter the payment was made, the item was not delivered. The seller became unresponsive and uncontactable.\n"}, {'report_id': 'E/20250324/2541', 'scam_incident_date': '2025-03-04', 'scam_report_date': '2025-03-24', 'scam_type': 'ECOMMERCE', 'scam_approach_platform': 'CAROUSELL', 'scam_communication_platform': 'CAROUSELL', 'scam_transaction_type': 'BANK TRANSFER', 'scam_beneficiary_platform': 'GXS', 'scam_beneficiary_identifier': '1845146', 'scam_contact_no': 'NA', 'scam_email': 'NA', 'scam_moniker': 'crystalbartlett', 'scam_url_link': 'NA', 'scam_amount_lost': 266.41, 'scam_incident_description': "I came across a listing for durians on Carousell, posted by someone using the moniker 'crystalbartlett'. I contacted the individual through Carousell to inquire about the item. \nThe seller requested full payment upfront. Subsequently, I made the following transaction:\nA transaction of $266.41 was made to GXS account 01845146 on 2025-03-04.\nAfter the payment was made, the item was not delivered. The seller became unresponsive and uncontactable.\n"}], 'strategies': [{'strategy_type': 'simplify'}, {'strategy_type': 'step-by-step guidance'}], 'rag_suggestions': {'scam_type': 'ECOMMERCE', 'scam_details': ['scam url link', 'seller moniker', 'requested upfront payment', 'undelivered item post-payment', 'uncontactable seller']}}
+2025-09-29 19:05:28,849 - Augmented_PoliceAgent - DEBUG - IEAgent output: {'conversational_response': "I'm really sorry to hear that you're going through this. Let's gather the details together. Could you please tell me how you first came across this issue?", 'scam_incident_date': '', 'scam_type': '', 'scam_approach_platform': '', 'scam_communication_platform': '', 'scam_transaction_type': '', 'scam_beneficiary_platform': '', 'scam_beneficiary_identifier': '', 'scam_contact_no': '', 'scam_email': '', 'scam_moniker': '', 'scam_url_link': '', 'scam_amount_lost': 0.0, 'scam_incident_description': ''}
+2025-09-29 19:05:28,851 - Augmented_PoliceAgent - DEBUG - Preprocessed IE: {'conversational_response': "I'm really sorry to hear that you're going through this. Let's gather the details together. Could you please tell me how you first came across this issue?", 'scam_incident_date': '', 'scam_type': '', 'scam_approach_platform': '', 'scam_communication_platform': '', 'scam_transaction_type': '', 'scam_beneficiary_platform': '', 'scam_beneficiary_identifier': '', 'scam_contact_no': '', 'scam_email': '', 'scam_moniker': '', 'scam_url_link': '', 'scam_amount_lost': 0.0, 'scam_incident_description': ''}
+2025-09-29 19:05:28,855 - Augmented_PoliceAgent - DEBUG - SlotTracker: unfilled={'scam_incident_date': True, 'scam_type': True, 'scam_approach_platform': True, 'scam_communication_platform': True, 'scam_transaction_type': True, 'scam_beneficiary_platform': True, 'scam_beneficiary_identifier': True, 'scam_contact_no': True, 'scam_email': True, 'scam_moniker': True, 'scam_url_link': True, 'scam_amount_lost': True, 'scam_incident_description': True}, filled=[]
+2025-09-29 19:05:28,881 - Augmented_PoliceAgent - DEBUG - Skipping KB upsert: Insufficient data.
+2025-09-29 19:05:28,883 - Augmented_PoliceAgent - WARNING - No kb_outputs in final_state
+2025-09-29 19:05:28,884 - Augmented_PoliceAgent - DEBUG - Structured Data before return: {
+  "conversational_response": "I'm really sorry to hear that you're going through this. Let's gather the details together. Could you please tell me how you first came across this issue?",
+  "scam_incident_date": "",
+  "scam_type": "",
+  "scam_approach_platform": "",
+  "scam_communication_platform": "",
+  "scam_transaction_type": "",
+  "scam_beneficiary_platform": "",
+  "scam_beneficiary_identifier": "",
+  "scam_contact_no": "",
+  "scam_email": "",
+  "scam_moniker": "",
+  "scam_url_link": "",
+  "scam_amount_lost": 0.0,
+  "scam_incident_description": "",
+  "rag_upsert": false,
+  "rag_suggestions": {
+    "scam_type": "ECOMMERCE",
+    "scam_details": [
+      "scam url link",
+      "seller moniker",
+      "requested upfront payment",
+      "undelivered item post-payment",
+      "uncontactable seller"
+    ]
+  },
+  "initial_profile": {
+    "tech_literacy": {
+      "score": 0.25,
+      "level": "low",
+      "confidence": 0.7
+    },
+    "language_proficiency": {
+      "score": 0.25,
+      "level": "low",
+      "confidence": 0.6
+    },
+    "emotional_state": {
+      "score": 0.25,
+      "level": "distressed",
+      "confidence": 0.675
+    }
+  },
+  "user_profile": {
+    "tech_literacy": {
+      "score": 0.25,
+      "level": "low",
+      "confidence": 0.7
+    },
+    "language_proficiency": {
+      "score": 0.25,
+      "level": "low",
+      "confidence": 0.6
+    },
+    "emotional_state": {
+      "score": 0.25,
+      "level": "distressed",
+      "confidence": 0.675
+    }
+  },
+  "retrieved_strategies": [
+    {
+      "strategy_type": "simplify"
+    },
+    {
+      "strategy_type": "step-by-step guidance"
+    }
+  ],
+  "upserted_strategy": {}
+}
+2025-09-29 19:05:42,771 - Augmented_PoliceAgent - INFO - Logging initialized to logs/agent/augmented_policeagent.log
+2025-09-29 19:05:51,558 - Augmented_PoliceAgent - INFO - Police chatbot initialized with model: qwen2.5:7b and provider: Ollama
+2025-09-29 19:05:51,560 - Augmented_PoliceAgent - INFO - Entering process_query - Persisted self.initial_profile: None
+2025-09-29 19:05:51,578 - Augmented_PoliceAgent - WARNING - prior_profile was not a dict; forcing default
+2025-09-29 19:06:00,294 - Augmented_PoliceAgent - DEBUG - UserProfileAgent Response: {
+  "tech_literacy": {"level": "low", "confidence": 0.7},
+  "language_proficiency": {"level": "low", "confidence": 0.6},
+  "emotional_state": {"level": "distressed", "confidence": 0.8}
+}
+2025-09-29 19:06:00,295 - Augmented_PoliceAgent - DEBUG - tech_literacy blending: prior_score=0.50 (conf=0.50), new_score=0.00 (conf=0.70) → updated_score=0.25, level=low
+2025-09-29 19:06:00,295 - Augmented_PoliceAgent - DEBUG - language_proficiency blending: prior_score=0.50 (conf=0.50), new_score=0.00 (conf=0.60) → updated_score=0.25, level=low
+2025-09-29 19:06:00,295 - Augmented_PoliceAgent - DEBUG - emotional_state blending: prior_score=0.50 (conf=0.50), new_score=0.00 (conf=0.80) → updated_score=0.25, level=distressed
+2025-09-29 19:06:00,295 - Augmented_PoliceAgent - DEBUG - Turn 1: No profile changes from initial.
+2025-09-29 19:06:00,296 - Augmented_PoliceAgent - DEBUG - User Profile output: {'tech_literacy': {'score': 0.25, 'level': 'low', 'confidence': 0.6}, 'language_proficiency': {'score': 0.25, 'level': 'low', 'confidence': 0.55}, 'emotional_state': {'score': 0.25, 'level': 'distressed', 'confidence': 0.65}}
+2025-09-29 19:06:00,296 - Augmented_PoliceAgent - INFO - Turn 1: First inference - Setting initial profile: {'tech_literacy': {'score': 0.25, 'level': 'low', 'confidence': 0.6}, 'language_proficiency': {'score': 0.25, 'level': 'low', 'confidence': 0.55}, 'emotional_state': {'score': 0.25, 'level': 'distressed', 'confidence': 0.65}}
+2025-09-29 19:06:10,799 - Augmented_PoliceAgent - DEBUG - RetrievalAgent output: {'scam_reports': [{'report_id': 'F/20250612/2517', 'scam_incident_date': '2025-05-22', 'scam_report_date': '2025-06-12', 'scam_type': 'ECOMMERCE', 'scam_approach_platform': 'SHOPEE', 'scam_communication_platform': 'TELEGRAM', 'scam_transaction_type': 'BANK TRANSFER', 'scam_beneficiary_platform': 'MAYBANK', 'scam_beneficiary_identifier': '1640052', 'scam_contact_no': 'NA', 'scam_email': 'NA', 'scam_moniker': 'jonathan61', 'scam_url_link': 'NA', 'scam_amount_lost': 84.73, 'scam_incident_description': "I came across a listing for abalones on Shopee, posted by someone using the moniker 'jonathan61'. I contacted the individual through Telegram to inquire about the item. \nThe seller requested full payment upfront. Subsequently, I made the following transaction:\nA transaction of $84.73 was made to MAYBANK account 01640052 on 2025-05-22.\nAfter the payment was made, the item was not delivered. The seller became unresponsive and uncontactable.\n"}, {'report_id': 'G/20250212/7281', 'scam_incident_date': '2025-02-09', 'scam_report_date': '2025-02-12', 'scam_type': 'ECOMMERCE', 'scam_approach_platform': 'SHOPEE', 'scam_communication_platform': 'TELEGRAM', 'scam_transaction_type': 'BANK TRANSFER', 'scam_beneficiary_platform': 'TRUST', 'scam_beneficiary_identifier': '85698478', 'scam_contact_no': 'NA', 'scam_email': 'NA', 'scam_moniker': 'martincharles', 'scam_url_link': 'NA', 'scam_amount_lost': 169.23, 'scam_incident_description': "I came across a listing for crabs on Shopee, posted by someone using the moniker 'martincharles'. I contacted the individual through Telegram to inquire about the item. \nThe seller requested full payment upfront. Subsequently, I made the following transaction:\nA transaction of $169.23 was made to TRUST account 85698478 on 2025-02-09.\nAfter the payment was made, the item was not delivered. The seller became unresponsive and uncontactable.\n"}, {'report_id': 'G/20250531/7932', 'scam_incident_date': '2025-05-12', 'scam_report_date': '2025-05-31', 'scam_type': 'ECOMMERCE', 'scam_approach_platform': 'SHOPEE', 'scam_communication_platform': 'WHATSAPP', 'scam_transaction_type': 'BANK TRANSFER', 'scam_beneficiary_platform': 'CIMB', 'scam_beneficiary_identifier': '43953394', 'scam_contact_no': 'NA', 'scam_email': 'NA', 'scam_moniker': 'jesus60', 'scam_url_link': 'NA', 'scam_amount_lost': 298.71, 'scam_incident_description': "I came across a listing for crabs on Shopee, posted by someone using the moniker 'jesus60'. I contacted the individual through WhatsApp to inquire about the item. \nThe seller requested full payment upfront. Subsequently, I made the following transaction:\nA transaction of $298.71 was made to CIMB account 43953394 on 2025-05-12.\nAfter the payment was made, the item was not delivered. The seller became unresponsive and uncontactable.\n"}, {'report_id': 'J/20250630/2101', 'scam_incident_date': '2025-06-02', 'scam_report_date': '2025-06-30', 'scam_type': 'ECOMMERCE', 'scam_approach_platform': 'SHOPEE', 'scam_communication_platform': 'TELEGRAM', 'scam_transaction_type': 'BANK TRANSFER', 'scam_beneficiary_platform': 'BOC', 'scam_beneficiary_identifier': '85064317', 'scam_contact_no': 'NA', 'scam_email': 'NA', 'scam_moniker': 'veronicapeterson', 'scam_url_link': 'NA', 'scam_amount_lost': 245.9, 'scam_incident_description': "I came across a listing for crabs on Shopee, posted by someone using the moniker 'veronicapeterson'. I contacted the individual through Telegram to inquire about the item. \nThe seller requested full payment upfront. Subsequently, I made the following transaction:\nA transaction of $245.90 was made to BOC account 85064317 on 2025-06-02.\nAfter the payment was made, the item was not delivered. The seller became unresponsive and uncontactable.\n"}, {'report_id': 'G/20250507/2132', 'scam_incident_date': '2025-04-15', 'scam_report_date': '2025-05-07', 'scam_type': 'ECOMMERCE', 'scam_approach_platform': 'FACEBOOK', 'scam_communication_platform': 'FACEBOOK', 'scam_transaction_type': 'BANK TRANSFER', 'scam_beneficiary_platform': 'DBS', 'scam_beneficiary_identifier': '48652816', 'scam_contact_no': 'NA', 'scam_email': 'NA', 'scam_moniker': 'christophernguyen', 'scam_url_link': 'NA', 'scam_amount_lost': 133.94, 'scam_incident_description': "I came across a listing for abalones on Facebook, posted by someone using the moniker 'christophernguyen'. I contacted the individual through Facebook to inquire about the item. \nThe seller requested full payment upfront. Subsequently, I made the following transaction:\nA transaction of $133.94 was made to DBS account 48652816 on 2025-04-15.\nAfter the payment was made, the item was not delivered. The seller became unresponsive and uncontactable.\n"}], 'strategies': [{'strategy_type': 'simplify'}, {'strategy_type': 'step-by-step guidance'}], 'rag_suggestions': {'scam_type': 'ECOMMERCE', 'scam_details': ['scammer moniker', 'scam url link', 'scam beneficiary platform', 'scam communication platform', 'transaction type']}}
+2025-09-29 19:06:24,099 - Augmented_PoliceAgent - DEBUG - IEAgent output: {'conversational_response': "I'm here to help. Can you tell me when this happened? Also, did you interact with someone through a specific platform or via an email or phone call?", 'scam_incident_date': '', 'scam_type': '', 'scam_approach_platform': '', 'scam_communication_platform': '', 'scam_transaction_type': '', 'scam_beneficiary_platform': '', 'scam_beneficiary_identifier': '', 'scam_contact_no': '', 'scam_email': '', 'scam_moniker': '', 'scam_url_link': '', 'scam_amount_lost': 0.0, 'scam_incident_description': ''}
+2025-09-29 19:06:24,100 - Augmented_PoliceAgent - DEBUG - Preprocessed IE: {'conversational_response': "I'm here to help. Can you tell me when this happened? Also, did you interact with someone through a specific platform or via an email or phone call?", 'scam_incident_date': '', 'scam_type': '', 'scam_approach_platform': '', 'scam_communication_platform': '', 'scam_transaction_type': '', 'scam_beneficiary_platform': '', 'scam_beneficiary_identifier': '', 'scam_contact_no': '', 'scam_email': '', 'scam_moniker': '', 'scam_url_link': '', 'scam_amount_lost': 0.0, 'scam_incident_description': ''}
+2025-09-29 19:06:24,104 - Augmented_PoliceAgent - DEBUG - SlotTracker: unfilled={'scam_incident_date': True, 'scam_type': True, 'scam_approach_platform': True, 'scam_communication_platform': True, 'scam_transaction_type': True, 'scam_beneficiary_platform': True, 'scam_beneficiary_identifier': True, 'scam_contact_no': True, 'scam_email': True, 'scam_moniker': True, 'scam_url_link': True, 'scam_amount_lost': True, 'scam_incident_description': True}, filled=[]
+2025-09-29 19:06:24,125 - Augmented_PoliceAgent - DEBUG - Skipping KB upsert: Insufficient data.
+2025-09-29 19:06:24,127 - Augmented_PoliceAgent - WARNING - No kb_outputs in final_state
+2025-09-29 19:06:24,127 - Augmented_PoliceAgent - DEBUG - Structured Data before return: {
+  "conversational_response": "I'm here to help. Can you tell me when this happened? Also, did you interact with someone through a specific platform or via an email or phone call?",
+  "scam_incident_date": "",
+  "scam_type": "",
+  "scam_approach_platform": "",
+  "scam_communication_platform": "",
+  "scam_transaction_type": "",
+  "scam_beneficiary_platform": "",
+  "scam_beneficiary_identifier": "",
+  "scam_contact_no": "",
+  "scam_email": "",
+  "scam_moniker": "",
+  "scam_url_link": "",
+  "scam_amount_lost": 0.0,
+  "scam_incident_description": "",
+  "rag_upsert": false,
+  "rag_suggestions": {
+    "scam_type": "ECOMMERCE",
+    "scam_details": [
+      "scammer moniker",
+      "scam url link",
+      "scam beneficiary platform",
+      "scam communication platform",
+      "transaction type"
+    ]
+  },
+  "initial_profile": {
+    "tech_literacy": {
+      "score": 0.25,
+      "level": "low",
+      "confidence": 0.6
+    },
+    "language_proficiency": {
+      "score": 0.25,
+      "level": "low",
+      "confidence": 0.55
+    },
+    "emotional_state": {
+      "score": 0.25,
+      "level": "distressed",
+      "confidence": 0.65
+    }
+  },
+  "user_profile": {
+    "tech_literacy": {
+      "score": 0.25,
+      "level": "low",
+      "confidence": 0.6
+    },
+    "language_proficiency": {
+      "score": 0.25,
+      "level": "low",
+      "confidence": 0.55
+    },
+    "emotional_state": {
+      "score": 0.25,
+      "level": "distressed",
+      "confidence": 0.65
+    }
+  },
+  "retrieved_strategies": [
+    {
+      "strategy_type": "simplify"
+    },
+    {
+      "strategy_type": "step-by-step guidance"
+    }
+  ],
+  "upserted_strategy": {}
+}
+2025-09-29 19:14:48,506 - Augmented_PoliceAgent - INFO - Logging initialized to logs/agent/augmented_policeagent.log
+2025-09-29 19:14:56,433 - Augmented_PoliceAgent - INFO - Police chatbot initialized with model: qwen2.5:7b and provider: Ollama
+2025-09-29 19:14:56,435 - Augmented_PoliceAgent - INFO - Entering process_query - Persisted self.initial_profile: None
+2025-09-29 19:14:56,461 - Augmented_PoliceAgent - WARNING - prior_profile was not a dict; forcing default
+2025-09-29 19:15:05,290 - Augmented_PoliceAgent - DEBUG - UserProfileAgent Response: {
+  "tech_literacy": {"level": "low", "confidence": 0.9},
+  "language_proficiency": {"level": "low", "confidence": 0.7},
+  "emotional_state": {"level": "distressed", "confidence": 0.85}
+}
+2025-09-29 19:15:05,290 - Augmented_PoliceAgent - DEBUG - tech_literacy blending: prior_score=0.50 (conf=0.50), new_score=0.00 (conf=0.90) → updated_score=0.25, level=low
+2025-09-29 19:15:05,291 - Augmented_PoliceAgent - DEBUG - language_proficiency blending: prior_score=0.50 (conf=0.50), new_score=0.00 (conf=0.70) → updated_score=0.25, level=low
+2025-09-29 19:15:05,291 - Augmented_PoliceAgent - DEBUG - emotional_state blending: prior_score=0.50 (conf=0.50), new_score=0.00 (conf=0.85) → updated_score=0.25, level=distressed
+2025-09-29 19:15:05,291 - Augmented_PoliceAgent - DEBUG - Turn 1: No profile changes from initial.
+2025-09-29 19:15:05,291 - Augmented_PoliceAgent - DEBUG - User Profile output: {'tech_literacy': {'score': 0.25, 'level': 'low', 'confidence': 0.7}, 'language_proficiency': {'score': 0.25, 'level': 'low', 'confidence': 0.6}, 'emotional_state': {'score': 0.25, 'level': 'distressed', 'confidence': 0.675}}
+2025-09-29 19:15:05,291 - Augmented_PoliceAgent - INFO - Turn 1: First inference - Setting initial profile: {'tech_literacy': {'score': 0.25, 'level': 'low', 'confidence': 0.7}, 'language_proficiency': {'score': 0.25, 'level': 'low', 'confidence': 0.6}, 'emotional_state': {'score': 0.25, 'level': 'distressed', 'confidence': 0.675}}
+2025-09-29 19:15:17,015 - Augmented_PoliceAgent - DEBUG - RetrievalAgent output: {'scam_reports': [{'report_id': 'E/20250710/2006', 'scam_incident_date': '2025-06-27', 'scam_report_date': '2025-07-10', 'scam_type': 'ECOMMERCE', 'scam_approach_platform': 'CAROUSELL', 'scam_communication_platform': 'CAROUSELL', 'scam_transaction_type': 'BANK TRANSFER', 'scam_beneficiary_platform': 'MAYBANK', 'scam_beneficiary_identifier': '66889373', 'scam_contact_no': 'NA', 'scam_email': 'NA', 'scam_moniker': 'timothy25', 'scam_url_link': 'NA', 'scam_amount_lost': 111.97, 'scam_incident_description': "I came across a listing for abalones on Carousell, posted by someone using the moniker 'timothy25'. I contacted the individual through Carousell to inquire about the item. \nThe seller requested full payment upfront. Subsequently, I made the following transaction:\nA transaction of $111.97 was made to MAYBANK account 66889373 on 2025-06-27.\nAfter the payment was made, the item was not delivered. The seller became unresponsive and uncontactable.\n"}, {'report_id': 'J/20250726/2842', 'scam_incident_date': '2025-07-07', 'scam_report_date': '2025-07-26', 'scam_type': 'ECOMMERCE', 'scam_approach_platform': 'FACEBOOK', 'scam_communication_platform': 'WHATSAPP', 'scam_transaction_type': 'BANK TRANSFER', 'scam_beneficiary_platform': 'BOC', 'scam_beneficiary_identifier': '13709859', 'scam_contact_no': 'NA', 'scam_email': 'NA', 'scam_moniker': 'troy37', 'scam_url_link': 'NA', 'scam_amount_lost': 861.93, 'scam_incident_description': "I came across a listing for an Universal Studios Singapore attraction ticket on Facebook, posted by someone using the moniker 'troy37'. I contacted the individual through WhatsApp to inquire about the item. \nThe seller requested full payment upfront. Subsequently, I made the following transaction:\nA transaction of $861.93 was made to BOC account 13709859 on 2025-07-07.\nAfter the payment was made, the item was not delivered. The seller became unresponsive and uncontactable.\n"}, {'report_id': 'F/20250612/2517', 'scam_incident_date': '2025-05-22', 'scam_report_date': '2025-06-12', 'scam_type': 'ECOMMERCE', 'scam_approach_platform': 'SHOPEE', 'scam_communication_platform': 'TELEGRAM', 'scam_transaction_type': 'BANK TRANSFER', 'scam_beneficiary_platform': 'MAYBANK', 'scam_beneficiary_identifier': '1640052', 'scam_contact_no': 'NA', 'scam_email': 'NA', 'scam_moniker': 'jonathan61', 'scam_url_link': 'NA', 'scam_amount_lost': 84.73, 'scam_incident_description': "I came across a listing for abalones on Shopee, posted by someone using the moniker 'jonathan61'. I contacted the individual through Telegram to inquire about the item. \nThe seller requested full payment upfront. Subsequently, I made the following transaction:\nA transaction of $84.73 was made to MAYBANK account 01640052 on 2025-05-22.\nAfter the payment was made, the item was not delivered. The seller became unresponsive and uncontactable.\n"}, {'report_id': 'J/20250415/2217', 'scam_incident_date': '2025-03-17', 'scam_report_date': '2025-04-15', 'scam_type': 'ECOMMERCE', 'scam_approach_platform': 'CAROUSELL', 'scam_communication_platform': 'WHATSAPP', 'scam_transaction_type': 'BANK TRANSFER', 'scam_beneficiary_platform': 'CIMB', 'scam_beneficiary_identifier': '67242388', 'scam_contact_no': 'NA', 'scam_email': 'NA', 'scam_moniker': 'jonesscott', 'scam_url_link': 'NA', 'scam_amount_lost': 142.04, 'scam_incident_description': "I came across a listing for abalones on Carousell, posted by someone using the moniker 'jonesscott'. I contacted the individual through WhatsApp to inquire about the item. \nThe seller requested full payment upfront. Subsequently, I made the following transaction:\nA transaction of $142.04 was made to CIMB account 67242388 on 2025-03-17.\nAfter the payment was made, the item was not delivered. The seller became unresponsive and uncontactable.\n"}, {'report_id': 'A/20250628/2068', 'scam_incident_date': '2025-06-23', 'scam_report_date': '2025-06-28', 'scam_type': 'ECOMMERCE', 'scam_approach_platform': 'FACEBOOK', 'scam_communication_platform': 'TELEGRAM', 'scam_transaction_type': 'BANK TRANSFER', 'scam_beneficiary_platform': 'DBS', 'scam_beneficiary_identifier': '16152809', 'scam_contact_no': 'NA', 'scam_email': 'NA', 'scam_moniker': 'nelsonchad', 'scam_url_link': 'NA', 'scam_amount_lost': 736.84, 'scam_incident_description': "I came across a listing for an Universal Studios Singapore attraction ticket on Facebook, posted by someone using the moniker 'nelsonchad'. I contacted the individual through Telegram to inquire about the item. \nThe seller requested full payment upfront. Subsequently, I made the following transaction:\nA transaction of $736.84 was made to DBS account 16152809 on 2025-06-23.\nAfter the payment was made, the item was not delivered. The seller became unresponsive and uncontactable.\n"}], 'strategies': [{'strategy_type': 'simplify'}, {'strategy_type': 'step-by-step guidance'}], 'rag_suggestions': {'scam_type': 'ECOMMERCE', 'scam_details': ['scammer moniker', 'transaction type: BANK TRANSFER', 'beneficiary platform: MAYBANK, BOC, CIMB, DBS', 'scam approach platform: CAROUSELL, FACEBOOK, SHOPEE', 'scam communication platform: WHATSAPP, TELEGRAM']}}
+2025-09-29 19:15:29,327 - Augmented_PoliceAgent - DEBUG - IEAgent output: {'conversational_response': "I'm here to help, take your time. Can you tell me when this happened? Also, did you interact with someone on a specific platform like Carousell or Facebook?", 'scam_incident_date': '', 'scam_type': '', 'scam_approach_platform': '', 'scam_communication_platform': '', 'scam_transaction_type': '', 'scam_beneficiary_platform': '', 'scam_beneficiary_identifier': '', 'scam_contact_no': '', 'scam_email': '', 'scam_moniker': '', 'scam_url_link': '', 'scam_amount_lost': 0.0, 'scam_incident_description': ''}
+2025-09-29 19:15:29,329 - Augmented_PoliceAgent - DEBUG - Preprocessed IE: {'conversational_response': "I'm here to help, take your time. Can you tell me when this happened? Also, did you interact with someone on a specific platform like Carousell or Facebook?", 'scam_incident_date': '', 'scam_type': '', 'scam_approach_platform': '', 'scam_communication_platform': '', 'scam_transaction_type': '', 'scam_beneficiary_platform': '', 'scam_beneficiary_identifier': '', 'scam_contact_no': '', 'scam_email': '', 'scam_moniker': '', 'scam_url_link': '', 'scam_amount_lost': 0.0, 'scam_incident_description': ''}
+2025-09-29 19:15:29,332 - Augmented_PoliceAgent - DEBUG - SlotTracker: unfilled={'scam_incident_date': True, 'scam_type': True, 'scam_approach_platform': True, 'scam_communication_platform': True, 'scam_transaction_type': True, 'scam_beneficiary_platform': True, 'scam_beneficiary_identifier': True, 'scam_contact_no': True, 'scam_email': True, 'scam_moniker': True, 'scam_url_link': True, 'scam_amount_lost': True, 'scam_incident_description': True}, filled=[]
+2025-09-29 19:15:29,355 - Augmented_PoliceAgent - DEBUG - Skipping KB upsert: Insufficient data.
+2025-09-29 19:15:29,358 - Augmented_PoliceAgent - WARNING - No kb_outputs in final_state
+2025-09-29 19:15:29,358 - Augmented_PoliceAgent - DEBUG - Structured Data before return: {
+  "conversational_response": "I'm here to help, take your time. Can you tell me when this happened? Also, did you interact with someone on a specific platform like Carousell or Facebook?",
+  "scam_incident_date": "",
+  "scam_type": "",
+  "scam_approach_platform": "",
+  "scam_communication_platform": "",
+  "scam_transaction_type": "",
+  "scam_beneficiary_platform": "",
+  "scam_beneficiary_identifier": "",
+  "scam_contact_no": "",
+  "scam_email": "",
+  "scam_moniker": "",
+  "scam_url_link": "",
+  "scam_amount_lost": 0.0,
+  "scam_incident_description": "",
+  "rag_upsert": false,
+  "rag_suggestions": {
+    "scam_type": "ECOMMERCE",
+    "scam_details": [
+      "scammer moniker",
+      "transaction type: BANK TRANSFER",
+      "beneficiary platform: MAYBANK, BOC, CIMB, DBS",
+      "scam approach platform: CAROUSELL, FACEBOOK, SHOPEE",
+      "scam communication platform: WHATSAPP, TELEGRAM"
+    ]
+  },
+  "initial_profile": {
+    "tech_literacy": {
+      "score": 0.25,
+      "level": "low",
+      "confidence": 0.7
+    },
+    "language_proficiency": {
+      "score": 0.25,
+      "level": "low",
+      "confidence": 0.6
+    },
+    "emotional_state": {
+      "score": 0.25,
+      "level": "distressed",
+      "confidence": 0.675
+    }
+  },
+  "user_profile": {
+    "tech_literacy": {
+      "score": 0.25,
+      "level": "low",
+      "confidence": 0.7
+    },
+    "language_proficiency": {
+      "score": 0.25,
+      "level": "low",
+      "confidence": 0.6
+    },
+    "emotional_state": {
+      "score": 0.25,
+      "level": "distressed",
+      "confidence": 0.675
+    }
+  },
+  "retrieved_strategies": [
+    {
+      "strategy_type": "simplify"
+    },
+    {
+      "strategy_type": "step-by-step guidance"
+    }
+  ],
+  "upserted_strategy": {}
+}

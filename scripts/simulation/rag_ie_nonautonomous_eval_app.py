@@ -8,10 +8,8 @@ from config.logging_config import setup_logger  # Import for logging alignment
 import csv
 from filelock import FileLock
 
-# Set wide layout to expand the app to full browser width
 st.set_page_config(layout="wide")
 
-# Custom CSS: Match column heights, confine chat_input to col1
 st.markdown("""
     <style>
         /* Make the row containing columns a flex container for height matching */
@@ -45,10 +43,9 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-# Logger for alignment with codebase
-logger = setup_logger("StreamlitApp", "app")  # Adjust subdirectory as needed
+logger = setup_logger("StreamlitApp", "app")  
 
-# All possible fields (excluding conversational_response)
+
 ALL_FIELDS = [
     "scam_incident_date", "scam_type", "scam_approach_platform", "scam_communication_platform",
     "scam_transaction_type", "scam_beneficiary_platform", "scam_beneficiary_identifier",
@@ -56,33 +53,31 @@ ALL_FIELDS = [
     "scam_incident_description"
 ]
 
-# Main Streamlit app
-st.title("Police Chatbot Interface (Self-Augmenting)")
+st.title("Police Chatbot Interface (RAG_IE)")
 
 # Initialize or reinitialize ConversationManager in non-autonomous mode
 if "manager" not in st.session_state:
     st.session_state.model_name = "qwen2.5:7b"  # Default
     st.session_state.manager = ConversationManager(
         mode=ConversationMode.NONAUTONOMOUS,
-        conversation_type=ConversationType.SELF_AUGMENTING,
+        conversation_type=ConversationType.RAG_IE,
         police_model_name=st.session_state.model_name
     )
-    st.session_state.messages = []  # List of {"role": "user" or "assistant", "content": str}
+    st.session_state.messages = []  
     st.session_state.conversation_started = False
     st.session_state.conversation_id = None
     st.session_state.cumulative_structured = {field: "" for field in ALL_FIELDS}
     st.session_state.cumulative_structured["scam_amount_lost"] = 0.0
-    st.session_state.evaluations = {}  # dict: msg_index: {"language_proficiency": int, "tech_literacy": int, "emotional_state": int}
-    st.session_state.profile_id = None  # NEW: Initialize profile_id as None (optional)
-    st.session_state.cumulative_user_profile = {}  # NEW: For user profile accumulation
+    st.session_state.evaluations = {}  
+    st.session_state.profile_id = None  
 
-# Sidebar for model selection and debug info (model fixed per conversation; changeable on new chat)
+# Sidebar for model selection 
 with st.sidebar:
     st.header("Settings")
     if not st.session_state.conversation_started:
         selected_model = st.selectbox(
             "Select LLM Model",
-            options=["qwen2.5:7b", "granite3.2:8b", "mistral:7b", "gpt-4o-mini"],  # From your police_agent.py tests
+            options=["qwen2.5:7b", "granite3.2:8b", "mistral:7b", "gpt-4o-mini"], 
             index=["qwen2.5:7b", "granite3.2:8b", "mistral:7b", "gpt-4o-mini"].index(st.session_state.model_name)
         )
         if selected_model != st.session_state.model_name:
@@ -90,32 +85,32 @@ with st.sidebar:
             provider = "OpenAI" if "gpt" in selected_model else "Ollama"
             st.session_state.manager = ConversationManager(
                 mode=ConversationMode.NONAUTONOMOUS,
-                conversation_type=ConversationType.SELF_AUGMENTING,
+                conversation_type=ConversationType.RAG_IE,
                 police_model_name=selected_model,
                 police_llm_provider=provider
             )
             st.rerun()
 
-        # NEW: Add number_input for profile_id under the model selectbox (editable only before start)
+    
         entered_profile_id = st.number_input("Profile ID (optional)", min_value=0, value=0, step=1)
-        st.session_state.profile_id = entered_profile_id if entered_profile_id > 0 else None  # Set to None if 0 (optional)
+        st.session_state.profile_id = entered_profile_id if entered_profile_id > 0 else None 
     else:
         st.text(f"Model: {st.session_state.model_name} (fixed for this chat)")
 
-    # Display current conversation ID for tracking (aligns with IDManager emphasis)
+    # Display current conversation ID for tracking 
     if st.session_state.conversation_id:
         st.text(f"Conversation ID: {st.session_state.conversation_id}")
 
-    # NEW: Always display the profile_id (even after start, for logging/reference)
+
     st.text(f"Profile ID: {st.session_state.profile_id if st.session_state.profile_id else 'None'}")
 
-# Create columns: left for chat (narrower), right for details (wider for more space)
-col1, col2 = st.columns([2, 2])  # Equal space; adjust to [2,3] if need even more for right
 
-# Use a container in col1 for chat history (allows dynamic appends in the same run)
+col1, col2 = st.columns([2, 2]) 
+
+
 chat_container = col1.container()
 
-# Display *previous* messages in the container (full history except any new ones added below)
+
 with chat_container:
     for i, message in enumerate(st.session_state.messages):
         with st.chat_message(message["role"]):
@@ -137,7 +132,7 @@ with chat_container:
                         "emotional_state": emo
                     }
                     st.session_state.evaluations[i] = eval_dict
-                    # Update the CSV with the evaluations as JSON in the single column
+
                     csv_path = st.session_state.manager.history_csv_path
                     lock = FileLock(f"{csv_path}.lock")
                     with lock:
@@ -162,7 +157,7 @@ with chat_container:
                         else:
                             st.warning("Could not find matching row in CSV to update evaluation.")
 
-# Chat input (confined to col1 via CSS, auto-clears)
+# Chat input
 prompt = st.chat_input("Type your message here...")
 
 # Process input if submitted
@@ -171,23 +166,20 @@ if prompt:
         st.warning("Please enter a non-empty message.")
     else:
         try:
-            # Start conversation if not already started (only on first prompt)
+
             if not st.session_state.conversation_started:
-                # NEW: Pass the profile_id as parameter to start_conversation
+
                 st.session_state.conversation_id = st.session_state.manager.start_conversation(profile_id=st.session_state.profile_id)
                 st.session_state.conversation_started = True
                 logger.info(f"Started new non-autonomous conversation ID: {st.session_state.conversation_id} with profile_id: {st.session_state.profile_id}")
 
-            # Append and *immediately display* user message in the chat container (before LLM processing)
             st.session_state.messages.append({"role": "user", "content": prompt})
             with chat_container:
                 with st.chat_message("user"):
                     st.markdown(prompt)
 
-            # Calculate index for the upcoming assistant message
             assistant_index = len(st.session_state.messages)
 
-            # Process LLM response with spinner for feedback during blocking call
             with chat_container:
                 with st.chat_message("assistant"):
                     with st.spinner("Thinking..."):
@@ -196,10 +188,8 @@ if prompt:
                         structured_data = response.get("structured_data", {})
                         logger.debug(f"Processed response for conversation {st.session_state.conversation_id}: {assistant_content}")
 
-                    # Display assistant response immediately after processing
                     st.markdown(assistant_content)
 
-                    # Add expander for evaluation of this new assistant message
                     with st.expander("Evaluate this response", expanded=False):
                         default_lang = st.session_state.evaluations.get(assistant_index, {}).get("language_proficiency", 1) - 1
                         default_tech = st.session_state.evaluations.get(assistant_index, {}).get("tech_literacy", 1) - 1
@@ -216,7 +206,6 @@ if prompt:
                                 "emotional_state": emo
                             }
                             st.session_state.evaluations[assistant_index] = eval_dict
-                            # Update the CSV with the evaluations as JSON in the single column
                             csv_path = st.session_state.manager.history_csv_path
                             lock = FileLock(f"{csv_path}.lock")
                             with lock:
@@ -225,7 +214,7 @@ if prompt:
                                     reader = csv.DictReader(f)
                                     rows = list(reader)
                                 conv_id_str = str(st.session_state.conversation_id)
-                                message_content = assistant_content  # Since not yet appended, use local var
+                                message_content = assistant_content  
                                 matching_row = None
                                 for row in rows:
                                     if row["conversation_id"] == conv_id_str and row["sender_type"] == "police" and row["content"] == message_content:
@@ -241,30 +230,19 @@ if prompt:
                                 else:
                                     st.warning("Could not find matching row in CSV to update evaluation.")
 
-            # Append assistant message to history (after rendering)
             st.session_state.messages.append({"role": "assistant", "content": assistant_content})
 
-            # Update cumulative structured data (exclude conversational_response, update if truthy)
             for key, value in structured_data.items():
                 if key != "conversational_response" and value:
                     st.session_state.cumulative_structured[key] = value
-
-            # NEW: Update cumulative user profile if present
-            if "user_profile" in structured_data:
-                st.session_state.cumulative_user_profile = structured_data["user_profile"]
 
         except Exception as e:
             logger.error(f"Error processing response in conversation {st.session_state.conversation_id}: {e}", exc_info=True)
             st.error(f"An error occurred: {str(e)}. Please try again.")
 
-# Display structured data *after* processing (reflects any updates from the latest turn)
 with col2:
-    st.subheader("User Profile")
-    st.json(st.session_state.cumulative_user_profile)
-    
     st.subheader("Scam Report Details")
     
-    # Split shorter fields into two sub-columns
     short_fields_left = [
          "scam_type", "scam_approach_platform",
         "scam_communication_platform", "scam_transaction_type", "scam_beneficiary_platform","scam_beneficiary_identifier"
@@ -274,7 +252,7 @@ with col2:
         "scam_moniker", "scam_url_link", "scam_amount_lost"
     ]
     
-    subcol_left, subcol_right = st.columns(2)  # Equal split; adjust to [1,1] or [2,1] if needed
+    subcol_left, subcol_right = st.columns(2) 
     
     with subcol_left:
         for key in short_fields_left:
@@ -283,7 +261,7 @@ with col2:
             if isinstance(value, (str, float, int)):
                 st.text_input(label, value=str(value), disabled=True)
             else:
-                st.json(value)  # Fallback, though unlikely for these fields
+                st.json(value) 
     
     with subcol_right:
         for key in short_fields_right:
@@ -292,15 +270,13 @@ with col2:
             if isinstance(value, (str, float, int)):
                 st.text_input(label, value=str(value), disabled=True)
             else:
-                st.json(value)  # Fallback
+                st.json(value) 
     
-    # Full-width fields below the sub-columns (spanning entire col2)
     for key in ["scam_incident_description"]:
         value = st.session_state.cumulative_structured.get(key, "")
         label = key.replace("_", " ").title()
         if key == "scam_incident_description":
-            # Use text_area for description to make it "big" (taller/wider)
-            st.text_area(label, value=str(value), height=150, disabled=True)  # Adjust height as needed
+            st.text_area(label, value=str(value), height=150, disabled=True) 
         else:
             st.json(value)
 
@@ -331,6 +307,5 @@ if st.button("New Chat"):
     st.session_state.cumulative_structured = {field: "" for field in ALL_FIELDS}
     st.session_state.cumulative_structured["scam_amount_lost"] = 0.0
     st.session_state.evaluations = {}
-    st.session_state.profile_id = None  # NEW: Reset profile_id on new chat
-    st.session_state.cumulative_user_profile = {}  # NEW: Reset user profile on new chat
+    st.session_state.profile_id = None  
     st.rerun()

@@ -1,0 +1,36 @@
+2025-09-29 18:59:06,867 - VectorStore - INFO - Logging initialized to logs/database/vectorstore.log
+2025-09-29 18:59:12,717 - VectorStore - INFO - VectorStore initialized successfully
+2025-09-29 18:59:12,721 - VectorStore - INFO - Logging initialized to logs/database/vectorstore.log
+2025-09-29 18:59:17,911 - VectorStore - INFO - VectorStore initialized successfully
+2025-09-29 18:59:27,840 - VectorStore - DEBUG - Generated embedding for text:  help me!...
+2025-09-29 18:59:27,852 - VectorStore - INFO - Generic similarity search returned 5 results
+2025-09-29 19:04:39,859 - VectorStore - INFO - Logging initialized to logs/database/vectorstore.log
+2025-09-29 19:04:44,305 - VectorStore - INFO - VectorStore initialized successfully
+2025-09-29 19:04:44,307 - VectorStore - INFO - Logging initialized to logs/database/vectorstore.log
+2025-09-29 19:04:47,742 - VectorStore - INFO - VectorStore initialized successfully
+2025-09-29 19:04:59,150 - VectorStore - DEBUG - Generated embedding for text:  help me!!...
+2025-09-29 19:04:59,163 - VectorStore - INFO - Generic similarity search returned 5 results
+2025-09-29 19:05:42,774 - VectorStore - INFO - Logging initialized to logs/database/vectorstore.log
+2025-09-29 19:05:47,108 - VectorStore - INFO - VectorStore initialized successfully
+2025-09-29 19:05:47,110 - VectorStore - INFO - Logging initialized to logs/database/vectorstore.log
+2025-09-29 19:05:51,536 - VectorStore - INFO - VectorStore initialized successfully
+2025-09-29 19:06:00,774 - VectorStore - DEBUG - Generated embedding for text:  help mee...
+2025-09-29 19:06:00,790 - VectorStore - INFO - Generic similarity search returned 5 results
+2025-09-29 19:07:30,428 - VectorStore - INFO - Logging initialized to logs/database/vectorstore.log
+2025-09-29 19:07:35,254 - VectorStore - INFO - VectorStore initialized successfully
+2025-09-29 19:07:35,516 - VectorStore - DEBUG - Generated embedding for text:  help help!!...
+2025-09-29 19:07:35,531 - VectorStore - INFO - Generic similarity search returned 5 results
+2025-09-29 19:08:22,848 - VectorStore - INFO - Logging initialized to logs/database/vectorstore.log
+2025-09-29 19:08:26,845 - VectorStore - INFO - VectorStore initialized successfully
+2025-09-29 19:08:26,953 - VectorStore - DEBUG - Generated embedding for text:  help me help me!...
+2025-09-29 19:08:26,963 - VectorStore - INFO - Generic similarity search returned 5 results
+2025-09-29 19:14:48,606 - VectorStore - INFO - Logging initialized to logs/database/vectorstore.log
+2025-09-29 19:14:52,801 - VectorStore - INFO - VectorStore initialized successfully
+2025-09-29 19:14:52,803 - VectorStore - INFO - Logging initialized to logs/database/vectorstore.log
+2025-09-29 19:14:56,410 - VectorStore - INFO - VectorStore initialized successfully
+2025-09-29 19:15:06,039 - VectorStore - DEBUG - Generated embedding for text:  help me!!!...
+2025-09-29 19:15:06,049 - VectorStore - INFO - Generic similarity search returned 5 results
+2025-09-29 19:16:30,302 - VectorStore - INFO - Logging initialized to logs/database/vectorstore.log
+2025-09-29 19:16:34,367 - VectorStore - INFO - VectorStore initialized successfully
+2025-09-29 19:16:34,601 - VectorStore - DEBUG - Generated embedding for text:  help!!!...
+2025-09-29 19:16:34,613 - VectorStore - INFO - Generic similarity search returned 5 results
