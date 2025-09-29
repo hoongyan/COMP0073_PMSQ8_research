@@ -10,9 +10,9 @@ This project is organized into several key directories containing the core code,
 
 - **evaluation**: Includes scripts for computing evaluation metrics, along with all derived results from Phases 1 and 2.
 
-- **simulations/final_results**/final_results: Houses the final simulation outputs for Phases 1 and 2.
+- **simulations/final_results**: Houses the final simulation outputs for Phases 1 and 2.
 
-- s**scripts/simulation**: Provides the executable scripts for autonomous simulations, as well as the Streamlit apps for human evaluation.
+- **scripts/simulation**: Provides the executable scripts for autonomous simulations, as well as the Streamlit apps for human evaluation.
 
 ## Setup Prerequisites
 
@@ -69,7 +69,7 @@ Prior to setting up the repository for use, please ensure that the following pre
    Verify the Python version:
 
    ```
-      python --version
+   python --version
    ```
 
 4. **Install Dependencies**
