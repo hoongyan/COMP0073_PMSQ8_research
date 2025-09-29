@@ -148,7 +148,7 @@ class ConversationManager:
         self,
         user_profile: Optional[Dict] = None,
         scam_details: Optional[Dict] = None,
-        profile_id: Optional[int] = None #Optional manual profile_id for nonautonomous (or override autonomous)
+        profile_id: Optional[int] = None 
     ) -> int:
         """Start a new conversation, initialize agents, return ID."""
         
@@ -198,13 +198,13 @@ class ConversationManager:
 
         try:
             if self.mode == ConversationMode.AUTONOMOUS:
-                # Victim "input" is from previous police response; start with initial query if turn 0
+                
                 if self.turn_count == 0:
-                    victim_response = self.victim_chatbot.process_query(input_query)  # Initial police query to victim
+                    victim_response = self.victim_chatbot.process_query(input_query)  # initial police query to victim
                 else:
                     victim_response = self.victim_chatbot.process_query(input_query)  # input_query is police response
                 
-                # Log victim response FIRST, before checking end
+                
                 self._log_turn("victim", victim_response.conversational_response)
                 
                 police_response = self.police_chatbot.process_query(victim_response.conversational_response, conversation_id=self.conversation_id)
@@ -212,14 +212,14 @@ class ConversationManager:
                 self._save_partial_history()
                 self.turn_count += 1
                 
-                # Now check if end
+       
                 if victim_response.end_conversation or self.turn_count >= self.max_turns:
                     self.end_conversation()
                     return {"end": True, "response": "Conversation ended", "history": self.conversation_history}
                 
 
                 return police_response
-            else:  # Non-autonomous: Human input to police
+            else:  # Non-autonomous
                 police_response = self.police_chatbot.process_query(input_query, conversation_id=self.conversation_id)
                 self._log_turn("human", input_query)  # Log human as "victim" role for consistency
                 self._log_turn("police", police_response["response"], structured_data=police_response["structured_data"], rag_invoked=police_response.get("rag_invoked", False), rag_suggestions=police_response.get("structured_data", {}).get("rag_suggestions", {}))
@@ -230,7 +230,7 @@ class ConversationManager:
         except Exception as e:
             self.logger.error(f"Turn processing error: {str(e)}", exc_info=True)
             self._log_turn("system_error", f"Error: {str(e)}")
-            self._save_partial_history()  # Persist on error
+            self._save_partial_history()  
             raise
 
     def _log_turn(self, role: str, content: str, structured_data: Optional[Dict] = None, rag_invoked: bool = False, rag_suggestions: Optional[list] = None):
@@ -275,7 +275,7 @@ class ConversationManager:
                     if key not in existing_entries:
                         index_counter += 1
                         structured_data = msg.get("structured_data", {})
-                        scam_slots = [slot.value for slot in PoliceResponseSlots]  # ['scam_incident_date', 'scam_type', ...]
+                        scam_slots = [slot.value for slot in PoliceResponseSlots] 
                         filtered_structured_data = {
                             k: v for k, v in (structured_data or {}).items()
                             if k in scam_slots  # ONLY scam slots
@@ -318,7 +318,7 @@ class ConversationManager:
             self.victim_chatbot.reset_state()
         self.logger.info(f"Ended conversation {self.conversation_id}")
         
-        old_conversation_id = self.conversation_id  # Optional, if you want to return it
+        old_conversation_id = self.conversation_id  
         self.conversation_id = None
         self.conversation_history = []
         self.turn_count = 0
@@ -331,7 +331,7 @@ class ConversationManager:
     def force_end_conversation(self) -> Dict:
         """
         Forcefully end the current conversation, save history, and reset for a new chat.
-        Suitable for GUI 'New Chat' button.
+        Suitable for streamlit GUI 'New Chat' button for human evaluations.
         Returns:
             Dict: Status and conversation ID of the ended conversation.
         """
@@ -440,278 +440,3 @@ class ConversationManager:
             results[key] = model_results
         return results
     
-if __name__ == "__main__":
-    # # Test: Non-autonomous mode for Vanilla RAG
-    # manager_vanilla = ConversationManager(
-    #     mode=ConversationMode.NONAUTONOMOUS,
-    #     conversation_type=ConversationType.VANILLA_RAG,
-    #     # Add your model params if needed, e.g., police_model_name="qwen2.5:7b", etc.
-    # )
-    # manager_vanilla.logger.debug(f"Starting non-autonomous vanilla RAG test, CSV path: {manager_vanilla.history_csv_path}")
-    # try:
-    #     # Start with a specific profile_id
-    #     profile_id = 42  # Example ID to test
-    #     manager_vanilla.start_conversation(profile_id=profile_id)
-        
-    #     resp1 = manager_vanilla.process_turn("I have just been scammed. Someone posed as an MOM officer and called me.")
-    #     manager_vanilla.logger.debug(f"Turn 1 response: {resp1}")
-    #     print("Non-Autonomous Vanilla Turn 1:", resp1)
-        
-    #     resp2 = manager_vanilla.process_turn("He said I was involved in illegal activities and asked me to transfer money to HSBC 123456789.")
-    #     manager_vanilla.logger.debug(f"Turn 2 response: {resp2}")
-    #     print("Non-Autonomous Vanilla Turn 2:", resp2)
-        
-    #     # Simulate GUI "New Chat" button
-    #     manager_vanilla.force_end_conversation()
-    #     manager_vanilla.logger.debug("Non-autonomous vanilla test completed, history saved")
-        
-    #     # Check if profile_id is recorded in CSV
-    #     csv_path = manager_vanilla.history_csv_path
-    #     import csv
-    #     from pathlib import Path
-    #     found = False
-    #     if Path(csv_path).exists():
-    #         with open(csv_path, mode="r", newline="", encoding="utf-8") as f:
-    #             reader = csv.DictReader(f)
-    #             for row in reader:
-    #                 if row.get("profile_id") == str(profile_id):
-    #                     found = True
-    #                     break
-    #     print(f"Profile ID {profile_id} recorded in Vanilla CSV: {found}")
-        
-    #     # Start a new conversation to test reset
-    #     manager_vanilla.start_conversation(profile_id=profile_id)
-    #     resp3 = manager_vanilla.process_turn("I was involved in a phishing scam last week on 20 Jul 2025.")
-    #     manager_vanilla.logger.debug(f"New conversation turn 1 response: {resp3}")
-    #     print("New Conversation Vanilla Turn 1:", resp3)
-    #     manager_vanilla.force_end_conversation()
-        
-    #     # Check again for the new conversation
-    #     found_new = False
-    #     with open(csv_path, mode="r", newline="", encoding="utf-8") as f:
-    #         reader = csv.DictReader(f)
-    #         for row in reader:
-    #             if row.get("profile_id") == str(profile_id):
-    #                 found_new = True
-    #                 break
-    #     print(f"Profile ID {profile_id} recorded in new Vanilla conversation: {found_new}")
-    # except Exception as e:
-    #     manager_vanilla.logger.error(f"Test block error: {str(e)}", exc_info=True)
-    #     manager_vanilla._save_partial_history()
-    #     raise
-
-    # # Test: Non-autonomous mode for Self-Augmenting RAG
-    # manager_self = ConversationManager(
-    #     mode=ConversationMode.NONAUTONOMOUS,
-    #     conversation_type=ConversationType.SELF_AUGMENTING,
-    #     # Add your model params if needed
-    # )
-    # manager_self.logger.debug(f"Starting non-autonomous self-augmenting test, CSV path: {manager_self.history_csv_path}")
-    # try:
-    #     # Start with the same profile_id
-    #     profile_id = 42  # Example ID to test
-    #     manager_self.start_conversation(profile_id=profile_id)
-        
-    #     resp1 = manager_self.process_turn("I have just been scammed. Someone posed as an MOM officer and called me.")
-    #     manager_self.logger.debug(f"Turn 1 response: {resp1}")
-    #     print("Non-Autonomous Self-Aug Turn 1:", resp1)
-        
-    #     resp2 = manager_self.process_turn("He said I was involved in illegal activities and asked me to transfer money to HSBC 123456789.")
-    #     manager_self.logger.debug(f"Turn 2 response: {resp2}")
-    #     print("Non-Autonomous Self-Aug Turn 2:", resp2)
-        
-    #     # Simulate GUI "New Chat" button
-    #     manager_self.force_end_conversation()
-    #     manager_self.logger.debug("Non-autonomous self-aug test completed, history saved")
-        
-    #     # Check if profile_id is recorded in CSV
-    #     csv_path = manager_self.history_csv_path
-    #     found = False
-    #     if Path(csv_path).exists():
-    #         with open(csv_path, mode="r", newline="", encoding="utf-8") as f:
-    #             reader = csv.DictReader(f)
-    #             for row in reader:
-    #                 if row.get("profile_id") == str(profile_id):
-    #                     found = True
-    #                     break
-    #     print(f"Profile ID {profile_id} recorded in Self-Aug CSV: {found}")
-        
-    #     # Start a new conversation to test reset
-    #     manager_self.start_conversation(profile_id=profile_id)
-    #     resp3 = manager_self.process_turn("I was involved in a phishing scam last week on 20 Jul 2025.")
-    #     manager_self.logger.debug(f"New conversation turn 1 response: {resp3}")
-    #     print("New Conversation Self-Aug Turn 1:", resp3)
-    #     manager_self.force_end_conversation()
-        
-    #     # Check again for the new conversation
-    #     found_new = False
-    #     with open(csv_path, mode="r", newline="", encoding="utf-8") as f:
-    #         reader = csv.DictReader(f)
-    #         for row in reader:
-    #             if row.get("profile_id") == str(profile_id):
-    #                 found_new = True
-    #                 break
-    #     print(f"Profile ID {profile_id} recorded in new Self-Aug conversation: {found_new}")
-    # except Exception as e:
-    #     manager_self.logger.error(f"Test block error: {str(e)}", exc_info=True)
-    #     manager_self._save_partial_history()
-    #     raise
-
-    
-    # # Test: Autonomous mode for Baseline IE
-    # manager = ConversationManager(
-    #     mode=ConversationMode.AUTONOMOUS,
-    #     conversation_type=ConversationType.IE,
-    #     # police_model_name="qwen2.5:7b",
-    #     # victim_model_name="qwen2.5:7b",
-    #     max_turns=15,
-    #     json_file="data/victim_profile/victim_details_human_eval.json"
-    # )
-
-    # #autonomous batch simulation test
-    # try:
-    #     # Load profiles from JSON for test 
-    #     with open(manager.json_file, "r") as f:
-    #         test_profiles = json.loads(f.read())[:]  
-        
-    #     police_models = [
-    #             ("gpt-4o-mini", "OpenAI"),
-    #             ("qwen2.5:7b", "Ollama"),
-    #             ("granite3.2:8b", "Ollama"),
-    #             ("mistral:7b", "Ollama")
-    #         ] 
-
-    #     victim_models = [("gpt-4o-mini", "OpenAI")]
-    #     batch_results = manager.batch_run_autonomous(
-    #         n=12,
-    #         initial_queries=["Hi, I am a police AI assistant. How can I help you?"],
-    #         police_models=police_models,
-    #         victim_models=victim_models, 
-    #         profiles=test_profiles  # Provide specific profiles to track
-    #     )
-    #     print("Batch Test Results:", json.dumps(batch_results, indent=2))
-    # except Exception as e:
-    #     manager.logger.error(f"Batch test error: {str(e)}", exc_info=True)
-    #     raise
-
-
-    # # Test: Autonomous mode
-    # manager = ConversationManager(
-    #     mode=ConversationMode.AUTONOMOUS,
-    #     conversation_type=ConversationType.RAG_IE,
-    #     # police_model_name="qwen2.5:7b",
-    #     # victim_model_name="qwen2.5:7b",
-    #     max_turns=15,
-    #     json_file="data/victim_profile/victim_details_human_eval.json"
-    # )
-
-    # #autonomous batch simulation test
-    # try:
-    #     # Load profiles from JSON for test 
-    #     with open(manager.json_file, "r") as f:
-    #         test_profiles = json.loads(f.read())[:]  
-        
-    #     police_models = [
-    #             ("qwen2.5:7b", "Ollama"),
-    #             ("gpt-4o-mini", "OpenAI"),
-    #             ("granite3.2:8b", "Ollama"),
-    #             ("mistral:7b", "Ollama")
-    #         ] 
-
-    #     victim_models = [("gpt-4o-mini", "OpenAI")]
-    #     batch_results = manager.batch_run_autonomous(
-    #         n=12,
-    #         initial_queries=["Hi, I am a police AI assistant. How can I help you?"],
-    #         police_models=police_models,
-    #         victim_models=victim_models, 
-    #         profiles=test_profiles  # Provide specific profiles to track
-    #     )
-    #     print("Batch Test Results:", json.dumps(batch_results, indent=2))
-    # except Exception as e:
-    #     manager.logger.error(f"Batch test error: {str(e)}", exc_info=True)
-    #     raise
-    
-
-    # #Test profile_rag_ie agent integration (with user profiling but no KB augmentation)
-    # manager = ConversationManager(
-    #     mode=ConversationMode.AUTONOMOUS,
-    #     conversation_type=ConversationType.PROFILE_RAG_IE,  # Use the new type to test paths/agent
-    #     # police_model_name="qwen2.5:7b",
-    #     # victim_model_name="qwen2.5:7b",
-    #     max_turns=15,
-    #     json_file="data/victim_profile/victim_details_human_eval.json"
-    # )
-    
-    # # Autonomous batch simulation test
-    # try:
-    #     # Load profiles from JSON for test 
-    #     with open(manager.json_file, "r") as f:
-    #         test_profiles = json.loads(f.read())[:]  
-        
-    #     # Define initial queries (expand for varied victim responses)
-    #     queries = [
-    #         "Hi, I am a police AI assistant. How can I help you?",
-    #     ]
-        
-    #     police_models = [
-    #             ("qwen2.5:7b", "Ollama"),
-    #             ("gpt-4o-mini", "OpenAI"),
-    #             ("granite3.2:8b", "Ollama"),
-    #             ("mistral:7b", "Ollama")
-    #         ] 
-
-    #     victim_models = [("gpt-4o-mini", "OpenAI")]
-        
-    #     # Run batch simulation with Cartesian product
-    #     batch_results = manager.batch_run_autonomous(
-    #         n=12,  
-    #         initial_queries=queries,
-    #         police_models=police_models,
-    #         victim_models=victim_models,
-    #         profiles=test_profiles  # Provide specific profiles to track
-    #     )
-    #     print("Profile RAG IE Batch Results (Cartesian):", json.dumps(batch_results, indent=2))
-    # except Exception as e:
-    #     manager.logger.error(f"Batch test error for PROFILE_RAG_IE: {str(e)}", exc_info=True)
-    #     raise
-    
-    
-    # New: Test self-augmenting agent integration
-    manager = ConversationManager(
-        mode=ConversationMode.AUTONOMOUS,
-        conversation_type=ConversationType.PROFILE_RAG_IE_KB,  # Ensure this is set to use the right paths/agent
-        # police_model_name="qwen2.5:7b",
-        # victim_model_name="qwen2.5:7b",
-        max_turns=15,
-        json_file="data/victim_profile/victim_details.json"
-    )
-    
-    # Load test profiles (adjust slice for more variety)
-    with open(manager.json_file, "r") as f:
-        test_profiles = json.loads(f.read())[:]  
-
-    # Define initial queries (expand for varied victim responses)
-    queries = [
-        "Hi, I am a police AI assistant. How can I help you?",
-    ]
-    
-    police_models = [
-            ("qwen2.5:7b", "Ollama"),
-            ("gpt-4o-mini", "OpenAI"),
-            ("granite3.2:8b", "Ollama"),
-            ("mistral:7b", "Ollama")
-        ] 
-
-    victim_models = [("gpt-4o-mini", "OpenAI")] #change back to gpt-4o for dynamic rendering
-    
-    # Run batch simulation with Cartesian product
-    batch_results = manager.batch_run_autonomous(
-        n=12,  
-        initial_queries=queries,
-        police_models=police_models,
-        victim_models=victim_models,
-        profiles=test_profiles
-    )
-
-    # Output results
-    print("Batch Results:", json.dumps(batch_results, indent=2))

@@ -2,6 +2,18 @@
 
 This repository provides the code for research repository (evaluation of multi-agent pipeline) of the ScamOrion website for COMP0073 MSc Computer Science Project.
 
+## Key Directories
+
+This project is organized into several key directories containing the core code, evaluations, and results for the multi-agent pipeline:
+
+- src/agents: Contains the multi-agent pipeline implementations, including the police and victim agents, conversation manager, prompts, and utility functions. This directory also includes the pipeline variants used for each ablation study.
+
+- evaluation: Includes scripts for computing evaluation metrics, along with all derived results from Phases 1 and 2.
+
+- simulations/final_results: Houses the final simulation outputs for Phases 1 and 2.
+
+- scripts/simulation: Provides the executable scripts for autonomous simulations, as well as the Streamlit apps for human evaluation.
+
 ## Setup Prerequisites
 
 Prior to setting up the repository for use, please ensure that the following prerequisites have been installed into the environment.

@@ -50,12 +50,11 @@ class GraphState(TypedDict):
     
 class ProfileRAGIEKBAgent:
     """
-    An advanced police AI chatbot for scam reporting that self-improves by profiling users,
+    An advanced police AI chatbot for scam reporting that enhances performance by profiling users,
     retrieving augmented data (scams + strategies), extracting information, tracking slots,
     and updating its knowledge base with successful strategies.
     
-    Uses LangGraph for workflow orchestration. Builds on baseline functionality with
-    self-augmentation for research in adaptive AI systems.
+    Uses LangGraph for workflow orchestration.
     """
     
     def __init__(self, model_name: str = "qwen2.5:7b", llm_provider: str = "Ollama", rag_csv_path: str = "rag_invocations.csv", temperature = 0.0):
@@ -72,7 +71,7 @@ class ProfileRAGIEKBAgent:
         db_manager = DatabaseManager()
         self.vector_store = VectorStore(db_manager.session_factory)
         self.strategy_crud = CRUDOperations(Strategy, db_manager.session_factory)
-        self.user_profile_prompt = ChatPromptTemplate.from_template(Prompt.template["user_profile_test"])
+        self.user_profile_prompt = ChatPromptTemplate.from_template(Prompt.template["user_profile"])
         self.rag_prompt_template = ChatPromptTemplate.from_template(Prompt.template["rag_agent"])
         self.ie_prompt = ChatPromptTemplate.from_messages([
             ("system", Prompt.template["ie"]),
@@ -157,7 +156,7 @@ class ProfileRAGIEKBAgent:
             # Preprocessing for approach platform 
             approach = preprocessed.get("scam_approach_platform", "").upper().strip()
             if approach:
-                # Normalize variations to "SMS"
+                
                 if any(word in approach for word in ["TEXT", "TEXT MESSAGE", "MESSAGE"]):
                     approach = "SMS"
                     
@@ -178,7 +177,7 @@ class ProfileRAGIEKBAgent:
                 if any(word in comm for word in ["TEXT", "TEXT MESSAGE", "MESSAGE"]):
                     comm = "SMS"
                 
-                # Check similarity and map to known platform if close
+       
                 for known in platforms:
                     if known in comm:
                         comm = known
@@ -191,9 +190,9 @@ class ProfileRAGIEKBAgent:
                     preprocessed["scam_moniker"] = ""
                     
                     
-    #       Bank beneficiary implies bank transfer
+    
             bank = preprocessed.get("scam_beneficiary_platform", "").upper()
-            if bank in ["UOB", "DBS", "HSBC", "SCB", "MAYBANK", "BOC", "CITIBANK", "CIMB", "GXS", "TRUST"]: # Avoid overwriting existing value
+            if bank in ["UOB", "DBS", "HSBC", "SCB", "MAYBANK", "BOC", "CITIBANK", "CIMB", "GXS", "TRUST"]: 
                 preprocessed["scam_transaction_type"] = "BANK TRANSFER"
                     
 
@@ -291,14 +290,14 @@ class ProfileRAGIEKBAgent:
         extracted_queries = [msg.content for msg in state["messages"] if isinstance(msg, HumanMessage)]
         prompt = self.user_profile_prompt.format(query_history=extracted_queries, query=state["query"])
 
-        # Default profile dict (binary midpoint: score=0.5 for average) - Use optimistic defaults since priority is to make reporting catered to majority of users.
+        # Default profile dict (binary midpoint: score=0.5 for average)
         default_profile = {
             "tech_literacy": {"score": 0.5, "level": "high", "confidence": 0.5},  # Default to 'high'
             "language_proficiency": {"score": 0.5, "level": "high", "confidence": 0.5},
             "emotional_state": {"score": 0.5, "level": "neutral", "confidence": 0.5}
         }
         
-        # Get prior profile, force default if None or not dict
+        # Get prior profile
         prior_profile = state.get("user_profile", default_profile)
         if not isinstance(prior_profile, dict):
             self.logger.warning("prior_profile was not a dict; forcing default")
@@ -311,17 +310,14 @@ class ProfileRAGIEKBAgent:
         for attempt in range(max_retries):
             try:
                 response = up_llm.invoke(prompt)
-                # self.logger.debug(f"UserProfileAgent Response: {response.content}")
-                # new_profile = json.loads(response.content)  # Dict of dicts like {"tech_literacy": {"level": "low", "confidence": 0.8}}
                 
                 if self.llm_provider == "OpenAI":
                     self.logger.debug(f"UserProfileAgent Response: {response.model_dump()}")
-                    new_profile = response.model_dump()  # Already a dict-like structure
+                    new_profile = response.model_dump() 
                 else:
                     self.logger.debug(f"UserProfileAgent Response: {response.content}")
                     new_profile = json.loads(response.content)
                     
-                # If new_profile not dict or missing keys, set defaults
                 if not isinstance(new_profile, dict):
                     raise ValueError("Invalid new_profile from LLM")
                 
@@ -331,13 +327,13 @@ class ProfileRAGIEKBAgent:
                 if attempt < max_retries - 1:
                     prompt += "\nPrevious output invalid. Output ONLY valid JSON as specified. No extra text."
                 else:
-                    new_profile = prior_profile  # Reuse prior on final failure (no drift)
+                    new_profile = prior_profile  
         
         updated_profile = {}
         changes = []
         for dim in ['tech_literacy', 'language_proficiency', 'emotional_state']:
             
-            # Get prior_data (includes "score" for continuous blending). If missing, use default midpoint value (score =0.5)
+            # Get prior_data 
             prior_data = prior_profile.get(dim, {"score": 0.5, "level": "high" if dim != "emotional_state" else "neutral", "confidence": 0.5})
             if not isinstance(prior_data, dict):
                 prior_data = {"score": 0.5, "level": "high" if dim != "emotional_state" else "neutral", "confidence": 0.5}
@@ -357,11 +353,11 @@ class ProfileRAGIEKBAgent:
             # Blend scores using weighted average for score (use confidence as weights)
             prior_score = prior_data["score"]
             total_weight = prior_data["confidence"] + new_conf
-            if total_weight > 0:  # Avoid div-by-zero
+            if total_weight > 0:  
                 conf_weighted_new = (new_conf * new_score) / total_weight if total_weight else new_score
                 updated_score = self.profile_alpha * prior_score + (1 - self.profile_alpha) * conf_weighted_new #Set alpha as 0.5 but increase for stability if needed (favour prior profile inferences)
             else:
-                updated_score = 0.5  # Rare edge case
+                updated_score = 0.5  
             
             # Simple average for confidence: Blend old and new confidence to keep it stable and prevent big jumps if the LLM's guesses vary a lot.
             updated_conf = self.conf_blend_factor * new_conf + (1 - self.conf_blend_factor) * prior_data["confidence"]  # Tunable weighted blend (set self.conf_blend_factor to 0.5 for simple average)
@@ -376,7 +372,6 @@ class ProfileRAGIEKBAgent:
             updated_profile[dim] = {"score": updated_score, "level": updated_level, "confidence": updated_conf}
             self.logger.debug(f"{dim} blending: prior_score={prior_score:.2f} (conf={prior_data['confidence']:.2f}), new_score={new_score:.2f} (conf={new_conf:.2f}) → updated_score={updated_score:.2f}, level={updated_level}")
 
-            #Detect/track changes from initial (if set)
             if initial_profile:
                 initial_level = initial_profile[dim]["level"]
                 initial_score = initial_profile[dim]["score"]
@@ -385,7 +380,6 @@ class ProfileRAGIEKBAgent:
                     
         is_first_inference = all(prior_data["score"] == 0.5 for prior_data in prior_profile.values())
         
-        #Log changes from initial profile if any (for evaluation)
         if changes:
             self.logger.info(f"Turn {state['metrics']['turn_count']}: Profile changes from initial: {'; '.join(changes)}")
         else:
@@ -400,11 +394,10 @@ class ProfileRAGIEKBAgent:
             self.logger.info(f"Turn {state['metrics']['turn_count']}: First inference - Setting initial profile: {updated_profile}")
         return updates
         
-
     def retrieval_agent(self, state: GraphState):
         """
         Retrieve similar scam reports and strategies; generate suggestions for extraction.
-        Uses RAG tool and vector store for augmented retrieval based on user profile.
+        Uses augmented RAG tool and vector store for augmented retrieval based on user profile.
         """
         tool = self.police_tools.get_augmented_tools()[0]
         extracted_queries = [msg.content for msg in state["messages"] if isinstance(msg, HumanMessage)]
@@ -454,11 +447,11 @@ class ProfileRAGIEKBAgent:
                 )
 
                 self.logger.debug(f"RetrievalAgent output: {retrieval_output.model_dump()}")
-                break  # Success, exit loop
+                break  
             except Exception as e:
                 self.logger.error(f"RetrievalAgent error (attempt {attempt+1}): {str(e)}")
                 if attempt == max_retries - 1:
-                    retrieval_output = RetrievalOutput(scam_reports=[], strategies=[])  # Final fallback: empty, like original code
+                    retrieval_output = RetrievalOutput(scam_reports=[], strategies=[])  
             
         return {
             "retrieval_output": retrieval_output,
@@ -468,7 +461,7 @@ class ProfileRAGIEKBAgent:
     def ie_agent(self, state: GraphState):
         """
         Extract structured scam info and generate conversational response using LLM.
-        Preprocesses output for consistency; uses retrieved suggestions and history.
+        Preprocesses output for consistency; uses retrieved suggestions and strategies as well as user profile as additional context.
         """
         
         ie_llm = self._get_llm(schema=PoliceResponse)
@@ -542,7 +535,7 @@ class ProfileRAGIEKBAgent:
         """
         Evaluate previous response success and upsert strategy to knowledge base if threshold met.
         Uses LLM ratings, fuzzy matching, and dynamic scoring for self-augmentation.
-        Research Note: Enables long-term learning by updating KB with high-success strategies.
+        Enables long-term learning by updating KB with high-success strategies.
         """
         updates= {}
         
@@ -583,9 +576,9 @@ class ProfileRAGIEKBAgent:
                 self.logger.debug(f"KBAgentOutput: strategy_type='{kb_output.strategy_type}', lang_rating={kb_output.language_proficiency}, emo_rating={kb_output.emotional_state}, tech_rating={kb_output.tech_literacy}, valid={kb_output.valid}")
   
                 # Use initial_profile for stable conf (anti-drift)
-                profile_for_conf = state.get("initial_profile", state["user_profile"])  # Fallback to current if no initial (rare)
+                profile_for_conf = state.get("initial_profile", state["user_profile"])  
                 conf_values = [profile_for_conf[dim]["confidence"] for dim in profile_for_conf]
-                avg_conf = np.mean(conf_values) if conf_values else 0.5  # Avg of dims
+                avg_conf = np.mean(conf_values) if conf_values else 0.5  
                 self.logger.debug(f"Avg confidence (from initial): {avg_conf:.2f}")
 
                 avg_rating = kb_output.avg_rating() 
@@ -634,7 +627,6 @@ class ProfileRAGIEKBAgent:
                                 existing_score = row['success_score']
                                 if score > existing_score + score_improve_threshold:
                                     self.logger.info(f"Similar strategy (fuzzy={fuzzy_sim}%) with lower score ({existing_score:.2f} < {score:.2f} + {score_improve_threshold}): Updating ID {row['id']}.")
-                                    # Update existing (inline, adapted from your code)
                                     self.strategy_crud.update(row['id'], {'success_score': score})
                                     strategy_data = {  
                                         "strategy_type": kb_output.strategy_type,
@@ -652,8 +644,8 @@ class ProfileRAGIEKBAgent:
                         clean_profile = {}
                         for dim, data in profile_for_insert.items():
                             clean_profile[dim] = {
-                                "level": data.get("level", ""),  # Keep level
-                                "confidence": data.get("confidence", 0.5)  # Keep conf, default if missing
+                                "level": data.get("level", ""),  
+                                "confidence": data.get("confidence", 0.5) 
                             }
                             
                         full_strategy_data = {
@@ -663,7 +655,7 @@ class ProfileRAGIEKBAgent:
                             "user_profile": clean_profile
                         }
 
-                        self.strategy_crud.create(full_strategy_data)  # Pass the dict directly
+                        self.strategy_crud.create(full_strategy_data)  
                         self.strategy_crud.prune_strategies()
      
                         rag_upserted = True
@@ -695,7 +687,6 @@ class ProfileRAGIEKBAgent:
             self.logger.error("Empty query")
             return {"response": "Query cannot be empty", "structured_data": {}, "rag_invoked": False, "conversation_id": conversation_id}
 
-        # NEW: Print initial_profile at entry
         self.logger.info(f"Entering process_query - Persisted self.initial_profile: {self.initial_profile}")
         self.messages.append(HumanMessage(content=query))
         state = {
@@ -714,24 +705,23 @@ class ProfileRAGIEKBAgent:
         
         final_state = self.workflow.invoke(state)
         
-        self.user_profile = final_state.get("user_profile")  # Add: Sync class var
-        self.initial_profile = final_state.get("initial_profile", self.initial_profile)  # Sync updated initial_profile back to class (fallback to current if not set)
+        self.user_profile = final_state.get("user_profile") 
+        self.initial_profile = final_state.get("initial_profile", self.initial_profile) 
         self.unfilled_slots = final_state["unfilled_slots"]
 
         ie_out = final_state["ie_output"]
         response = ie_out.get("conversational_response") if ie_out else "Error processing query."
         structured_data = ie_out.copy() if ie_out else {}
 
-        # Add rag_upsert from metrics
         structured_data["rag_upsert"] = final_state["metrics"].get("rag_upserted", False)
         structured_data["rag_suggestions"] = final_state["retrieval_output"].rag_suggestions if final_state.get("retrieval_output") else {}
-        structured_data["initial_profile"] = final_state.get("initial_profile") # Add/update this to persist across calls
+        structured_data["initial_profile"] = final_state.get("initial_profile") 
         structured_data["user_profile"] = self.user_profile
         structured_data["retrieved_strategies"] = final_state.get("retrieval_output").strategies if final_state.get("retrieval_output") else []
         
-        kb_output = final_state.get("kb_outputs")  # Remove , None – it's required
+        kb_output = final_state.get("kb_outputs")  
         if kb_output is None:
-            self.logger.warning("No kb_outputs in final_state")  # Add debug
+            self.logger.warning("No kb_outputs in final_state") 
         rag_upserted = final_state["metrics"].get("rag_upserted", False)
         structured_data["upserted_strategy"] = final_state.get("upserted_strategy", {})
         
@@ -756,7 +746,6 @@ class ProfileRAGIEKBAgent:
     def reset_state(self):
         """Reset class-level state for a new conversation."""
         
-        # self.upsert_count = 0
         self.messages = []
         self.user_profile = None
         self.turn_count = 0

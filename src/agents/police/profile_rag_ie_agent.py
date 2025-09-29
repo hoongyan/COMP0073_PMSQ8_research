@@ -46,7 +46,7 @@ class ProfileRagIEAgent:
     A baseline police AI chatbot for scam reporting with user profiling but no knowledge base augmentation.
     
     Uses LangGraph for workflow orchestration. Builds on baseline functionality with
-    user profiling for research in adaptive AI systems, but without self-augmentation.
+    user profiling but without KB augmentation.
     """
     
     def __init__(self, model_name: str = "qwen2.5:7b", llm_provider: str = "Ollama", rag_csv_path: str = "rag_invocations.csv", temperature = 0.0):
@@ -62,7 +62,7 @@ class ProfileRagIEAgent:
         self.police_tools = PoliceTools(rag_csv_path=rag_csv_path)
         db_manager = DatabaseManager()
         self.vector_store = VectorStore(session_factory=db_manager.session_factory)  
-        self.user_profile_prompt = ChatPromptTemplate.from_template(Prompt.template["user_profile_test"])
+        self.user_profile_prompt = ChatPromptTemplate.from_template(Prompt.template["user_profile"])
         self.rag_prompt_template = ChatPromptTemplate.from_template(Prompt.template["rag_agent"])
         self.ie_prompt = ChatPromptTemplate.from_messages([
             ("system", Prompt.template["ie_profile_only"]),
@@ -171,7 +171,7 @@ class ProfileRagIEAgent:
                     
                     
             bank = preprocessed.get("scam_beneficiary_platform", "").upper()
-            if bank in ["UOB", "DBS", "HSBC", "SCB", "MAYBANK", "BOC", "CITIBANK", "CIMB", "GXS", "TRUST"]: # Avoid overwriting existing value
+            if bank in ["UOB", "DBS", "HSBC", "SCB", "MAYBANK", "BOC", "CITIBANK", "CIMB", "GXS", "TRUST"]: 
                 preprocessed["scam_transaction_type"] = "BANK TRANSFER"
                     
             if scam_type in ["GOVERNMENT OFFICIALS IMPERSONATION", "PHISHING"]:
@@ -273,7 +273,7 @@ class ProfileRagIEAgent:
             "emotional_state": {"score": 0.5, "level": "neutral", "confidence": 0.5}
         }
         
-        # Get prior profile, force default if None or not dict
+        # Get prior profile
         prior_profile = state.get("user_profile", default_profile)
         if not isinstance(prior_profile, dict):
             self.logger.warning("prior_profile was not a dict; forcing default")
@@ -303,23 +303,22 @@ class ProfileRagIEAgent:
                 if attempt < max_retries - 1:
                     prompt += "\nPrevious output invalid. Output ONLY valid JSON as specified. No extra text."
                 else:
-                    new_profile = prior_profile  # Reuse prior on final failure (no drift)
+                    new_profile = prior_profile  
         
         updated_profile = {}
         changes = []
         for dim in ['tech_literacy', 'language_proficiency', 'emotional_state']:
             
-            # Get prior_data (includes "score" for continuous blending). If missing, use default midpoint value (score =0.5)
+
             prior_data = prior_profile.get(dim, {"score": 0.5, "level": "high" if dim != "emotional_state" else "neutral", "confidence": 0.5})
             if not isinstance(prior_data, dict):
                 prior_data = {"score": 0.5, "level": "high" if dim != "emotional_state" else "neutral", "confidence": 0.5}
             
-            # Get new_data from LLM's new inference (map level to score).
+         
             new_data = new_profile.get(dim, {"level": "high" if dim != "emotional_state" else "neutral", "confidence": 0.5})
             if not isinstance(new_data, dict):
                 new_data = {"level": "high" if dim != "emotional_state" else "neutral", "confidence": 0.5}
             
-            #Extract new levels for each dimension
             new_level = new_data["level"]
             new_conf = new_data["confidence"]
             
@@ -329,11 +328,11 @@ class ProfileRagIEAgent:
             # Blend scores using weighted average for score (use confidence as weights)
             prior_score = prior_data["score"]
             total_weight = prior_data["confidence"] + new_conf
-            if total_weight > 0:  # Avoid div-by-zero
+            if total_weight > 0:  
                 conf_weighted_new = (new_conf * new_score) / total_weight if total_weight else new_score
                 updated_score = self.profile_alpha * prior_score + (1 - self.profile_alpha) * conf_weighted_new #Set alpha as 0.5 but increase for stability if needed (favour prior profile inferences)
             else:
-                updated_score = 0.5  # Rare edge case
+                updated_score = 0.5 
             
             # Simple average for confidence: Blend old and new confidence to keep it stable and prevent big jumps if the LLM's guesses vary a lot.
             updated_conf = self.conf_blend_factor * new_conf + (1 - self.conf_blend_factor) * prior_data["confidence"]  # Tunable weighted blend (default to 0.5 for simple average)
@@ -357,7 +356,6 @@ class ProfileRagIEAgent:
                     
         is_first_inference = all(prior_data["score"] == 0.5 for prior_data in prior_profile.values())
         
-        #Log changes from initial profile if any (for evaluation)
         if changes:
             self.logger.info(f"Turn {state['metrics']['turn_count']}: Profile changes from initial: {'; '.join(changes)}")
         else:
@@ -374,10 +372,10 @@ class ProfileRagIEAgent:
         
     def retrieval_agent(self, state: GraphState):
         """
-        Retrieve similar scam reports only (vanilla RAG); generate suggestions for extraction.
-        Uses vanilla tool and vector store for scam reports based on query.
+        Retrieve similar scam reports only; generate suggestions for extraction.
+        Uses non-augmented tool and vector store for scam reports based on query.
         """
-        tool = self.police_tools.get_tools()[0]  # Vanilla tool for scam reports only
+        tool = self.police_tools.get_tools()[0]  #retrieve scam reports only
         extracted_queries = [msg.content for msg in state["messages"] if isinstance(msg, HumanMessage)]
         user_query = build_query_with_history(state["query"], extracted_queries)
 
@@ -392,7 +390,7 @@ class ProfileRagIEAgent:
                 "llm_model": self.model_name,
             })
             result_dict = json.loads(rag_results) if isinstance(rag_results, str) else rag_results
-            scam_reports = result_dict  # Vanilla returns list of scam reports directly
+            scam_reports = result_dict 
             rag_retrieved = bool(scam_reports)
             
         except Exception as e:
@@ -424,7 +422,7 @@ class ProfileRagIEAgent:
             except Exception as e:
                 self.logger.error(f"RetrievalAgent error (attempt {attempt+1}): {str(e)}")
                 if attempt == max_retries - 1:
-                    retrieval_output = RetrievalOutput(scam_reports=[], strategies=[])  # Final fallback: empty
+                    retrieval_output = RetrievalOutput(scam_reports=[], strategies=[]) 
             
         return {
             "retrieval_output": retrieval_output,
@@ -512,7 +510,6 @@ class ProfileRagIEAgent:
             self.logger.error("Empty query")
             return {"response": "Query cannot be empty", "structured_data": {}, "rag_invoked": False, "conversation_id": conversation_id}
 
-        # NEW: Print initial_profile at entry
         self.logger.info(f"Entering process_query - Persisted self.initial_profile: {self.initial_profile}")
         self.messages.append(HumanMessage(content=query))
         state = {
@@ -531,25 +528,24 @@ class ProfileRagIEAgent:
         
         final_state = self.workflow.invoke(state)
         
-        self.user_profile = final_state.get("user_profile")  # Add: Sync class var
-        self.initial_profile = final_state.get("initial_profile", self.initial_profile)  # Sync updated initial_profile back to class (fallback to current if not set)
+        self.user_profile = final_state.get("user_profile")  
+        self.initial_profile = final_state.get("initial_profile", self.initial_profile)  
         self.unfilled_slots = final_state["unfilled_slots"]
 
         ie_out = final_state["ie_output"]
         response = ie_out.get("conversational_response") if ie_out else "Error processing query."
         structured_data = ie_out.copy() if ie_out else {}
 
-        # Add defaults for compatibility (no KB)
+
         structured_data["rag_upsert"] = False
         structured_data["rag_suggestions"] = final_state["retrieval_output"].rag_suggestions if final_state.get("retrieval_output") else {}
-        structured_data["initial_profile"] = final_state.get("initial_profile")  # Add/update this to persist across calls
+        structured_data["initial_profile"] = final_state.get("initial_profile") 
         structured_data["user_profile"] = self.user_profile
         structured_data["retrieved_strategies"] = []  # Empty for baseline
         structured_data["upserted_strategy"] = {}  # Empty for baseline
         
         self.logger.debug(f"Structured Data before return: {json.dumps(structured_data, indent=2)}")
         
-        # Save back for next call
         self.messages.append(AIMessage(content=response))
         self.turn_count = final_state["metrics"]["turn_count"]
         if final_state.get("ie_output"):

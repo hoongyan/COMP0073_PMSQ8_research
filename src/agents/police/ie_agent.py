@@ -175,7 +175,7 @@ class IEChatbot:
         return workflow.compile()
 
     def ie_agent(self, state: ChatbotState) -> ChatbotState:
-        """Extract structured information using LLM (amended for no RAG)."""
+        """Extract structured information using LLM."""
         
         ie_llm = self._get_llm(PoliceResponse)
         messages = state["messages"]

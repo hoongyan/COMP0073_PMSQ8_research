@@ -39,8 +39,7 @@ class RAGIEAgent:
     This agent uses a LangGraph workflow to retrieve similar scam reports (RAG),
     extract structured information from user queries, track unfilled slots, and
     generate conversational responses. It ensures incremental slot filling and
-    compatibility with conversation managers for logging. Designed for modularity
-    in AI research, focusing on vanilla RAG for benchmark comparisons."""
+    compatibility with conversation managers for logging."""
     
     def __init__(self, model_name: str = "qwen2.5:7b", llm_provider: str = "Ollama", rag_csv_path: str = "rag_invocations.csv", temperature: float = 0.0):
         self.settings = get_settings()
@@ -58,7 +57,7 @@ class RAGIEAgent:
         self.tools = self.police_tools.get_tools()
         self.rag_prompt_template = ChatPromptTemplate.from_template(Prompt.template["rag_agent"])
         self.ie_prompt_template = ChatPromptTemplate.from_messages([
-            ("system", Prompt.template["baseline_police_test2"]),
+            ("system", Prompt.template["ie_rag_only"]),
             ("system", "Previous Extraction from Last Turn (MUST use as base: Copy all slots unchanged unless explicitly corrected/clarified in the NEW query only):\n{prev_ie_output}"),
             MessagesPlaceholder(variable_name="history"),
             ("human", "{user_input}"),
@@ -121,7 +120,6 @@ class RAGIEAgent:
                 if any(word in approach for word in ["TEXT", "TEXT MESSAGE", "SMS", "MESSAGE"]):
                     approach = "SMS"
                     
-                # If SMS is approach and scam_type is PHISHING, ensure communication is also SMS
                 if approach == "SMS" and scam_type == "PHISHING":
                     preprocessed["scam_communication_platform"] = "SMS"
                     
@@ -138,7 +136,7 @@ class RAGIEAgent:
                 if any(word in comm for word in ["TEXT", "TEXT MESSAGE", "SMS"]):
                     comm = "SMS"
                 
-                # Check similarity and map to known platform if close
+             
                 for known in platforms:
                     if known in comm:
                         comm = known
@@ -146,17 +144,17 @@ class RAGIEAgent:
                 
                 preprocessed["scam_communication_platform"] = comm
                 
-                # If approach not in e-commerce/social platforms, reset moniker to empty
+
                 if approach not in ["LAZADA", "SHOPEE", "FACEBOOK", "CAROUSELL", "INSTAGRAM"]:
                     preprocessed["scam_moniker"] = ""
                     
                     
-    #       Bank beneficiary implies bank transfer (only set if transaction_type is empty)
+    #      
             bank = preprocessed.get("scam_beneficiary_platform", "").upper()
-            if bank in ["UOB", "DBS", "HSBC", "SCB", "MAYBANK", "BOC", "CITIBANK", "CIMB", "GXS", "TRUST"]: # Avoid overwriting existing value
+            if bank in ["UOB", "DBS", "HSBC", "SCB", "MAYBANK", "BOC", "CITIBANK", "CIMB", "GXS", "TRUST"]: 
                 preprocessed["scam_transaction_type"] = "BANK TRANSFER"
                     
-            #GOIS and Phishing does not have moniker 
+           
             if scam_type in ["GOVERNMENT OFFICIALS IMPERSONATION", "PHISHING"]:
                 preprocessed["scam_moniker"] = ""
                 
@@ -177,7 +175,7 @@ class RAGIEAgent:
                 except ValueError:
                     pass
                 
-            # Preprocess scam_url_link to add https:// if missing
+
             url = preprocessed.get("scam_url_link", "").strip()
             invalid_values = {"unknown", "na", "n/a"}
             if url and url.lower() not in invalid_values and not url.startswith("https://"):
@@ -267,11 +265,11 @@ class RAGIEAgent:
                         rag_output = json.loads(rag_response.content)
                         rag_suggestions = RagOutput(**rag_output).model_dump()
                         self.logger.debug(f"RAG suggestions: {rag_suggestions}")
-                break  # Success, exit loop
+                break  
             except Exception as e:
                 self.logger.error(f"Rag LLM invocation failed (attempt {attempt+1}): {str(e)}", exc_info=True)
                 if attempt == max_retries - 1:
-                    rag_suggestions = {}  # Final fallback: empty dict, like original code
+                    rag_suggestions = {} 
             
         return {
             "rag_results": rag_results,
