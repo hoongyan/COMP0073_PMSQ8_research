@@ -27,7 +27,7 @@ class VectorStore:
     def get_embedding(self, text: str) -> List[float]:
         """Generate embedding for given text."""
         try:
-            text = text.replace("\n", " ") if isinstance(text, str) else json.dumps(text)  # Handle dict for profile
+            text = text.replace("\n", " ") if isinstance(text, str) else json.dumps(text)  
             embedding = self.model.encode(text).tolist()
             self.logger.debug(f"Generated embedding for text: {text[:50]}...")
             return embedding
@@ -115,7 +115,6 @@ class VectorStore:
             return [], []
     
 
-# __main__ test block
 if __name__ == "__main__":
 
     from src.database.database_operations import DatabaseManager, CRUDOperations

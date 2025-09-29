@@ -140,7 +140,7 @@ class VictimChatbot:
             self.logger.error(f"Error formatting prompt template: {str(e)}")
             raise ValueError(f"Missing key in prompt template: {str(e)}")
 
-        self.logger.debug(f"Formatted prompt text: {prompt_text[:500]}...")  # Truncate for logging
+        self.logger.debug(f"Formatted prompt text: {prompt_text[:500]}...") 
 
         return ChatPromptTemplate.from_messages([
             SystemMessage(content=prompt_text),
@@ -342,55 +342,3 @@ class VictimChatbot:
         self.reset_state()
         self.logger.info(f"Conversation ended (save handled by manager)")
         return {"status": "Conversation ended"}
-
-if __name__ == "__main__":
-    settings = get_settings()
-    logger = setup_logger("VictimAgent", settings.log.subdirectories["agent"])
-    json_file = "data/victim_profile/victim_details.json"
-
-    models = [
-        ("gpt-4o-mini", "OpenAI"),
-        ("qwen2.5:7b", "Ollama"),
-        ("granite3.2:8b", "Ollama"),
-        ("mistral:7b", "Ollama")
-    ]
-    query = "Can you tell me about any recent scam incidents you’ve experienced?"
-    results = {}
-    num_reinitializations = 3
-
-    logger.info("Starting model testing with multiple reinitializations")
-    for model_name, llm_provider in models:
-        logger.info(f"--- Testing model: {model_name} ---")
-        record_counter = RecordCounter()
-        record_counter.reset()
-        model_results = []
-        for i in range(num_reinitializations):
-            logger.info(f"Reinitialization {i+1} for model {model_name}")
-            try:
-                chatbot = VictimChatbot(model_name=model_name, llm_provider = llm_provider, json_file=json_file)
-                response = chatbot.process_query(query)
-                logger.info(f"Victim profile: {json.dumps(chatbot.user_profile, indent=2)}")
-                model_results.append({
-                    "reinitialization": i + 1,
-                    "record_index": chatbot.record_index,
-                    "response": response.conversational_response,
-                    "end_conversation": response.end_conversation
-                })
-                logger.info(f"Processed query, reinitialization {i+1}: conversational_response={response.conversational_response}, end_conversation={response.end_conversation}")
-                chatbot.end_conversation()
-            except LangChainException as e:
-                logger.error(f"LangChain error, reinitialization {i+1}: {str(e)}", exc_info=True)
-                model_results.append({
-                    "reinitialization": i + 1,
-                    "error": f"LangChain error: {str(e)}"
-                })
-            except Exception as e:
-                logger.error(f"Unexpected error, reinitialization {i+1}: {str(e)}", exc_info=True)
-                model_results.append({
-                    "reinitialization": i + 1,
-                    "error": f"Unexpected error: {str(e)}"
-                })
-        results[model_name] = model_results
-
-    logger.info("Completed model testing")
-    print(json.dumps(results, indent=2))

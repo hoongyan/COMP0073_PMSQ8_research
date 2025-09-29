@@ -1,9 +1,0 @@
-2025-09-28 12:02:05,005 - DataLoader - INFO - Logging initialized to logs/database/dataloader.log
-2025-09-28 12:02:08,975 - DataLoader - INFO - Deleted 0 existing records
-2025-09-28 12:02:16,686 - DataLoader - INFO - Inserted 400 new records
-2025-09-28 12:02:16,692 - DataLoader - INFO - Verified sample record: D/20250421/2250
-2025-09-28 12:02:16,692 - DataLoader - INFO - Loading strategies from seed file...
-2025-09-28 12:02:16,694 - DataLoader - INFO - Deleted 0 existing strategies
-2025-09-28 12:02:16,696 - DataLoader - INFO - Reset strategy ID sequence to start from 1
-2025-09-28 12:02:16,704 - DataLoader - INFO - Inserted 18 new strategies
-2025-09-28 12:02:16,707 - DataLoader - INFO - Verified sample strategy with type: reassure

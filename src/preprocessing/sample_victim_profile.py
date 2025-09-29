@@ -46,7 +46,7 @@ def sample_profiles(input_path: str, output_path: str, num_per_combination: int 
         for risk in ['high', 'low']:
             group_key = (scam_type, risk)
             if groups[group_key]:
-                # Randomly sample without replacement if num_per_combination > 1 - for scalability
+
                 sampled.extend(random.sample(groups[group_key], min(num_per_combination, len(groups[group_key]))))
             else:
                 print(f"Warning: No entries found for combination {scam_type} - {risk}")
@@ -60,7 +60,7 @@ def sample_profiles(input_path: str, output_path: str, num_per_combination: int 
     print(f"Sampled {len(sampled)} entries and saved to {output_path}")
 
 if __name__ == "__main__":
-    settings = get_settings()  # Load centralized settings
+    settings = get_settings() 
     
     parser = argparse.ArgumentParser(description="Sample victim profiles from JSON for evaluation.")
     parser.add_argument("--input_path", type=str, default=settings.data.victim_details_json, help="Path to input JSON file.")

@@ -83,19 +83,17 @@ class ProfileAccuracyCalculator:
         
         self.df['timestamp'] = pd.to_datetime(self.df['timestamp'], errors='coerce')
         
-        # Filter for police rows only (these have the initial_profile)
+        # Filter for police rows only
         police_df = self.df[self.df['sender_type'] == 'police']
         
         if police_df.empty:
             raise ValueError("No police rows found in CSV. Cannot compute accuracies.")
         
-        # Group by conversation_id and take the earliest (first) police row per group
+        # Group by conversation_id
         first_police_rows = police_df.loc[police_df.groupby('conversation_id')['timestamp'].idxmin()].set_index('conversation_id')
         
-        # Log how many we got (should match number of unique conversations)
         self.logger.info(f"Preprocessed CSV to {len(first_police_rows)} unique conversations using first police row per convo.")
         
-        # Optional: Check for conversations missing police rows (compare to total unique convos)
         all_convos = set(self.df['conversation_id'].unique())
         processed_convos = set(first_police_rows.index)
         missing = all_convos - processed_convos
@@ -113,7 +111,7 @@ class ProfileAccuracyCalculator:
             return {}
         try:
             raw_dict = ast.literal_eval(pred_str)
-            # Extract 'level' and 'confidence' from each sub-dict
+            # Extract 'level' and 'confidence'
             return {
                 k: {
                     'level': v.get('level', 'na') if isinstance(v, dict) else 'na',
@@ -147,15 +145,15 @@ class ProfileAccuracyCalculator:
         keys_to_compare = ['tech_literacy', 'language_proficiency', 'emotional_state']
         correct = 0
         total = len(keys_to_compare)
-        per_attr_correct = {key: 0 for key in keys_to_compare}  # Track per-attribute
-        mismatches = []  # List of mismatches for analysis
+        per_attr_correct = {key: 0 for key in keys_to_compare} 
+        mismatches = []  
         
         for key in keys_to_compare:
             if key not in gt_dict:
-                total -= 1  # Shouldn't happen, but safety
+                total -= 1  
                 continue
             if key not in pred_dict:
-                mismatches.append((key, gt_dict[key], 'missing', 0.0))  # Treat missing as mismatch with conf=0
+                mismatches.append((key, gt_dict[key], 'missing', 0.0))  
                 continue
             
             norm_pred = self.normalize_value(key, pred_dict[key]['level'])
@@ -182,30 +180,28 @@ class ProfileAccuracyCalculator:
         overall_correct = 0
         overall_total = 0
         
-        by_police_model = {}  # model -> {'correct': int, 'total': int}
+        by_police_model = {}  
 
         by_permutation = defaultdict(lambda: {'correct': 0, 'total': 0})
         
-        # by_police_model_and_permutation = {}
         by_police_model_and_permutation = defaultdict(lambda: defaultdict(lambda: {'correct': 0, 'total': 0}))
         
-        # Per-attribute trackers
-        overall_per_attr_correct = defaultdict(int)  # attr -> correct count
-        overall_per_attr_total = defaultdict(int)   # attr -> total count
-        by_model_per_attr = defaultdict(lambda: defaultdict(lambda: {'correct': 0, 'total': 0}))  # model -> attr -> {'correct', 'total'}
-        by_permutation_per_attr = defaultdict(lambda: defaultdict(lambda: {'correct': 0, 'total': 0}))  # permutation -> attr -> {'correct', 'total'}
-        by_model_permutation_per_attr = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: {'correct': 0, 'total': 0})))  # model -> permutation -> attr -> {'correct', 'total'}
+        overall_per_attr_correct = defaultdict(int)  
+        overall_per_attr_total = defaultdict(int)  
+        by_model_per_attr = defaultdict(lambda: defaultdict(lambda: {'correct': 0, 'total': 0}))  
+        by_permutation_per_attr = defaultdict(lambda: defaultdict(lambda: {'correct': 0, 'total': 0}))  
+        by_model_permutation_per_attr = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: {'correct': 0, 'total': 0})))  
         
-        # Confusion matrices (per attr: actual -> predicted -> count)
+        # Confusion matrices 
         confusion_per_attr = {key: defaultdict(lambda: defaultdict(int)) for key in ['tech_literacy', 'language_proficiency', 'emotional_state']}
         
         # Confusion matrices per model and attr
         confusion_per_attr_by_model = defaultdict(lambda: {key: defaultdict(lambda: defaultdict(int)) for key in ['tech_literacy', 'language_proficiency', 'emotional_state']})
         
-        # All mismatches: list of (convo_id, key, gt_val, pred_val, conf)
+        # All mismatches
         all_mismatches = []
         
-        # NEW: All comparisons for confidence analysis
+        # All comparisons for confidence analysis
         all_comparisons = []
         
         for convo_id, row in first_rows.iterrows():
@@ -243,13 +239,11 @@ class ProfileAccuracyCalculator:
             lang = self.normalize_value('language_proficiency', user_prof.get('language_proficiency'))
             emot = self.normalize_value('emotional_state', user_prof.get('emotional_state'))
             seg = f"{tech}_{lang}_{emot}"
-            # if seg not in by_permutation:
-            #     seg = 'other'
             
             by_permutation[seg]['correct'] += correct
             by_permutation[seg]['total'] += total
             
-            # Group by model AND permutation
+            # Group by model and permutation
             if model not in by_police_model_and_permutation:
                 by_police_model_and_permutation[model] = {
                     'low_low_distressed': {'correct': 0, 'total': 0},
@@ -300,7 +294,7 @@ class ProfileAccuracyCalculator:
                 
                 confusion_per_attr_by_model[model][attr][norm_gt][norm_pred] += 1
                 
-                # NEW: Add to all_comparisons
+                # Add to all_comparisons
                 all_comparisons.append({
                     'convo_id': convo_id,
                     'model': model,
@@ -312,7 +306,6 @@ class ProfileAccuracyCalculator:
                     'is_correct': (attr_correct == 1)
                 })
             
-            # Collect mismatches with convo_id
             for mismatch in mismatches:
                 all_mismatches.append((convo_id, *mismatch))
         
@@ -361,14 +354,13 @@ class ProfileAccuracyCalculator:
             'by_police_model': by_police_model_acc,
             'by_permutation': by_permutation_acc,
             'by_police_model_and_permutation': by_police_model_and_permutation_acc,
-            # NEW
             'overall_per_attr_acc': overall_per_attr_acc,
             'by_model_per_attr_acc': by_model_per_attr_acc,
             'by_permutation_per_attr_acc': by_permutation_per_attr_acc,
             'by_model_permutation_per_attr_acc': by_model_permutation_per_attr_acc,
             'confusion_per_attr': confusion_per_attr,
             'all_mismatches': all_mismatches,
-            'all_comparisons': all_comparisons,  # NEW for confidence
+            'all_comparisons': all_comparisons, 
             'confusion_per_attr_by_model': confusion_per_attr_by_model,
         }
 
@@ -381,9 +373,8 @@ class ProfileAccuracyCalculator:
         """
         gt_dist = {attr: Counter() for attr in ['tech_literacy', 'language_proficiency', 'emotional_state']}
         pred_dist = {attr: Counter() for attr in ['tech_literacy', 'language_proficiency', 'emotional_state']}
-        confidences = []  # NEW: List of all confidences for histogram
+        confidences = []  
         
-        # NEW: Counts
         model_counts = Counter()
         permutation_counts = Counter()
         profile_counts = Counter()
@@ -399,7 +390,6 @@ class ProfileAccuracyCalculator:
             model_counts[model] += 1
             profile_counts[profile_id] += 1
             
-            # Permutation (same as in compute)
             user_prof = gt_dict
             tech = self.normalize_value('tech_literacy', user_prof.get('tech_literacy'))
             lang = self.normalize_value('language_proficiency', user_prof.get('language_proficiency'))
@@ -468,10 +458,9 @@ class ProfileAccuracyCalculator:
         plot_paths = {
             'accuracy_bar': str(user_profile_dir / 'accuracy_bar.png'),
             'conf_boxplot': str(user_profile_dir / 'conf_boxplot.png'),
-            # 'stacked_acc_model_permutation': str(user_profile_dir / 'stacked_acc_model_permutation.png'),
             'accuracy_per_permutation': str(user_profile_dir / 'accuracy_per_permutation.png'),
             'heatmap_model_permutation': str(user_profile_dir / 'heatmap_model_permutation.png'),
-            'heatmap_model_attr': str(user_profile_dir / 'heatmap_model_attr.png'),  # NEW: For model vs attribute
+            'heatmap_model_attr': str(user_profile_dir / 'heatmap_model_attr.png'), 
             'heatmap_attr_perm': str(user_profile_dir / 'heatmap_attr_perm.png'),
         }
         
@@ -482,26 +471,22 @@ class ProfileAccuracyCalculator:
         plt.figure(figsize=(10, 6))
         bars = plt.bar(attrs, acc_values, color='skyblue', width=0.4)
         
-        # Add values on top of each bar
         for bar in bars:
             yval = bar.get_height()
             plt.text(bar.get_x() + bar.get_width()/2, yval + 0.01, f'{yval:.2f}', ha='center', va='bottom', fontsize=16)
             
         plt.title('Accuracy: Overall and Per-Attribute', fontsize=20)
-        # plt.ylabel('Accuracy')
-        # plt.ylim(0, 1)
+
         plt.ylabel('Accuracy', fontsize=16)
-        plt.xlabel('Attributes', fontsize=16)  # Added x-label for clarity
-        plt.xticks(fontsize=16, rotation=0)  # Larger ticks, with rotation if labels are long
+        plt.xlabel('Attributes', fontsize=16) 
+        plt.xticks(fontsize=16, rotation=0)  
         plt.yticks(fontsize=16)
-        plt.ylim(0, 1.1)  # Slightly extend y-limit to fit labels on top
+        plt.ylim(0, 1.1)  
         self.save_figure(plt.gcf(), plot_paths['accuracy_bar'])
         self.logger.info("Saved accuracy bar chart to 'accuracy_bar.png'")
         
-        # Fixed attributes
         attrs = ['tech_literacy', 'language_proficiency', 'emotional_state']
 
-        # Overall confusion matrices in one row (1x3 subplots)
         fig, axs = plt.subplots(1, 3, figsize=(24, 8))
         for i, attr in enumerate(attrs):
             conf = results['confusion_per_attr'][attr]
@@ -514,7 +499,7 @@ class ProfileAccuracyCalculator:
                     matrix[label_to_idx[gt]][label_to_idx[pred]] = count
             
             im = axs[i].imshow(matrix, cmap='Blues')
-            cbar=fig.colorbar(im, ax=axs[i], shrink=0.8)  # Shrink to fit better
+            cbar=fig.colorbar(im, ax=axs[i], shrink=0.8)  
             cbar.ax.tick_params(labelsize=18)
             axs[i].set_xticks(range(len(labels)))
             axs[i].set_xticklabels(labels, rotation=0, fontsize=22)
@@ -523,30 +508,26 @@ class ProfileAccuracyCalculator:
             axs[i].set_xlabel('Predicted', fontsize=22)
             axs[i].set_ylabel('Actual', fontsize=22)
             axs[i].set_title(f'{attr}', fontsize=25)
-            # for row in range(len(labels)):
-            #     for col in range(len(labels)):
-            #         axs[i].text(col, row, int(matrix[row][col]), ha='center', va='center', fontsize=25)
-            # Inside the for i, attr in enumerate(attrs): loop, after building the matrix...
             for row in range(len(labels)):
                 for col in range(len(labels)):
                     value = matrix[row, col]
-                    color = 'white' if value > matrix.max() / 2 else 'black'  # Dynamic color for visibility
-                    axs[i].text(col, row, int(value), ha='center', va='center', fontsize=24, color=color)  # Add color=color
+                    color = 'white' if value > matrix.max() / 2 else 'black'  
+                    axs[i].text(col, row, int(value), ha='center', va='center', fontsize=24, color=color)  
 
         fig.suptitle('Overall Confusion Matrices by Profile Indicator', fontsize=25)
         plt.tight_layout()
         self.save_figure(fig, str(user_profile_dir / 'confusion_overall.png'))
         self.logger.info("Saved overall confusion subplots to 'confusion_overall.png'")
 
-        # Model-specific confusion matrices (N models x 3 indicators subplots)
-        models = sorted(results['by_police_model'].keys())  # Get models from existing results
+        # Model-specific confusion matrices 
+        models = sorted(results['by_police_model'].keys())  
         num_models = len(models)
         if num_models > 0:
-            fig, axs = plt.subplots(num_models, 3, figsize=(24, 8 * num_models), squeeze=False)  # squeeze=False for consistent 2D array
+            fig, axs = plt.subplots(num_models, 3, figsize=(24, 8 * num_models), squeeze=False)  
             for row_idx, model in enumerate(models):
                 for col_idx, attr in enumerate(attrs):
                     conf = results['confusion_per_attr_by_model'][model][attr]
-                    labels = sorted(set(list(conf.keys()) + [k for sub in conf.values() for k in sub.keys()]))  # Unique labels
+                    labels = sorted(set(list(conf.keys()) + [k for sub in conf.values() for k in sub.keys()]))  
                     matrix = np.zeros((len(labels), len(labels)))
                     label_to_idx = {label: i for i, label in enumerate(labels)}
                     
@@ -558,37 +539,31 @@ class ProfileAccuracyCalculator:
                     im = ax.imshow(matrix, cmap='Blues')
                     fig.colorbar(im, ax=ax, shrink=0.8)
                     ax.set_xticks(range(len(labels)))
-                    ax.set_xticklabels(labels, rotation=0, fontsize=20)  # Smaller font for larger grid
+                    ax.set_xticklabels(labels, rotation=0, fontsize=20)  
                     ax.set_yticks(range(len(labels)))
                     ax.set_yticklabels(labels, fontsize=20)
                     ax.set_xlabel('Predicted', fontsize=20)
                     ax.set_ylabel('Actual', fontsize=20)
                     ax.set_title(f'{model} - {attr}', fontsize=20)
-                    # for r in range(len(labels)):
-                    #     for c in range(len(labels)):
-                    #         ax.text(c, r, int(matrix[r][c]), ha='center', va='center', fontsize=25)
-                    # Inside the for col_idx, attr in enumerate(attrs): loop, after building the matrix...
+
                     for r in range(len(labels)):
                         for c in range(len(labels)):
                             value = matrix[r, c]
-                            color = 'white' if value > matrix.max() / 2 else 'black'  # Dynamic color for visibility
-                            ax.text(c, r, int(value), ha='center', va='center', fontsize=25, color=color)  # Add color=color
+                            color = 'white' if value > matrix.max() / 2 else 'black' 
+                            ax.text(c, r, int(value), ha='center', va='center', fontsize=25, color=color)  
                 
-                # Optional: Add model label on the left of each row
                 axs[row_idx, 0].text(-0.5, 0.5, model, va='center', ha='right', fontsize=18, transform=axs[row_idx, 0].transAxes)
 
             fig.suptitle('Confusion Matrices by Model and Profile Indicator', fontsize=22)
-            plt.tight_layout(rect=[0, 0.03, 1, 0.95])  # Adjust for suptitle
+            plt.tight_layout(rect=[0, 0.03, 1, 0.95]) 
             self.save_figure(fig, str(user_profile_dir / 'confusion_by_model.png'))
             self.logger.info("Saved model-specific confusion subplots to 'confusion_by_model.png'")
-        # Bar chart for accuracy by permutation
-        # perms = sorted(results['by_permutation'].keys())
+
         all_possible_perms = set(results['by_permutation'].keys())
         perms = [p for p in desired_order if p in all_possible_perms]
         accs = [results['by_permutation'][p] for p in perms]
         short_perms = [segment_map[p.replace('_', ' ')] for p in perms]
         plt.figure(figsize=(12, 8))
-        # plt.bar(perms, accs, color='green', width=0.4)
         bars = plt.bar(short_perms, accs, color='skyblue', width=0.4)
         plt.title('Accuracy by Profile Permutation', fontsize=20)
         plt.ylabel('Accuracy', fontsize=18)
@@ -601,18 +576,16 @@ class ProfileAccuracyCalculator:
         self.save_figure(plt.gcf(), plot_paths['accuracy_per_permutation'])
         self.logger.info("Saved accuracy by permutation to 'accuracy_per_permutation.png'")
 
-        # NEW: Heatmap for accuracy by model and permutation
+        # Heatmap for accuracy by model and permutation
         models = sorted(results['by_police_model_and_permutation'].keys())
-        # perms = sorted(list(results['by_permutation'].keys()))
         all_possible_perms = set(results['by_permutation'].keys())
         perms = [p for p in desired_order if p in all_possible_perms]
         short_perms = [segment_map[p.replace('_', ' ')] for p in perms]
         data = np.array([[results['by_police_model_and_permutation'][m].get(p, 0.0) for p in perms] for m in models])
         plt.figure(figsize=(15, 6))
         plt.imshow(data, cmap='RdYlGn', vmin=0, vmax=1)
-        cbar = plt.colorbar()  # Assign to variable for modification
+        cbar = plt.colorbar() 
         cbar.ax.tick_params(labelsize=18)
-        # plt.xticks(range(len(perms)), perms, rotation=0,fontsize=18)
         plt.xticks(range(len(perms)), short_perms, rotation=0, fontsize=18)
         plt.yticks(range(len(models)), models, fontsize=18)
         plt.title('Accuracy Heatmap: Model vs Permutation',fontsize=20)
@@ -622,10 +595,9 @@ class ProfileAccuracyCalculator:
         self.save_figure(plt.gcf(), plot_paths['heatmap_model_permutation'])
         self.logger.info("Saved heatmap model vs permutation to 'heatmap_model_permutation.png'")
 
-        # Heatmap for accuracy by model and attribute (profile indicator)
+        # Heatmap for accuracy by model and attribute 
         models = sorted(results['by_police_model_and_permutation'].keys())
         attrs = ['tech_literacy', 'language_proficiency', 'emotional_state']
-        # short_attrs = ['tech', 'lang', 'emo']  # Shortened as per request
         data = np.array([[results['by_model_per_attr_acc'][m].get(a, 0.0) for a in attrs] for m in models]).T
         plt.figure(figsize=(15, 6))
         plt.imshow(data, cmap='RdYlGn', vmin=0, vmax=1, aspect='auto')
@@ -650,8 +622,8 @@ class ProfileAccuracyCalculator:
         plt.imshow(data, cmap='RdYlGn', vmin=0, vmax=1)
         cbar = plt.colorbar()
         cbar.ax.tick_params(labelsize=18)
-        plt.xticks(range(len(short_perms)), short_perms, rotation=0, fontsize=18)  # Swapped: short_perms now on x
-        plt.yticks(range(len(attrs)), attrs, fontsize=18)  # Swapped: short_attrs now on y
+        plt.xticks(range(len(short_perms)), short_perms, rotation=0, fontsize=18) 
+        plt.yticks(range(len(attrs)), attrs, fontsize=18)  
         plt.title('Accuracy Heatmap: Victim Segment vs Profile Indicator', fontsize=20)
         for i in range(data.shape[0]):
             for j in range(data.shape[1]):
@@ -666,7 +638,7 @@ class ProfileAccuracyCalculator:
         - Count mismatches per attribute.
         - Sample examples.
         """
-        mismatch_counts = Counter([m[1] for m in results['all_mismatches']])  # Per attr
+        mismatch_counts = Counter([m[1] for m in results['all_mismatches']])  
         self.logger.info("Mismatch Counts per Attribute:")
         for attr, count in mismatch_counts.items():
             self.logger.info(f"{attr}: {count}")
@@ -678,7 +650,7 @@ class ProfileAccuracyCalculator:
 
     def analyze_confidences(self, results):
         """
-        NEW: Analyze confidence levels.
+        Analyze confidence levels.
         - Create DF from all_comparisons.
         - Compute avg/median conf overall, by correct/incorrect, attr, model, permutation.
         - Print tables.
@@ -718,26 +690,11 @@ class ProfileAccuracyCalculator:
 
     def compute_advanced_metrics(self, results):
         """
-        NEW: Compute precision, recall, F1 from confusion matrices (macro avg, multi-class).
+        Compute precision, recall, F1 from confusion matrices (macro avg, multi-class).
         - Treat labels as classes (e.g., 'low', 'high', 'na', 'missing').
         - Print per attribute.
         """
-        # def manual_precision_recall_f1(y_true, y_pred):
-        #     classes = sorted(set(y_true + y_pred))
-        #     precs = []
-        #     recs = []
-        #     for c in classes:
-        #         tp = sum(1 for yt, yp in zip(y_true, y_pred) if yt == c and yp == c)
-        #         fp = sum(1 for yt, yp in zip(y_true, y_pred) if yt != c and yp == c)
-        #         fn = sum(1 for yt, yp in zip(y_true, y_pred) if yt == c and yp != c)
-        #         prec = tp / (tp + fp) if tp + fp > 0 else 0
-        #         rec = tp / (tp + fn) if tp + fn > 0 else 0
-        #         precs.append(prec)
-        #         recs.append(rec)
-        #     macro_prec = mean(precs)
-        #     macro_rec = mean(recs)
-        #     macro_f1 = 2 * macro_prec * macro_rec / (macro_prec + macro_rec) if macro_prec + macro_rec > 0 else 0
-        #     return macro_prec, macro_rec, macro_f1
+
         def manual_precision_recall_f1(y_true, y_pred):
             classes = sorted(set(y_true + y_pred))
             per_class_metrics = {}
@@ -775,12 +732,6 @@ class ProfileAccuracyCalculator:
             if not y_true:
                 continue
             
-            # prec, rec, f1 = manual_precision_recall_f1(y_true, y_pred)
-            
-            # print(f"\nAdvanced Metrics for {attr}:")
-            # print(f"Precision (macro): {prec:.2f}")
-            # print(f"Recall (macro): {rec:.2f}")
-            # print(f"F1 (macro): {f1:.2f}")
             per_class_metrics, prec, rec, f1 = manual_precision_recall_f1(y_true, y_pred)
             macro_precs.append(prec)
             macro_recs.append(rec)
@@ -820,16 +771,12 @@ class ProfileAccuracyCalculator:
 
 if __name__ == "__main__":
     
-    csv_path = "simulations/phase_1/self_augmenting/autonomous_conversation_history.csv"
-    # csv_path = "simulations/phase_2/profile_rag_ie_kb/autonomous_conversation_history.csv"
-    # csv_path = "simulations/phase_2/profile_rag_ie_kb/autonomous_conversation_history.csv"
-    
+    csv_path = "simulations/final_results/phase_2/profile_rag_ie_kb/autonomous_conversation_history.csv"
     json_path = "data/victim_profile/victim_details.json"  
     
     calculator = ProfileAccuracyCalculator(csv_path, json_path)
     results = calculator.run()
     
-    # Print original results
     print("Per Conversation Accuracies:")
     for convo_id, info in sorted(results['per_conversation'].items()):
         print(f"Conversation {convo_id} (Profile {info['profile_id']}, Model {info['police_llm_model']}): {info['accuracy']:.2f} ({info['correct']}/{info['total']})")

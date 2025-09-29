@@ -1,8 +1,0 @@
-2025-09-28 12:02:05,074 - CRUDOperations - INFO - Logging initialized to logs/database/crudoperations.log
-2025-09-28 12:02:05,074 - CRUDOperations - INFO - Logging initialized to logs/database/crudoperations.log
-2025-09-28 12:02:08,975 - CRUDOperations - INFO - Deleted 0 records from scam_reports
-2025-09-28 12:02:16,686 - CRUDOperations - INFO - Created 400 records
-2025-09-28 12:02:16,691 - CRUDOperations - INFO - Read record with report_id: D/20250421/2250
-2025-09-28 12:02:16,694 - CRUDOperations - INFO - Deleted 0 records from strategy
-2025-09-28 12:02:16,704 - CRUDOperations - INFO - Created 18 records
-2025-09-28 12:02:16,706 - CRUDOperations - INFO - Read 1 records

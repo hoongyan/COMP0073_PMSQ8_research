@@ -26,11 +26,10 @@ class ChatbotState(TypedDict):
     unfilled_slots: Optional[dict]
 
 class IEChatbot:
-    """A baseline police AI conversational agent for scam reporting without RAG or profiling.
+    """A baseline police AI conversational agent for scam reporting without RAG, user profiling or kb agents.
     
     This agent uses a LangGraph workflow to extract structured information from user queries,
-    track unfilled slots, and generate conversational responses. Designed for modularity
-    in AI research, as a pure baseline without RAG."""
+    track unfilled slots, and generate conversational responses."""
 
     def __init__(self, model_name: str = "qwen2.5:7b", llm_provider: str = "Ollama", temperature: float = 0.0):
         self.settings = get_settings()
@@ -51,7 +50,7 @@ class IEChatbot:
             ("human", "{user_input}"),
         ])
 
-        # Build simplified LangGraph workflow (only IE and slot tracker)
+        # Build workflow
         self.workflow = self._build_workflow()
         self.logger.info(f"Baseline police chatbot initialized with model: {model_name}")
 
@@ -274,7 +273,7 @@ class IEChatbot:
 
         conversational_response = police_response.get("conversational_response", "I'm sorry, I need more information to assist you.")
 
-        # Simplified structured data with placeholders for CSV compatibility
+        
         structured_data = police_response.copy()
         structured_data["rag_upsert"] = False
         structured_data["user_profile"] = {}

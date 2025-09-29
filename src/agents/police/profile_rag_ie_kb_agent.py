@@ -87,7 +87,7 @@ class ProfileRAGIEKBAgent:
         
         self.messages: List[BaseMessage] = []
         self.user_profile: Optional[Dict] = None
-        self.turn_count = 0 #Can be used as a variable for kb success metrics in future - kept for scalability
+        self.turn_count = 0 
         self.unfilled_slots: Optional[Dict[str,bool]] = None
         self.initial_profile = None
         self.prev_ie_output: Optional[Dict] = None
@@ -161,7 +161,7 @@ class ProfileRAGIEKBAgent:
                 if any(word in approach for word in ["TEXT", "TEXT MESSAGE", "MESSAGE"]):
                     approach = "SMS"
                     
-                # If SMS is approach and scam_type is PHISHING, ensure communication is also SMS
+              
                 if approach == "SMS" and scam_type == "PHISHING":
                     preprocessed["scam_communication_platform"] = "SMS"
                     
@@ -174,7 +174,7 @@ class ProfileRAGIEKBAgent:
             
             comm = preprocessed.get("scam_communication_platform", "").upper().strip()
             if comm:
-                # Normalize variations to "SMS"
+        
                 if any(word in comm for word in ["TEXT", "TEXT MESSAGE", "MESSAGE"]):
                     comm = "SMS"
                 
@@ -186,7 +186,7 @@ class ProfileRAGIEKBAgent:
                 
                 preprocessed["scam_communication_platform"] = comm
                 
-                # If approach not in e-commerce/social platforms, reset moniker to empty
+
                 if approach not in ["LAZADA", "SHOPEE", "FACEBOOK", "CAROUSELL", "INSTAGRAM"]:
                     preprocessed["scam_moniker"] = ""
                     
@@ -196,7 +196,7 @@ class ProfileRAGIEKBAgent:
             if bank in ["UOB", "DBS", "HSBC", "SCB", "MAYBANK", "BOC", "CITIBANK", "CIMB", "GXS", "TRUST"]: # Avoid overwriting existing value
                 preprocessed["scam_transaction_type"] = "BANK TRANSFER"
                     
-            #GOIS and Phishing does not have moniker 
+
             if scam_type in ["GOVERNMENT OFFICIALS IMPERSONATION", "PHISHING"]:
                 preprocessed["scam_moniker"] = ""
                 
@@ -217,7 +217,7 @@ class ProfileRAGIEKBAgent:
                 except ValueError:
                     pass
                 
-            # Preprocess scam_url_link to add https:// if missing
+ 
             url = preprocessed.get("scam_url_link", "").strip()
             invalid_values = {"unknown", "na", "n/a"}
             if url and url.lower() not in invalid_values and not url.startswith("https://"):
@@ -270,13 +270,13 @@ class ProfileRAGIEKBAgent:
             ie_output = state.get("ie_output")
             conv_response = state["messages"][-1].content if state["messages"] and isinstance(state["messages"][-1], AIMessage) else ""
             
-            prev_data = state.get("prev_turn_data", {}).copy()  # MERGE: Copy existing to preserve keys like prev_ie_output
-            prev_data["unfilled_slots"] = {**state.get("unfilled_slots", {})}  # Add/update
+            prev_data = state.get("prev_turn_data", {}).copy()  
+            prev_data["unfilled_slots"] = {**state.get("unfilled_slots", {})}
             prev_data["prev_response"] = conv_response
         
             updates["prev_turn_data"] = prev_data
             
-        metrics = state["metrics"].copy()  # Copy to avoid in-place
+        metrics = state["metrics"].copy() 
         metrics["turn_count"] = metrics.get("turn_count", 0) + 1
         updates["metrics"] = metrics
         return updates
@@ -772,58 +772,6 @@ class ProfileRAGIEKBAgent:
         self.logger.info("Conversation ended")
         return {"status": "Conversation ended"}
     
-# if __name__ == "__main__":
-#     from config.id_manager import IDManager
-#     logger = setup_logger("SelfAugmenting_PoliceAgent", get_settings().log.subdirectories["agent"])
-#     models = [
-#     ("gpt-4o-mini", "OpenAI"),
-#     ("qwen2.5:7b", "Ollama"),
-#     ("granite3.2:8b", "Ollama"),
-#     ("mistral:7b", "Ollama")
-# ]
-#     queries = [
-#         "Help me! Help me! I got an SMS and all my money is gone! I am in trouble!",
-#         "It happened last week, on July 20, 2025. I feel so stupid! How could I be so stupid!",
-#         "I don't know! I don't know! All I saw was this SMS telling me that I had outstanding bills and I clicked the link!",
-#         "$1500 was transferred to their account via bank transfer. I should not have done that at all!",
-#         "I can't quite remember. What is a bank account number? How do I know where to find it? The contact number was +1-123-456-7890 I think. How do I check? I don't know anymore! I can't do this!",
-#         "I think the bank account number is HSBC 123456789."
-#     ]
-    
-#     results = {}
-#     id_manager = IDManager(csv_file="rag_invocations.csv")  # Initialize ID manager
-    
-#     logger.info("Starting multi-turn model testing (independent turns)")
-#     for model_name, llm_provider in models:
-#         logger.info(f"--- Testing model: {model_name} with provider {llm_provider} ---")
-#         try:
-#             chatbot = SelfAugmentingPoliceChatbot(model_name=model_name, llm_provider=llm_provider)
-#             conversation_id = id_manager.get_next_id()
-            
-#             model_responses = []
-            
-#             for i, query in enumerate(queries, 1):
-#                 logger.info(f"Processing turn {i} with query: '{query}'")
-#                 response = chatbot.process_query(query, conversation_id=conversation_id)
-#                 model_responses.append({
-#                     "turn": i,
-#                     "query": query,
-#                     "response": response["response"],
-#                     "structured_data": response["structured_data"]
-#                 })
-#                 logger.info(f"Turn {i} response: {json.dumps(response, indent=2)}")
-            
-#             results[model_name] = model_responses
-            
-#             chatbot.end_conversation()
-#         except Exception as e:
-#             logger.error(f"Error with model {model_name}: {str(e)}", exc_info=True)
-#             results[model_name] = {"error": f"Error: {str(e)}"}
-
-#     logger.info("Completed multi-turn model testing")
-#     print(json.dumps(results, indent=2))
-
-
 
 
 

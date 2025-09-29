@@ -169,8 +169,7 @@ class ScamAccuracyCalculator:
             norm_pred = self.normalize_field(key, raw_pred)
             
             match = False
-            # if key == 'scam_amount_lost':
-            #     match = math.isclose(norm_pred, norm_gt, abs_tol=0.01)
+
             if key == 'scam_amount_lost':
                 if isinstance(norm_pred, (int, float)) and isinstance(norm_gt, (int, float)):
                     match = math.isclose(norm_pred, norm_gt, abs_tol=0.01)
@@ -243,89 +242,6 @@ class ScamAccuracyCalculator:
         by_model_permutation_sum_sim = defaultdict(lambda: defaultdict(float))
         by_model_permutation_num = defaultdict(lambda: defaultdict(int))
         
-        # for convo_id, row in last_rows.iterrows():
-        #     profile_id = row['profile_id']
-        #     if profile_id not in self.ground_truth_scam:
-        #         self.logger.warning(f"Profile ID {profile_id} for convo {convo_id} not in ground truth. Skipping.")
-        #         continue
-            
-        #     gt_dict = self.ground_truth_scam[profile_id]
-        #     pred_dict = self.parse_scam_details(row['scam_details'])
-            
-        #     correct, total, per_field_correct, mismatches = self.compare_details(pred_dict, gt_dict)
-        #     accuracy = correct / total if total > 0 else 0.0
-        #     gt_scam_type = self.normalize_field('scam_type', gt_dict.get('scam_type', 'UNKNOWN'))
-        #     by_model_scam_type[model][gt_scam_type]['sum_acc'] += accuracy
-        #     by_model_scam_type[model][gt_scam_type]['count'] += 1
-            
-        #     per_convo_accuracies[convo_id] = {
-        #         'profile_id': profile_id,
-        #         'police_llm_model': row['police_llm_model'],
-        #         'accuracy': accuracy,
-        #         'correct': correct,
-        #         'total': total
-        #     }
-            
-        #     overall_correct += correct
-        #     overall_total += total
-            
-        #     model = row['police_llm_model']
-        #     by_police_model[model]['correct'] += correct
-        #     by_police_model[model]['total'] += total
-            
-        #     user_prof = self.ground_truth_profile.get(profile_id, {})
-        #     tl = self.normalize_profile_value(user_prof.get('tech_literacy', 'na'))
-        #     lp = self.normalize_profile_value(user_prof.get('language_proficiency', 'na'))
-        #     es = self.normalize_profile_value(user_prof.get('emotional_state', 'na'))
-        #     permutation = f"{tl}_{lp}_{es}"
-            
-        #     by_permutation[permutation]['correct'] += correct
-        #     by_permutation[permutation]['total'] += total
-            
-        #     by_police_model_and_permutation[model][permutation]['correct'] += correct
-        #     by_police_model_and_permutation[model][permutation]['total'] += total
-            
-        #     for key in gt_dict:
-        #         if key in ['scam_incident_description', 'scam_report_no', 'scam_report_date']:
-        #             continue
-        #         overall_per_field_total[key] += 1
-        #         by_model_per_field[model][key]['total'] += 1
-        #         by_permutation_per_field[permutation][key]['total'] += 1
-        #         by_model_permutation_per_field[model][permutation][key]['total'] += 1
-                
-        #         if key in per_field_correct and per_field_correct[key]:
-        #             overall_per_field_correct[key] += 1
-        #             by_model_per_field[model][key]['correct'] += 1
-        #             by_permutation_per_field[permutation][key]['correct'] += 1
-        #             by_model_permutation_per_field[model][permutation][key]['correct'] += 1
-            
-        #     for key in categorical_fields:
-        #         if key in gt_dict:
-        #             norm_gt = self.normalize_field(key, gt_dict[key])
-        #             if key in pred_dict:
-        #                 norm_pred = self.normalize_field(key, pred_dict[key])
-        #             else:
-        #                 norm_pred = 'missing'
-        #             confusion_per_field[key][norm_gt][norm_pred] += 1
-            
-        #     for m in mismatches:
-        #         all_mismatches.append((convo_id, model, permutation) + m)
-            
-        #     sim = self.evaluate_description(pred_dict, gt_dict)
-        #     all_sims.append(sim)
-        #     overall_sum_sim += sim
-        #     num_convos += 1
-            
-        #     by_model_sum_sim[model] += sim
-        #     by_model_num[model] += 1
-            
-        #     by_permutation_sum_sim[permutation] += sim
-        #     by_permutation_num[permutation] += 1
-            
-        #     by_model_permutation_sum_sim[model][permutation] += sim
-        #     by_model_permutation_num[model][permutation] += 1
-            
-        #     per_convo_accuracies[convo_id]['desc_similarity'] = sim
         
         for convo_id, row in last_rows.iterrows():
             profile_id = row['profile_id']
@@ -533,8 +449,8 @@ class ScamAccuracyCalculator:
         # Helper function to clean field labels
         def clean_label(label):
             if label == 'scam_type':
-                return 'scam_type'  # Retain 'scam_type' as is
-            label = label.replace('scam_', '')  # Remove 'scam_' for other fields
+                return 'scam_type' 
+            label = label.replace('scam_', '')  
             label = label.replace('communication_platform', 'comm_platform')
             return label.replace('GOVERNMENT OFFICIALS IMPERSONATION', 'GOIS')
 
@@ -543,9 +459,8 @@ class ScamAccuracyCalculator:
         scam_details_dir.mkdir(parents=True, exist_ok=True)
         self.logger.info(f"Ensured output directory exists: {scam_details_dir}")
 
-        # Updated Bar chart for per-field accuracies (structured)
+        #Bar chart for per-field accuracies (structured)
         fields = sorted([f for f in results['overall_per_field_acc'].keys() if f != 'scam_incident_description'])
-        # field_labels = [f.replace('scam_', '') for f in fields]
         field_labels = [clean_label(f) for f in fields]
         acc_values = [results['overall_per_field_acc'][f] for f in fields]
         
@@ -564,17 +479,6 @@ class ScamAccuracyCalculator:
 
         # Confusion heatmaps for categorical fields
         for field, conf in results['confusion_per_field'].items():
-            # labels = sorted(set(conf.keys()) | {k for sub in conf.values() for k in sub.keys()})
-            # matrix = np.zeros((len(labels), len(labels)))
-            # label_to_idx = {label: i for i, label in enumerate(labels)}
-            
-            # for gt, pred_dict in conf.items():
-            #     for pred, count in pred_dict.items():
-            #         matrix[label_to_idx[gt]][label_to_idx[pred]] = count
-            
-            # fig, ax = plt.subplots(figsize=(10, 8))
-            # sns.heatmap(matrix, annot=True, fmt='g', cmap='Blues', xticklabels=labels, yticklabels=labels, ax=ax,
-            #            annot_kws={'size': 20})
             labels = sorted(set(conf.keys()) | {k for sub in conf.values() for k in sub.keys()})
             cleaned_labels = [clean_label(l) for l in labels]
             matrix = np.zeros((len(labels), len(labels)))
@@ -588,7 +492,6 @@ class ScamAccuracyCalculator:
             sns.heatmap(matrix, annot=True, fmt='g', cmap='Blues', xticklabels=cleaned_labels, yticklabels=cleaned_labels, ax=ax,
                         annot_kws={'size': 20})
             ax.set_title(f'Confusion Matrix: {clean_label(field)}', fontsize=20)
-            # ax.set_title(f'Confusion Matrix: {field.replace("scam_", "")}', fontsize=20)
             ax.set_xlabel('Predicted', fontsize=18)
             ax.set_ylabel('Actual', fontsize=18)
             ax.tick_params(axis='both', labelsize=18)
@@ -615,8 +518,6 @@ class ScamAccuracyCalculator:
         
         fig, ax = plt.subplots(figsize=(15, 8))
         im = ax.imshow(data, cmap='RdYlGn', vmin=0, vmax=1, aspect='auto')
-        # cbar = plt.colorbar(im)
-        # cbar.ax.tick_params(labelsize=18)
         ax.set_xticks(range(len(short_perms)))
         ax.set_xticklabels(short_perms, fontsize=18)
         ax.set_yticks(range(len(models)))
@@ -643,7 +544,7 @@ class ScamAccuracyCalculator:
             plt.tight_layout()
             self.save_figure(fig, str(scam_details_dir / 'desc_similarity_hist.png'))
 
-        # New: Accuracy over sorted conversations (overall trend, aggregated across models, limited to 48 conversations)
+        # Accuracy over sorted conversations 
         plot_data = pd.DataFrame([
             {'convo_id': int(c), 'accuracy': info['accuracy'], 'model': info['police_llm_model']}
             for c, info in results['per_conversation'].items()
@@ -654,13 +555,12 @@ class ScamAccuracyCalculator:
         if len(plot_data['convo_id'].unique()) >= 2:
             # Aggregate accuracies across models for each convo_id
             aggregated_data = plot_data.groupby('convo_id')['accuracy'].mean().reset_index()
-            aggregated_data = aggregated_data.sort_values('convo_id').head(48)  # Ensure exactly 48
+            aggregated_data = aggregated_data.sort_values('convo_id').head(48) 
             if len(aggregated_data) >= 2:
                 fig, ax = plt.subplots(figsize=(14, 7))
                 x = list(range(1, len(aggregated_data) + 1))
                 y = aggregated_data['accuracy'].values
                 ax.plot(x, y, color='blue', alpha=0.7, linewidth=2, label='Average Accuracy (All Models)')
-                # Add trend line
                 X = np.array(x).reshape(-1, 1)
                 reg = LinearRegression().fit(X, y)
                 trend = reg.predict(X)
@@ -680,7 +580,7 @@ class ScamAccuracyCalculator:
         else:
             self.logger.warning("Insufficient unique conversations (< 2)")
     
-        # Updated: Accuracy over sorted conversations (combined models)
+        # Accuracy over sorted conversations (combined models)
         plot_data = pd.DataFrame([
             {'convo_id': int(c), 'accuracy': info['accuracy'], 'model': info['police_llm_model']}
             for c, info in results['per_conversation'].items()
@@ -699,24 +599,6 @@ class ScamAccuracyCalculator:
                 colors[model] = '#FF7F0E'
             elif model_lower == 'granite3.2:8b':
                 colors[model] = '#1F77B4'
-        # fig, ax = plt.subplots(figsize=(14, 7))
-        # for model in models:
-        #     model_data = plot_data[plot_data['model'] == model].sort_values('convo_id')
-        #     if len(model_data) < 2:
-        #         self.logger.warning(f"Skipping model {model}: insufficient data points ({len(model_data)})")
-        #         continue
-        #     x = list(range(1, len(model_data) + 1))
-        #     y = model_data['accuracy'].values
-        #     ax.plot(x, y, label=model, color=colors[model], linewidth=2)
-        # ax.set_title('Accuracy Over Sorted Conversations by Model', fontsize=20)
-        # ax.set_xlabel('Conversation Index (Sorted by ID)', fontsize=18)
-        # ax.set_ylabel('Accuracy', fontsize=18)
-        # ax.set_ylim(0, 1)
-        # ax.tick_params(axis='both', labelsize=18)
-        # ax.legend(fontsize=18, ncol=2)
-        # ax.grid(True)
-        # plt.tight_layout()
-        # self.save_figure(fig, str(scam_details_dir / 'accuracy_over_convos_combined.png'))
         fig, ax = plt.subplots(figsize=(14, 7))
         for model in models:
             model_data = plot_data[plot_data['model'] == model].sort_values('convo_id')
@@ -725,9 +607,7 @@ class ScamAccuracyCalculator:
                 continue
             x = list(range(1, len(model_data) + 1))
             y = model_data['accuracy'].values
-            # Plot muted raw accuracy line
             ax.plot(x, y, label=f"{model} (Raw)", color=colors[model], linewidth=2, alpha=0.3)
-            # Add trend line
             X = np.array(x).reshape(-1, 1)
             reg = LinearRegression().fit(X, y)
             trend = reg.predict(X)
@@ -742,7 +622,7 @@ class ScamAccuracyCalculator:
         plt.tight_layout()
         self.save_figure(fig, str(scam_details_dir / 'accuracy_over_convos_combined.png'))
 
-        # Updated: Average accuracy by turn position per model (no trend lines)
+        # Average accuracy by turn position per model (no trend lines)
         models = sorted(avg_per_turn_by_model.keys())
         color_list = list(mcolors.TABLEAU_COLORS.values())
         colors = {model: color_list[i % len(color_list)] for i, model in enumerate(models)}
@@ -778,33 +658,15 @@ class ScamAccuracyCalculator:
         plt.tight_layout()
         self.save_figure(fig, str(scam_details_dir / 'line_avg_by_turn_position_per_model.png'))
 
-        # New: Heatmap for model vs scam type
-        # scam_types = sorted(set(results['confusion_per_field']['scam_type'].keys()))
-        # data = np.array([[results['by_model_per_field_acc'][m].get('scam_type', np.nan) for m in models] for _ in scam_types])
-        # for i, scam_type in enumerate(scam_types):
-        #     for j, model in enumerate(models):
-        #         data[i, j] = results['by_model_per_field_acc'][model].get('scam_type', np.nan)
-        
-        # fig, ax = plt.subplots(figsize=(12, 8))
-        # im = ax.imshow(data, cmap='RdYlGn', vmin=0, vmax=1)
-        # cbar = plt.colorbar(im)
-        # cbar.ax.tick_params(labelsize=18)
-        # ax.set_xticks(range(len(models)))
-        # ax.set_xticklabels(models, fontsize=18, rotation=45, ha='right')
-        # ax.set_yticks(range(len(scam_types)))
-        # ax.set_yticklabels([t.replace('SCAM_', '') for t in scam_types], fontsize=18)
-        # Updated: Heatmap for overall accuracy by model vs ground truth scam type
         scam_types = sorted(set(results['confusion_per_field']['scam_type'].keys()))  # GT scam types
         cleaned_scam_types = [clean_label(t) for t in scam_types]
-        data = np.full((len(scam_types), len(models)), np.nan)  # Initialize with NaN
+        data = np.full((len(scam_types), len(models)), np.nan) 
         for i, scam_type in enumerate(scam_types):
             for j, model in enumerate(models):
                 data[i, j] = results['by_model_scam_type_acc'].get(model, {}).get(scam_type, np.nan)
 
         fig, ax = plt.subplots(figsize=(12, 8))
         im = ax.imshow(data, cmap='RdYlGn', vmin=0, vmax=1, aspect='auto')
-        # cbar = plt.colorbar(im)
-        # cbar.ax.tick_params(labelsize=18)
         ax.set_xticks(range(len(models)))
         ax.set_xticklabels(models, fontsize=18, rotation=0, ha='center')
         ax.set_yticks(range(len(cleaned_scam_types)))
@@ -820,16 +682,13 @@ class ScamAccuracyCalculator:
         plt.tight_layout()
         self.save_figure(fig, str(scam_details_dir / 'heatmap_model_vs_scam_type.png'))
 
-        # New: Heatmap for model vs fields
+        # Heatmap for model vs fields
         fields = sorted([f for f in results['overall_per_field_acc'].keys() if f != 'scam_incident_description'])
-        # field_labels = [f.replace('scam_', '') for f in fields]
         field_labels = [clean_label(f) for f in fields]
         data = np.array([[results['by_model_per_field_acc'][m].get(f, np.nan) for f in fields] for m in models])
         
         fig, ax = plt.subplots(figsize=(15, 8))
         im = ax.imshow(data, cmap='RdYlGn', vmin=0, vmax=1, aspect='auto')
-        # cbar = plt.colorbar(im)
-        # cbar.ax.tick_params(labelsize=18)
         ax.set_xticks(range(len(field_labels)))
         ax.set_xticklabels(field_labels, fontsize=18, rotation=90, ha='center')
         ax.set_yticks(range(len(models)))
@@ -952,8 +811,7 @@ class ScamAccuracyCalculator:
         return {**accuracies, 'eda': eda_results}
 
 if __name__ == "__main__":
-    csv_path = "simulations/phase_2/profile_rag_ie_kb/autonomous_conversation_history.csv"
-    # csv_path = "simulations/phase_1/vanilla_rag/nonautonomous_conversation_history.csv"
+    csv_path = "simulations/final_results/phase_2/profile_rag_ie_kb/autonomous_conversation_history.csv"
     json_path = "data/victim_profile/victim_details.json"
     
     calculator = ScamAccuracyCalculator(csv_path, json_path)
@@ -962,9 +820,6 @@ if __name__ == "__main__":
     print("Per Conversation Accuracies and Description Similarities:")
     low_sim_convos = []
     for convo_id, info in sorted(results['per_conversation'].items()):
-        # print(f"Conversation {convo_id} (Profile {info['profile_id']}, Model {info['police_llm_model']}): "
-        #       f"Structured Accuracy: {info['accuracy']:.2f} ({info['correct']}/{info['total']}), "
-        #       f"Desc Similarity: {info['desc_similarity']:.2f}")
         if info['desc_similarity'] < 0.7:
             low_sim_convos.append((convo_id, info['profile_id'], info['police_llm_model'], info['desc_similarity']))
     

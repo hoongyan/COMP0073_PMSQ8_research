@@ -16,8 +16,8 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.
 from src.models.response_model import UserProfile, PoliceResponse, RetrievalOutput, PoliceResponseSlots, RagOutput 
 from src.agents.prompt import Prompt
 from src.agents.tools import PoliceTools
-from src.database.vector_operations import VectorStore  # Keep for scam reports
-from src.database.database_operations import DatabaseManager  # Keep for VectorStore
+from src.database.vector_operations import VectorStore 
+from src.database.database_operations import DatabaseManager 
 from config.settings import get_settings
 from config.logging_config import setup_logger
 from src.agents.utils import build_query_with_history
@@ -61,7 +61,7 @@ class ProfileRagIEAgent:
         # Initialize tools, database manager, and prompts
         self.police_tools = PoliceTools(rag_csv_path=rag_csv_path)
         db_manager = DatabaseManager()
-        self.vector_store = VectorStore(session_factory=db_manager.session_factory)  # Keep for scam reports
+        self.vector_store = VectorStore(session_factory=db_manager.session_factory)  
         self.user_profile_prompt = ChatPromptTemplate.from_template(Prompt.template["user_profile_test"])
         self.rag_prompt_template = ChatPromptTemplate.from_template(Prompt.template["rag_agent"])
         self.ie_prompt = ChatPromptTemplate.from_messages([
@@ -81,7 +81,7 @@ class ProfileRagIEAgent:
         self.initial_profile = None
         self.prev_ie_output: Optional[Dict] = None
         
-        # Tunable weights for user_profile_agent (keep these, as profiling is still active)
+        # Tunable weights for user_profile_agent 
         self.profile_alpha = 0.5  # Smoothing factor for score blending 
         self.level_threshold = 0.5  # Threshold for binary level mapping
         self.conf_blend_factor = 0.5  # Weight for new conf in blending (default to 0.5 for simple averaging)
@@ -136,11 +136,11 @@ class ProfileRagIEAgent:
             # Preprocessing for approach platform 
             approach = preprocessed.get("scam_approach_platform", "").upper().strip()
             if approach:
-                # Normalize variations to "SMS"
+                
                 if any(word in approach for word in ["TEXT", "TEXT MESSAGE", "MESSAGE"]):
                     approach = "SMS"
                     
-                # If SMS is approach and scam_type is PHISHING, ensure communication is also SMS
+                
                 if approach == "SMS" and scam_type == "PHISHING":
                     preprocessed["scam_communication_platform"] = "SMS"
                     
@@ -153,7 +153,7 @@ class ProfileRagIEAgent:
             
             comm = preprocessed.get("scam_communication_platform", "").upper().strip()
             if comm:
-                # Normalize variations to "SMS"
+               
                 if any(word in comm for word in ["TEXT", "TEXT MESSAGE", "MESSAGE"]):
                     comm = "SMS"
                 
@@ -165,17 +165,15 @@ class ProfileRagIEAgent:
                 
                 preprocessed["scam_communication_platform"] = comm
                 
-                # If approach not in e-commerce/social platforms, reset moniker to empty
+             
                 if approach not in ["LAZADA", "SHOPEE", "FACEBOOK", "CAROUSELL", "INSTAGRAM"]:
                     preprocessed["scam_moniker"] = ""
                     
                     
-    #       Bank beneficiary implies bank transfer
             bank = preprocessed.get("scam_beneficiary_platform", "").upper()
             if bank in ["UOB", "DBS", "HSBC", "SCB", "MAYBANK", "BOC", "CITIBANK", "CIMB", "GXS", "TRUST"]: # Avoid overwriting existing value
                 preprocessed["scam_transaction_type"] = "BANK TRANSFER"
                     
-            #GOIS and Phishing does not have moniker 
             if scam_type in ["GOVERNMENT OFFICIALS IMPERSONATION", "PHISHING"]:
                 preprocessed["scam_moniker"] = ""
                 
@@ -196,7 +194,7 @@ class ProfileRagIEAgent:
                 except ValueError:
                     pass
                 
-            # Preprocess scam_url_link to add https:// if missing
+           
             url = preprocessed.get("scam_url_link", "").strip()
             invalid_values = {"unknown", "na", "n/a"}
             if url and url.lower() not in invalid_values and not url.startswith("https://"):
@@ -234,7 +232,7 @@ class ProfileRagIEAgent:
         workflow.add_edge("user_profile", "retrieval")
         workflow.add_edge("retrieval", "ie")
         workflow.add_edge("ie", "slot_tracker")
-        workflow.add_edge("slot_tracker", END)  # End here, no KB
+        workflow.add_edge("slot_tracker", END) 
         
         return workflow.compile()
 
@@ -268,7 +266,7 @@ class ProfileRagIEAgent:
         extracted_queries = [msg.content for msg in state["messages"] if isinstance(msg, HumanMessage)]
         prompt = self.user_profile_prompt.format(query_history=extracted_queries, query=state["query"])
 
-        # Default profile dict (binary midpoint: score=0.5 for average) - Use optimistic defaults since priority is to make reporting catered to majority of users.
+        # Default profile dict (binary midpoint: score=0.5 for average) 
         default_profile = {
             "tech_literacy": {"score": 0.5, "level": "high", "confidence": 0.5},  # Default to 'high'
             "language_proficiency": {"score": 0.5, "level": "high", "confidence": 0.5},
@@ -288,17 +286,14 @@ class ProfileRagIEAgent:
         for attempt in range(max_retries):
             try:
                 response = up_llm.invoke(prompt)
-                # self.logger.debug(f"UserProfileAgent Response: {response.content}")
-                # new_profile = json.loads(response.content)  # Dict of dicts like {"tech_literacy": {"level": "low", "confidence": 0.8}}
                 
                 if self.llm_provider == "OpenAI":
                     self.logger.debug(f"UserProfileAgent Response: {response.model_dump()}")
-                    new_profile = response.model_dump()  # Already a dict-like structure
+                    new_profile = response.model_dump() 
                 else:
                     self.logger.debug(f"UserProfileAgent Response: {response.content}")
                     new_profile = json.loads(response.content)
                     
-                # If new_profile not dict or missing keys, set defaults
                 if not isinstance(new_profile, dict):
                     raise ValueError("Invalid new_profile from LLM")
                 

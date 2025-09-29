@@ -167,37 +167,3 @@ class PoliceTools:
         
         return [augmented_police_tool]
 
-
-if __name__ == "__main__":
-    # Test block for PoliceTools
-    police_tools = PoliceTools()
-
-    # Test vanilla tool (retrieve_scam_reports)
-    vanilla_tool = police_tools.get_tools()[0]
-    vanilla_input = {
-        "query": "I received a suspicious SMS from DBS asking me to click a link",
-        "top_k": 3,
-        "conversation_id": 1,
-        "llm_model": "test_model"
-    }
-    vanilla_result = vanilla_tool.invoke(vanilla_input)
-    print("Vanilla RAG Tool Result:")
-    print(vanilla_result)
-
-    # Test augmented tool (augmented_police_tool)
-    augmented_tool = police_tools.get_augmented_tools()[0]
-    user_profile_json = json.dumps({
-        "tech_literacy": {"level": "low"},
-        "language_proficiency": {"level": "low"},
-        "emotional_state": {"level": "neutral"}
-    })
-    augmented_input = {
-        "query": "I received a suspicious SMS from DBS asking me to click a link",
-        "user_profile": user_profile_json,
-        "top_k": 3,
-        "conversation_id": 1,
-        "llm_model": "test_model"
-    }
-    augmented_result = augmented_tool.invoke(augmented_input)
-    print("\nAugmented RAG Tool Result:")
-    print(augmented_result)

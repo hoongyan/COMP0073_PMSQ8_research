@@ -41,22 +41,6 @@ class Preprocessor:
         """Return the default output file path for the preprocessor."""
         raise NotImplementedError("Subclasses must define default output file")
     
-    # def _load_templates(self) -> Dict:
-    #     """Load scam templates from JSON configuration file."""
-        
-    #     template_file = self.settings.data.scam_templates_json
-    #     try:
-    #         with open(template_file, 'r') as f:
-    #             templates = json.load(f)
-    #         self.logger.info(f"Loaded templates from {template_file}")
-    #         return templates["response_templates"]
-    #     except FileNotFoundError as e:
-    #         self.logger.error(f"Template file not found: {template_file}")
-    #         raise FileNotFoundError(f"Template file not found: {template_file}") from e
-    #     except Exception as e:
-    #         self.logger.error(f"Error loading templates from {template_file}: {str(e)}")
-    #         raise
-    
     def load_data(self, file_path: str = None) -> pd.DataFrame:
         """Load data from a CSV file with header validation."""
         
@@ -65,7 +49,7 @@ class Preprocessor:
             raise ValueError("No input file path provided for data loading")
         
         try:
-            df = pd.read_csv(file_path, dtype={'scam_contact_no': str}).fillna("NA") #scam contact number has to be manually defined as strings due to how pandas reads numerical strings in CSV files
+            df = pd.read_csv(file_path, dtype={'scam_contact_no': str}).fillna("NA") 
             self.logger.info(f"Loaded {len(df)} records from {file_path}")
             
 
